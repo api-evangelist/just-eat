@@ -1,0 +1,38 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+summary:
+  types:
+  - apiKey
+  - http
+  - openIdConnect
+  api_key_in:
+  - header
+schemes:
+- name: Bearer
+  type: http
+  scheme: bearer
+  bearerFormat: JWT
+  description: Bearer token authentication using a JSON Web Token (JWT).
+  sources:
+  - openapi/just-eat-uk-openapi-original.json
+- name: api_key
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: APIs for delivery partners require an API key that will have been issued to you.
+  sources:
+  - openapi/just-eat-uk-openapi-original.json
+- name: basic_auth
+  type: http
+  scheme: basic
+  description: A few services allow the use of basic authentication when a partner doesn't support
+    OAuth based authentication.
+  sources:
+  - openapi/just-eat-uk-openapi-original.json
+- name: justeat_adfs
+  type: openIdConnect
+  openIdConnectUrl: https://adfs.just-eat.com/adfs/.well-known/openid-configuration
+  description: ADFS authentication provider for internal Just Eat tools.
+  sources:
+  - openapi/just-eat-uk-openapi-original.json
