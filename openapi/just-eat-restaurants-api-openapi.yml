@@ -1,0 +1,3783 @@
+openapi: 3.0.0
+info:
+  contact:
+    x-twitter: JustEatUK
+  description: "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```"
+  title: Just Eat UK Attempted Delivery API Restaurants API
+  version: 1.0.0
+  x-apisguru-categories:
+  - ecommerce
+  x-logo:
+    url: https://api.apis.guru/v2/cache/logo/https_twitter.com_JustEatUK_profile_image.png
+  x-origin:
+  - format: openapi
+    url: https://uk.api.just-eat.io/docs/openapi.json
+    version: '3.0'
+  x-providerName: just-eat.co.uk
+servers:
+- description: Production URL for the UK API
+  url: https://uk.api.just-eat.io
+- description: Production URL for the DK, ES, IE, IT and NO API
+  url: https://i18n.api.just-eat.io
+- description: Production URL for the AU and NZ API
+  url: https://aus.api.just-eat.io
+tags:
+- name: Restaurants
+paths:
+  /restaurants/bylatlong:
+    get:
+      description: Provides details of all restaurants that deliver to the specified location
+      operationId: SearchByLocation
+      parameters:
+      - description: OAuth2 token issued for logged in consumer or API key issued to partner
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+      - description: A valid country code, e.g. "uk". Filter search results to only include restaurants for the specified country. Required when using OAuth for authentication.
+        in: header
+        name: Accept-Tenant
+        required: false
+        schema:
+          type: string
+      - description: Filter search results to only include restaurants that deliver to the specified location
+        in: query
+        name: latitude
+        required: true
+        schema:
+          type: number
+        x-position: 1
+      - description: Filter search results to only include restaurants that deliver to the specified location
+        in: query
+        name: longitude
+        required: true
+        schema:
+          type: number
+        x-position: 2
+      - description: Filter search results to only include restaurants that offer the specified cuisine
+        in: query
+        name: cuisine
+        required: false
+        schema:
+          type: string
+        x-position: 3
+      - description: Filter search results to only include restaurants that have a name that matches the specified value
+        in: query
+        name: restaurantName
+        required: false
+        schema:
+          type: string
+        x-position: 4
+      - description: Filter search results to only include restaurants of the specified brand
+        in: query
+        name: brandName
+        required: false
+        schema:
+          type: string
+        x-position: 5
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/SearchResponse'
+                - $ref: '#/components/schemas/ExternalSearchResponse'
+                - $ref: '#/components/schemas/SearchWebResponse'
+          description: OK
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                Message: The request is invalid.
+                ModelState:
+                  Longitude:
+                  - The value 'nan' is not valid for Longitude.
+              schema:
+                type: object
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              example:
+                message: No API key found in request
+              schema:
+                type: object
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              example:
+                ExceptionMessage: Object reference not set to an instance of an object.
+                ExceptionType: System.NullReferenceException
+                Message: An error has occurred.
+                StackTrace: "   at JE.SearchOrchestrator.Controllers.Filters.CacheControlFilter.OnActionExecuted(HttpActionExecutedContext actionExecutedContext) in \\\\Mac\\Home\\Documents\\GitHub\\SearchOrchestrator\\src\\JE.SearchOrchestrator\\Controllers\\Filters\\CacheControlFilter.cs:line 18\r\n   at System.Web.Http.Filters.ActionFilterAttribute.OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)\r\n--- End of stack"
+              schema:
+                type: object
+          description: Server Error
+      summary: Get restaurants by location
+      tags:
+      - Restaurants
+      x-status: Deprecated
+  /restaurants/bypostcode/{postcode}:
+    get:
+      description: Provides details of restaurants that deliver to the specified postcode
+      operationId: SearchByPostcode
+      parameters:
+      - description: OAuth2 token issued for logged in consumer or API key issued to partner
+        in: header
+        name: Authorization
+        required: false
+        schema:
+          type: string
+      - description: A valid country code, e.g. "uk". Filter search results to only include restaurants for the specified country. Required when using OAuth for authentication.
+        in: header
+        name: Accept-Tenant
+        required: false
+        schema:
+          type: string
+      - description: Filter search results to only include restaurants that deliver to the specified postcode
+        in: path
+        name: postcode
+        required: true
+        schema:
+          type: string
+      - description: Filter search results to only include restaurants that offer the specified cuisine
+        in: query
+        name: cuisine
+        required: false
+        schema:
+          type: string
+        x-position: 1
+      - description: Filter search results to only include restaurants that have a name that matches the specified value
+        in: query
+        name: restaurantName
+        required: false
+        schema:
+          type: string
+        x-position: 2
+      - description: Filter search results to only include restaurants of the specified brand
+        in: query
+        name: brandName
+        required: false
+        schema:
+          type: string
+        x-position: 3
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                oneOf:
+                - $ref: '#/components/schemas/SearchResponse'
+                - $ref: '#/components/schemas/ExternalSearchResponse'
+                - $ref: '#/components/schemas/SearchWebResponse'
+          description: OK
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                Message: The request is invalid.
+                ModelState:
+                  Postcode:
+                  - Invalid Postcode.
+              schema:
+                type: object
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              example:
+                message: No API key found in request
+              schema:
+                type: object
+          description: Unauthorized
+        '500':
+          content:
+            application/json:
+              example:
+                ExceptionMessage: Object reference not set to an instance of an object.
+                ExceptionType: System.NullReferenceException
+                Message: An error has occurred.
+                StackTrace: "   at JE.SearchOrchestrator.Controllers.Filters.CacheControlFilter.OnActionExecuted(HttpActionExecutedContext actionExecutedContext) in \\\\Mac\\Home\\Documents\\GitHub\\SearchOrchestrator\\src\\JE.SearchOrchestrator\\Controllers\\Filters\\CacheControlFilter.cs:line 18\r\n   at System.Web.Http.Filters.ActionFilterAttribute.OnActionExecutedAsync(HttpActionExecutedContext actionExecutedContext, CancellationToken cancellationToken)\r\n--- End of stack"
+              schema:
+                type: object
+          description: Server Error
+      summary: Get restaurants by postcode
+      tags:
+      - Restaurants
+      x-status: Deprecated
+  /restaurants/driver/eta:
+    put:
+      description: Set the average amount of time it will take a driver to collect a new order from a restaurant.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RestaurantETAs'
+        required: true
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IgnoredRestaurantIds'
+          description: Update will take effect shortly
+        '400':
+          description: There was something invalid in your request - check response body for details
+      summary: Set ETA for pickup
+      tags:
+      - Restaurants
+  /restaurants/{tenant}/{restaurantId}/catalogue:
+    get:
+      description: Get details of the restaurant's product catalogue
+      parameters:
+      - description: Request tenant.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuBase'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No product catalogue found for given tenant and restaurantId.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get product catalogue
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/availabilities:
+    get:
+      description: Get all availabilities on the restaurant's menu
+      parameters:
+      - description: Request tenant.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of availabilities to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedAvailabilitiesResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No availabilities found for given tenant and restaurantId.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all availabilities
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/categories:
+    get:
+      description: Get all categories on the restaurant's menu
+      parameters:
+      - description: Request tenant.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of categories to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCategoriesResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No availabilities found for given tenant and restaurantId.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all categories
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/categories/{categoryId}/items:
+    get:
+      description: Get all item IDs which are assigned to the specified category
+      parameters:
+      - description: Request tenant.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant ID.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The category ID.
+        in: path
+        name: categoryId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of item IDs to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedCategoryItemsResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No availabilities found for given tenant and restaurantId.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all category item IDs
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/items:
+    get:
+      description: Get all menu items on the restaurant's menu
+      parameters:
+      - description: Request tenant.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of menu items to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMenuItemsResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No menu items found for given tenant and restaurantId.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all menu items
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/items/{itemId}/dealgroups:
+    get:
+      description: Get all deal groups for the menu item with the provided ID
+      parameters:
+      - description: Request tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant ID
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The menu item ID
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of menu items to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMenuDealGroupsResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk and itemId:534685 not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No deal groups found for given `tenant`, `restaurantId` and `itemId`.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all menu item deal groups
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/items/{itemId}/dealgroups/{dealGroupId}/dealitemvariations:
+    get:
+      description: Get all deal item variations for the deal group with the specified ID, in the menu item with the specified ID
+      parameters:
+      - description: Request tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant ID
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The menu item ID
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      - description: The menu item ID
+        in: path
+        name: dealGroupId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of menu items to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedDealItemVariationResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk for itemId:534685 and dealGroupId:463847 not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No deal item variations found for given `tenant`, `restaurantId`, `itemId` and `dealGroupId`.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all deal item variations for a deal group
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/items/{itemId}/modifiergroups:
+    get:
+      description: Get all modifier groups for the menu item with the provided ID
+      parameters:
+      - description: Request tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant ID
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The menu item ID
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of menu items to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedMenuModifierGroupsResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk and itemId:534685 not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No modifier groups found for given `tenant`, `restaurantId` and `itemId`.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all menu item modifier groups
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/catalogue/items/{itemId}/variations:
+    get:
+      description: Get all variations for the menu item with the provided ID
+      parameters:
+      - description: Request tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant ID
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: The menu item ID
+        in: path
+        name: itemId
+        required: true
+        schema:
+          type: string
+      - description: The maximum number of menu items to fetch.
+        in: query
+        name: limit
+        required: true
+        schema:
+          format: int32
+          type: integer
+      - description: Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded.
+        in: query
+        name: after
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PagedVariationsResponse'
+          description: Request succeeded.
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Invalid value 0 for parameter limit.
+                faultId: e21a9947-4352-449f-a4dc-5e69d57b0c5f
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request.
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Resource with identifier restaurantId:95224345321 for tenant:uk and itemId:534685 not found.
+                faultId: b39ae4c1-142f-4308-838d-1f01815e1cf1
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: No variations found for given `tenant`, `restaurantId` and `itemId`.
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get all menu item variations
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/fees:
+    get:
+      description: Get the fees currently applied to a restaurant in a particular tenant
+      parameters:
+      - description: A two-character country code for which country the restaurant resides in.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: A unique identifier for a restaurant
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: Request header string that allows the server to identify the application making the request.
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                bagFee:
+                  description: A charge for bags in delivery
+                  serviceTypes:
+                    collection:
+                      amount: 5
+                    default:
+                      amount: 0
+                    delivery:
+                      amount: 10
+              schema:
+                $ref: '#/components/schemas/RestaurantFees'
+          description: Success
+          headers:
+            cache-control:
+              description: Information about how the response can be cached. (No caching will be applied)
+              schema:
+                enum:
+                - no-store
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The supplied tenant is not supported
+                  errorCode: UnsupportedTenant
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Authorization required
+                  errorCode: Unauthorized
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: You do not have permission to access this resource
+                  errorCode: Forbidden
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The requested resource does not exist on this server
+                  errorCode: NotFound
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Not Found
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Get Restaurant Fees
+      tags:
+      - Restaurants
+      x-status: Draft
+    put:
+      description: Creates or Updates the fees for a restaurant in a particular tenant
+      parameters:
+      - description: A two-character country code for which country the restaurant resides in.
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: A unique identifier for a restaurant
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: Request header string that allows the server to identify the application making the request.
+        in: header
+        name: User-Agent
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            example:
+              bagFee:
+                description: A charge for bags in delivery
+                serviceTypes:
+                  collection:
+                    amount: 5
+                  default:
+                    amount: 0
+                  delivery:
+                    amount: 10
+            schema:
+              $ref: '#/components/schemas/RestaurantFees'
+        description: Update Restaurant Fees
+        required: true
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+                bagFee:
+                  description: A charge for bags in delivery
+                  serviceTypes:
+                    collection:
+                      amount: 5
+                    default:
+                      amount: 0
+                    delivery:
+                      amount: 10
+              schema:
+                $ref: '#/components/schemas/RestaurantFees'
+          description: Success
+          headers:
+            cache-control:
+              description: Information about how the response can be cached. (No caching will be applied)
+              schema:
+                enum:
+                - no-store
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The supplied tenant is not supported
+                  errorCode: UnsupportedTenant
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad Request
+        '401':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Authorization required
+                  errorCode: Unauthorized
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Unauthorized
+        '403':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: You do not have permission to access this resource
+                  errorCode: Forbidden
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The requested resource does not exist on this server
+                  errorCode: NotFound
+                faultId: 72d7036d-990a-4f84-9efa-ef5f40f6044b
+                traceId: 0HLOCKDKQPKIU
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Not Found
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Bearer: []
+      summary: Create or Update Restaurant Fees
+      tags:
+      - Restaurants
+      x-status: Draft
+  /restaurants/{tenant}/{restaurantId}/menu:
+    get:
+      description: The endpoint will return a 301 redirect containing a URL that will grant access to the Menu file. The URL will only be available for a short period of time. The Menu file will be a single document containing the information that Just Eat has and uses to display the Menu on our customer clients. This will include a collection of items, a collection of Categories and a collection of Availabilities for when the items are available. Partners will be able to retrieve the Menu for any Restaurants that they currently manage.
+      parameters:
+      - description: The tenant of the restaurant in which to put a menu
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant identifier to associated with the menu
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: Containing a partner issued API key e.g. Bearer ABCDE123456789
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+      responses:
+        '301':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Menu'
+          description: Temporary Redirect. The redirect will contain the signed URL that the client needs to access the resource
+        '400':
+          description: Bad Request. We were unable to process the request due to data you sent us
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsumerErrorResponse'
+          description: Server Error
+      summary: Get the latest version of the restaurant's full menu
+      tags:
+      - Restaurants
+      x-status: Stable
+    put:
+      description: This will begin an asynchronous process that will lead to that menu becoming live on the Just Eat platform
+      operationId: putMenuForIngestion
+      parameters:
+      - description: The tenant of the restaurant in which to put a menu
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant identifier to associated with the menu
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: Containing a partner issued API key e.g. `JE-API-KEY ABCDE123456789`
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+      - description: Used to denote the version of the menu payload within the body, will default to latest if not supplied e.g. application/=1.0
+        in: header
+        name: Content-Type
+        required: false
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Menu'
+        description: 'Specification of the menu. This must be valid according to the rules described here: https://developers.just-eat.com/docs/pos-how-the-integration-works#validation-rules'
+      responses:
+        '202':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MenuIngestionResponse'
+          description: Accepted
+        '400':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad Request
+        '401':
+          description: Unauthorized
+        '403':
+          description: Forbidden
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConsumerErrorResponse'
+          description: Server Error
+      summary: Create or update a menu
+      tags:
+      - Restaurants
+      x-status: Stable
+  /restaurants/{tenant}/{restaurantId}/servicetimes:
+    get:
+      description: Gets the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant
+      operationId: getRestaurantServiceTimes
+      parameters:
+      - description: Two letter code of restaurant's tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant identifier
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceTimes'
+          description: The restaurant's service times
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '403':
+          description: Forbidden
+        '404':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Order not found
+                  errorCode: ERR1234
+                faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+                traceId: H3TKh4QSJUSwVBCBqEtkKw==
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Not found
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Get service times
+      tags:
+      - Restaurants
+      x-status: Draft
+    put:
+      description: Creates or updates the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant
+      operationId: putRestaurantServiceTimes
+      parameters:
+      - description: Two letter code of restaurant's tenant
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant identifier
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ServiceTimes'
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceTimes'
+          description: The new service times
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The value of "end" must be greater than "start", or "00:00:00"
+                  errorCode: ERR1234
+                faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+                traceId: H3TKh4QSJUSwVBCBqEtkKw==
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad request
+        '403':
+          description: Forbidden
+        '500':
+          $ref: '#/components/responses/500ErrorResponse'
+      summary: Create or update service times
+      tags:
+      - Restaurants
+      x-status: Draft
+components:
+  schemas:
+    MenuItemBase:
+      example:
+        description: ''
+        id: '65143901'
+        labels: []
+        name: Flat Bread and Dips (Pick any 2 Dips)
+        requireOtherProducts: false
+        type: menuItem
+      properties:
+        description:
+          description: The description of the menu item.
+          type: string
+        id:
+          description: A unique identifier at menu level for a menu item.
+          type: string
+        labels:
+          description: Used to toggle front end icons for the available labels.
+          items:
+            enum:
+            - hot
+            - vegetarian
+            - alcohol
+            type: string
+          maxItems: 3
+          minItems: 0
+          type: array
+        name:
+          description: The name of the menu item.
+          type: string
+        requireOtherProducts:
+          description: Cannot be selected as a stand alone item, it has to be ordered with other items. Typically this will apply to menu items within drinks and dessert categories.
+          type: boolean
+        type:
+          description: Indicates whether this is a regular meal item or a deal item.
+          enum:
+          - menuItem
+          - deal
+          type: string
+      type: object
+    Time:
+      example:
+        daysOfTheWeek:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+        - sunday
+        fromDateTime: '11:30:00'
+        toDateTime: '14:30:00'
+      properties:
+        daysOfTheWeek:
+          description: The days of the week.
+          items:
+            enum:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            type: string
+          type: array
+        fromDateTime:
+          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
+          type: string
+        toDateTime:
+          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
+          type: string
+      type: object
+    PagedMenuModifierGroupsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          modifierGroups:
+            description: List of modifier groups for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/MenuModifierGroup'
+            type: array
+        type: object
+      example:
+        modifierGroups:
+        - id: 8547130-req-1
+          maxChoices: 1
+          minChoices: 1
+          modifiers:
+          - additionPrice: 0
+            id: '854500'
+            maxChoices: 1
+            minChoices: 0
+            name: Classic Crust
+          - additionPrice: 200
+            id: '854600'
+            maxChoices: 1
+            minChoices: 0
+            name: Stuffed Crust
+          name: Choose your crust
+        - id: 8547130-opt-1
+          maxChoices: 10
+          minChoices: 0
+          modifiers:
+          - additionPrice: 50
+            id: '1000'
+            maxChoices: 2
+            minChoices: 0
+            name: Mozzarella Cheese
+          - additionPrice: 50
+            id: '1001'
+            maxChoices: 1
+            minChoices: 0
+            name: Ham
+          - additionPrice: 50
+            id: '1002'
+            maxChoices: 1
+            minChoices: 0
+            name: Red Onion
+          - additionPrice: 50
+            id: '1003'
+            maxChoices: 1
+            minChoices: 0
+            name: Pepperoni
+          - additionPrice: 50
+            id: '1004'
+            maxChoices: 1
+            minChoices: 0
+            name: Olives
+          name: Any extra toppings?
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    MenuDealGroup:
+      allOf:
+      - $ref: '#/components/schemas/MenuDealGroupBase'
+      - properties:
+          dealItemVariations:
+            description: The ids of the variations that can be selected in order to satisfy this deal group.
+            items:
+              $ref: '#/components/schemas/DealItemVariation'
+            type: array
+          id:
+            description: A unique identifier at menu level for a deal group.
+            type: string
+          name:
+            description: The name of the deal group.
+            type: string
+          numberOfChoices:
+            description: How many deal item variations must be selected to satisfy this deal group.
+            format: int32
+            type: integer
+        type: object
+      example:
+        dealItemVariations:
+        - additionPrice: 0
+          dealItemVariationId: '8547121'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 0
+          dealItemVariationId: '3547157'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 50
+          dealItemVariationId: '8548153'
+          maxChoices: 1
+          minChoices: 0
+        id: 23435309-2
+        name: Choose your pizzas
+        numberOfChoices: 2
+    local-date-time:
+      description: A local date time object, conforming to `ISO-8601`, but with only a partial time representation and no time offset.
+      pattern: ^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?$
+      type: string
+    ServiceTimesCollection:
+      items:
+        properties:
+          end:
+            description: Local end time of the slot in hh:mm:ss format. The end time occurs on the next day if less than or equal to the start time. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
+            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
+            type: string
+          start:
+            description: Start time of the slot in hh:mm:ss format. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
+            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
+            type: string
+        type: object
+      type: array
+    Menu:
+      allOf:
+      - $ref: '#/components/schemas/MenuBase'
+      - properties:
+          availabilities:
+            description: A set of availabilities that can later be referenced by individual menu items.
+            items:
+              $ref: '#/components/schemas/Availability'
+            type: array
+          categories:
+            description: A set of categories that appear on the menu.
+            items:
+              $ref: '#/components/schemas/Category'
+            type: array
+          items:
+            description: All of the menu items within the menu.
+            items:
+              $ref: '#/components/schemas/MenuItem'
+            type: array
+        type: object
+      example:
+        categories:
+        - description: ''
+          id: '3'
+          itemIds:
+          - '65143901'
+          name: Starters
+        - description: ''
+          id: '4'
+          itemIds:
+          - '23435309'
+          - '33445308'
+          name: Deals
+        - description: ''
+          id: '5'
+          itemIds:
+          - '8547130'
+          - '8547140'
+          name: Pizzas
+        - description: ''
+          id: '6'
+          itemIds:
+          - '6537130'
+          - '6537140'
+          name: Drinks
+        currency: GBP
+        description: My excellent menu
+        items:
+        - dealGroups:
+          - dealItemVariations:
+            - additionPrice: 0
+              dealItemVariationId: '1577341'
+              maxChoices: 1
+              minChoices: 0
+            id: 23435309-1
+            name: Choose your base
+            numberOfChoices: 1
+          - dealItemVariations:
+            - additionPrice: 0
+              dealItemVariationId: '8547121'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 0
+              dealItemVariationId: '3547157'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 50
+              dealItemVariationId: '8548153'
+              maxChoices: 1
+              minChoices: 0
+            id: 23435309-2
+            name: Choose your halves
+            numberOfChoices: 2
+          description: Choose each half.
+          id: '23435309'
+          labels: []
+          modifierGroups: []
+          name: Half-and-half Pizza
+          type: deal
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            basePrice: 3099
+            dealGroupsIds:
+            - 23435309-1
+            - 23435309-2
+            dealOnly: false
+            id: '23435309'
+            modifierGroupsIds: []
+            name: ''
+            type: noVariation
+        - dealGroups:
+          - dealItemVariations:
+            - additionPrice: 0
+              dealItemVariationId: '9750011'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 0
+              dealItemVariationId: '9750021'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 0
+              dealItemVariationId: '23435309'
+              maxChoices: 1
+              minChoices: 0
+            id: 33445308-1
+            name: Choose your pizza
+            numberOfChoices: 1
+          - dealItemVariations:
+            - additionPrice: 13
+              dealItemVariationId: '6537130'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 0
+              dealItemVariationId: '6537140'
+              maxChoices: 1
+              minChoices: 0
+            - additionPrice: 0
+              dealItemVariationId: '7739164'
+              maxChoices: 1
+              minChoices: 0
+            id: 33445308-2
+            name: Choose your drink
+            numberOfChoices: 1
+          description: 'Choose a 14 inch Pizza (including half-and-half) and any drink. Note: Alcohol is only available for collection.'
+          id: '33445308'
+          labels: []
+          modifierGroups: []
+          name: 14 inch Pizza & A Drink For 1
+          type: deal
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            basePrice: 3099
+            dealGroupsIds:
+            - 33445308-1
+            - 33445308-2
+            dealOnly: false
+            id: '33445308'
+            modifierGroupsIds: []
+            name: ''
+            type: noVariation
+        - dealGroups: []
+          description: ''
+          id: '65143901'
+          labels: []
+          modifierGroups:
+          - id: 65143901-req-1
+            maxChoices: 1
+            minChoices: 1
+            modifiers:
+            - additionPrice: 0
+              id: '834502'
+              maxChoices: 1
+              minChoices: 0
+              name: Pitta Bread
+            - additionPrice: 0
+              id: '835700'
+              maxChoices: 1
+              minChoices: 0
+              name: Sourdough
+            - additionPrice: 50
+              id: '835601'
+              maxChoices: 1
+              minChoices: 0
+              name: Wholemeal
+            name: Choose your bread
+          - id: 65143901-req-2
+            maxChoices: 2
+            minChoices: 2
+            modifiers:
+            - additionPrice: 0
+              id: '835340'
+              maxChoices: 2
+              minChoices: 0
+              name: Tzatziki
+            - additionPrice: 0
+              id: '835341'
+              maxChoices: 2
+              minChoices: 0
+              name: Taramasalata
+            - additionPrice: 0
+              id: '825344'
+              maxChoices: 2
+              minChoices: 0
+              name: Hummus
+            - additionPrice: 0
+              id: '825346'
+              maxChoices: 2
+              minChoices: 0
+              name: Onion
+            name: Choose your dips
+          name: Flat Bread and Dips (Pick any 2 Dips)
+          requireOtherProducts: false
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 650
+            dealGroupsIds: []
+            dealOnly: false
+            id: '65143901'
+            kitchenNumber: '90'
+            modifierGroupsIds:
+            - 65143901-req-1
+            - 65143901-req-2
+            name: ''
+            type: noVariation
+        - dealGroups: []
+          description: ''
+          id: '1577341'
+          labels: []
+          modifierGroups:
+          - id: 1577341-req-1
+            maxChoices: 1
+            minChoices: 1
+            modifiers:
+            - additionPrice: 0
+              id: '854500'
+              maxChoices: 1
+              minChoices: 0
+              name: Classic Crust
+            - additionPrice: 200
+              id: '854600'
+              maxChoices: 1
+              minChoices: 0
+              name: Stuffed Crust
+            name: Crust
+          name: Base
+          requireOtherProducts: true
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 200
+            dealGroupsIds: []
+            dealOnly: true
+            id: '1577341'
+            modifierGroupsIds:
+            - 1577341-req-1
+            name: ''
+            type: noVariation
+        - dealGroups: []
+          description: ''
+          id: '8547130'
+          labels: []
+          modifierGroups:
+          - id: 8547130-req-1
+            maxChoices: 1
+            minChoices: 1
+            modifiers:
+            - additionPrice: 0
+              id: '854500'
+              maxChoices: 1
+              minChoices: 0
+              name: Classic Crust
+            - additionPrice: 200
+              id: '854600'
+              maxChoices: 1
+              minChoices: 0
+              name: Stuffed Crust
+            name: Choose your crust
+          - id: 8547130-opt-1
+            maxChoices: 10
+            minChoices: 0
+            modifiers:
+            - additionPrice: 50
+              id: '1000'
+              maxChoices: 2
+              minChoices: 0
+              name: Mozzarella Cheese
+            - additionPrice: 50
+              id: '1001'
+              maxChoices: 1
+              minChoices: 0
+              name: Ham
+            - additionPrice: 50
+              id: '1002'
+              maxChoices: 1
+              minChoices: 0
+              name: Red Onion
+            - additionPrice: 50
+              id: '1003'
+              maxChoices: 1
+              minChoices: 0
+              name: Pepperoni
+            - additionPrice: 50
+              id: '1004'
+              maxChoices: 1
+              minChoices: 0
+              name: Olives
+            name: Any extra toppings?
+          name: Margherita
+          requireOtherProducts: true
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 500
+            dealGroupsIds: []
+            dealOnly: true
+            id: '8547121'
+            kitchenNumber: '100'
+            modifierGroupsIds:
+            - 8547130-opt-1
+            name: Half
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 1000
+            dealGroupsIds: []
+            dealOnly: false
+            id: '8547130'
+            kitchenNumber: '100'
+            modifierGroupsIds:
+            - 8547130-req-1
+            - 8547130-opt-1
+            name: 12 inch
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery-weekday
+            - 2-lunch-collection-weekday
+            - 3-dinner-delivery-weekday
+            - 4-dinner-collection-weekday
+            basePrice: 1200
+            dealGroupsIds: []
+            dealOnly: true
+            id: '8543123'
+            kitchenNumber: '200'
+            modifierGroupsIds:
+            - 8547130-req-1
+            - 8547130-opt-1
+            name: 14 inch
+            type: variation
+        - dealGroups: []
+          description: ''
+          id: '8547140'
+          labels: []
+          modifierGroups:
+          - id: 8547140-req-1
+            maxChoices: 1
+            minChoices: 1
+            modifiers:
+            - additionPrice: 0
+              id: '854500'
+              maxChoices: 1
+              minChoices: 0
+              name: Classic Crust
+            - additionPrice: 200
+              id: '854600'
+              maxChoices: 1
+              minChoices: 0
+              name: Stuffed Crust
+            name: Choose your crust
+          - id: 8547140-opt-1
+            maxChoices: 10
+            minChoices: 0
+            modifiers:
+            - additionPrice: 50
+              id: '1000'
+              maxChoices: 2
+              minChoices: 0
+              name: Mozzarella Cheese
+            - additionPrice: 50
+              id: '1001'
+              maxChoices: 2
+              minChoices: 0
+              name: Ham
+            - additionPrice: 50
+              id: '1002'
+              maxChoices: 2
+              minChoices: 0
+              name: Red Onion
+            - additionPrice: 50
+              id: '1003'
+              maxChoices: 4
+              minChoices: 2
+              name: Pepperoni
+            - additionPrice: 50
+              id: '1004'
+              maxChoices: 2
+              minChoices: 0
+              name: Olives
+            name: Any extra toppings?
+          - id: 9755052-req-1
+            maxChoices: 1
+            minChoices: 1
+            modifiers:
+            - additionPrice: 0
+              id: '854500'
+              maxChoices: 1
+              minChoices: 0
+              name: Classic Crust
+            - additionPrice: 250
+              id: '854600'
+              maxChoices: 1
+              minChoices: 0
+              name: Stuffed Crust
+            name: Choose your crust
+          - id: 9755052-opt-1
+            maxChoices: 10
+            minChoices: 0
+            modifiers:
+            - additionPrice: 70
+              id: '1000'
+              maxChoices: 2
+              minChoices: 0
+              name: Mozzarella Cheese
+            - additionPrice: 70
+              id: '1001'
+              maxChoices: 2
+              minChoices: 0
+              name: Ham
+            - additionPrice: 70
+              id: '1002'
+              maxChoices: 2
+              minChoices: 0
+              name: Red Onion
+            - additionPrice: 70
+              id: '1003'
+              maxChoices: 2
+              minChoices: 0
+              name: Pepperoni
+            - additionPrice: 70
+              id: '1004'
+              maxChoices: 2
+              minChoices: 0
+              name: Olives
+            name: Any extra toppings?
+          name: Double Pepperoni
+          requireOtherProducts: false
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 500
+            dealGroupsIds: []
+            dealOnly: true
+            id: '8548153'
+            kitchenNumber: '100'
+            modifierGroupsIds:
+            - 8547140-opt-1
+            name: Half
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 1000
+            dealGroupsIds: []
+            dealOnly: false
+            id: '8547140'
+            kitchenNumber: '100'
+            modifierGroupsIds:
+            - 8547140-req-1
+            - 8547140-opt-1
+            name: 12 inch
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 1200
+            dealGroupsIds: []
+            dealOnly: true
+            id: '9750021'
+            kitchenNumber: '200'
+            modifierGroupsIds:
+            - 8547140-req-1
+            - 8547140-opt-1
+            name: 14 inch
+            type: variation
+          - availabilityIds:
+            - 2-lunch-collection
+            - 4-dinner-collection
+            basePrice: 1200
+            dealGroupsIds: []
+            dealOnly: false
+            id: '9755052'
+            kitchenNumber: '200'
+            modifierGroupsIds:
+            - 9755052-req-1
+            - 9755052-opt-1
+            name: 18 inch
+            type: variation
+        - dealGroups: []
+          description: ''
+          id: '3547157'
+          labels:
+          - vegetarian
+          modifierGroups:
+          - id: 8547140-opt-1
+            maxChoices: 10
+            minChoices: 0
+            modifiers:
+            - additionPrice: 50
+              id: '1000'
+              maxChoices: 2
+              minChoices: 0
+              name: Mozzarella Cheese
+            - additionPrice: 50
+              id: '1001'
+              maxChoices: 2
+              minChoices: 0
+              name: Ham
+            - additionPrice: 50
+              id: '1002'
+              maxChoices: 2
+              minChoices: 1
+              name: Red Onion
+            - additionPrice: 50
+              id: '1003'
+              maxChoices: 2
+              minChoices: 0
+              name: Pepperoni
+            - additionPrice: 50
+              id: '1004'
+              maxChoices: 2
+              minChoices: 1
+              name: Olives
+            name: Any extra toppings?
+          name: Vegetarian
+          requireOtherProducts: false
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 500
+            dealGroupsIds: []
+            dealOnly: true
+            id: '3547157'
+            kitchenNumber: '121'
+            modifierGroupsIds:
+            - 8547140-opt-1
+            name: ''
+            type: noVariation
+        - dealGroups: []
+          description: ''
+          id: '6537130'
+          labels: []
+          modifierGroups: []
+          name: Coca-Cola
+          requireOtherProducts: true
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 100
+            dealGroupsIds: []
+            dealOnly: false
+            id: '6537130'
+            kitchenNumber: '300'
+            modifierGroupsIds: []
+            name: 0.33L
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 300
+            dealGroupsIds: []
+            dealOnly: false
+            id: '9750011'
+            kitchenNumber: '400'
+            modifierGroupsIds: []
+            name: 1.5L
+            type: variation
+        - dealGroups: []
+          description: ''
+          id: '6537140'
+          labels: []
+          modifierGroups: []
+          name: Diet Coke
+          requireOtherProducts: true
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 100
+            dealGroupsIds: []
+            dealOnly: false
+            id: '6537140'
+            kitchenNumber: '300'
+            modifierGroupsIds: []
+            name: 0.33L
+            type: variation
+          - availabilityIds:
+            - 1-lunch-delivery
+            - 2-lunch-collection
+            - 3-dinner-delivery
+            - 4-dinner-collection
+            basePrice: 300
+            dealGroupsIds: []
+            dealOnly: false
+            id: '9750312'
+            kitchenNumber: '400'
+            modifierGroupsIds: []
+            name: 1.5L
+            type: variation
+        - dealGroups: []
+          description: ''
+          id: '7739164'
+          labels: []
+          modifierGroups: []
+          name: Bottle of Lager
+          requireOtherProducts: true
+          type: menuItem
+          variations:
+          - availabilityIds:
+            - 2-lunch-collection
+            - 4-dinner-collection
+            basePrice: 300
+            dealGroupsIds: []
+            dealOnly: false
+            id: '7739164'
+            kitchenNumber: '700'
+            modifierGroupsIds: []
+            name: ''
+            type: noVariation
+        name: My Restaurant
+        restaurantId: '100059'
+    PagedAvailabilitiesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          availabilities:
+            description: List of availabilities for a given restaurant's menu.
+            items:
+              $ref: '#/components/schemas/Availability'
+            type: array
+        type: object
+      example:
+        availabilities:
+        - description: Menu items available for delivery during weekdays for lunch.
+          id: 1-lunch-delivery
+          name: Delivery Lunch
+          serviceTypes:
+          - delivery
+          times:
+          - daysOfTheWeek:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            fromDateTime: '11:30:00'
+            toDateTime: '14:30:00'
+        - description: Menu items available for delivery during weekdays for dinner.
+          id: 1-dinner-delivery
+          name: Delivery Dinner
+          serviceTypes:
+          - delivery
+          times:
+          - daysOfTheWeek:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            fromDateTime: '16:30:00'
+            toDateTime: '22:00:00'
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    ServiceTimesDays:
+      description: The desired times at which a restaurant is in service
+      properties:
+        friday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Fridays
+        monday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Mondays
+        saturday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Saturdays
+        sunday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Sundays
+        thursday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Thursdays
+        tuesday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Tuesdays
+        wednesday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Wednesdays
+      type: object
+    ServiceTypeFeeConfiguration:
+      description: Distinct values which are configured for a particular service type
+      example:
+        amount: 5
+      properties:
+        amount:
+          description: The value to apply to the basket for this Fee in the smallest unit of currency
+          format: integer
+          type: number
+      type: object
+    MenuIngestionResponse:
+      example:
+        correlationId: 64bef5ee-7265-47f8-9aee-28bc74f00b13
+      properties:
+        correlationId:
+          description: An ID for the asynchronous operation to ingest the menu
+          type: string
+      type: object
+    DealItemVariation:
+      example:
+        additionPrice: 50
+        dealItemVariationId: '8548153'
+        maxChoices: 1
+        minChoices: 0
+      properties:
+        additionPrice:
+          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
+          format: int32
+          type: number
+        dealItemVariationId:
+          description: A referenced variation id that can be a part of a deal group.
+          type: string
+        maxChoices:
+          description: The maximum number of times this deal item variation can be chosen within a given deal group.
+          format: int32
+          type: integer
+        minChoices:
+          description: The minimum number of times this deal item variation can be chosen within a given deal group.
+          format: int32
+          type: integer
+      type: object
+    Fee:
+      description: The object which encapsulates a Fee
+      example:
+        description: A charge for bags in delivery
+        serviceTypes:
+          collection:
+            amount: 5
+          default:
+            amount: 0
+          delivery:
+            amount: 10
+      properties:
+        description:
+          description: A description of what the Fee is
+          type: string
+        serviceTypes:
+          description: Contains Service type specific fee values. If set, default can be used to apply a fee to as yet unspecified service types
+          properties:
+            collection:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for the collection service type
+            default:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for any service type which is not explicitly configured
+            delivery:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for the delivery service type
+          type: object
+      type: object
+    Availability:
+      example:
+        description: Menu items available for delivery during weekdays for lunch.
+        id: 1-lunch-delivery
+        name: Delivery Lunch
+        serviceTypes:
+        - delivery
+        times:
+        - daysOfTheWeek:
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          - sunday
+          fromDateTime: '11:30:00'
+          toDateTime: '14:30:00'
+      properties:
+        description:
+          description: The description of the availability.
+          type: string
+        id:
+          description: A unique identifier at menu level for a given availability.
+          type: string
+        name:
+          description: The name for the availability.
+          type: string
+        serviceTypes:
+          description: Values can be "collection" or "delivery" and are used to denote what types of service apply to the availability.
+          items:
+            enum:
+            - collection
+            - delivery
+            type: string
+          type: array
+        times:
+          description: An array of times when the availability is active.
+          items:
+            $ref: '#/components/schemas/Time'
+          type: array
+      type: object
+    MenuDealGroupBase:
+      example:
+        id: 23435309-2
+        name: Choose your pizzas
+        numberOfChoices: 2
+      properties:
+        id:
+          description: A unique identifier at menu level for a deal group.
+          type: string
+        name:
+          description: The name of the deal group.
+          type: string
+        numberOfChoices:
+          description: How many deal item variations must be selected to satisfy this deal group.
+          format: int32
+          type: integer
+      type: object
+    PagedCategoryItemsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          itemIds:
+            description: List of item IDs which are assigned to the specified category
+            items:
+              type: string
+            type: array
+        type: object
+      example:
+        itemIds:
+        - '65143901'
+        - '65143902'
+        - '65143903'
+        - '65143904'
+        - '65143905'
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    SearchRestaurant:
+      properties:
+        Address:
+          properties:
+            City:
+              type: string
+            FirstLine:
+              type: string
+            Latitude:
+              type: number
+            Longitude:
+              type: number
+            Postcode:
+              type: string
+          type: object
+        Badges:
+          items:
+            type: object
+          type: array
+        BrandName:
+          type: string
+        City:
+          type: string
+        CollectionMenuId:
+          nullable: true
+          type: number
+        CuisineTypes:
+          items:
+            properties:
+              Id:
+                type: number
+              IsTopCuisine:
+                type: boolean
+            type: object
+          type: array
+        Cuisines:
+          items:
+            properties:
+              Name:
+                type: string
+              SeoName:
+                type: string
+            type: object
+          type: array
+        Deals:
+          items:
+            properties:
+              Description:
+                type: string
+              DiscountPercent:
+                type: number
+              OfferType:
+                type: string
+              QualifyingPrice:
+                type: number
+            type: object
+          type: array
+        DefaultDisplayRank:
+          type: number
+        DeliveryChargeBands:
+          items:
+            properties:
+              BasketThresholdPrice:
+                type: number
+              DeliveryChargeBelowThreshold:
+                type: number
+            type: object
+          type: array
+        DeliveryCost:
+          type: number
+        DeliveryEtaMinutes:
+          properties:
+            Approximate:
+              nullable: true
+              type: number
+            RangeLower:
+              type: number
+            RangeUpper:
+              type: number
+          type: object
+        DeliveryMenuId:
+          type: number
+        DeliveryOpeningTime:
+          format: date-time
+          type: string
+        DeliveryOpeningTimeLocal:
+          $ref: '#/components/schemas/local-date-time'
+        DeliveryOpeningTimeUtc:
+          format: date-time
+          nullable: true
+          type: string
+        DeliveryStartTime:
+          format: date-time
+          type: string
+        DeliveryTime:
+          nullable: true
+          type: number
+        DeliveryTimeMinutes:
+          nullable: true
+          type: number
+        DeliveryWorkingTimeMinutes:
+          type: number
+        DeliveryZipcode:
+          nullable: true
+          type: string
+        Description:
+          type: string
+        DriveDistance:
+          type: number
+        DriveInfoCalculated:
+          type: boolean
+        HygieneRating:
+          nullable: true
+          type: number
+        Id:
+          type: number
+        IsBrand:
+          type: boolean
+        IsCloseBy:
+          type: boolean
+        IsCollection:
+          type: boolean
+        IsDelivery:
+          type: boolean
+        IsFreeDelivery:
+          type: boolean
+        IsHalal:
+          type: boolean
+        IsNew:
+          type: boolean
+        IsOpenNow:
+          type: boolean
+        IsOpenNowForCollection:
+          type: boolean
+        IsOpenNowForDelivery:
+          type: boolean
+        IsOpenNowForPreorder:
+          type: boolean
+        IsPremier:
+          type: boolean
+        IsSponsored:
+          type: boolean
+        IsTemporarilyOffline:
+          type: boolean
+        IsTemporaryBoost:
+          type: boolean
+        IsTestRestaurant:
+          type: boolean
+        LastUpdated:
+          $ref: '#/components/schemas/local-date-time'
+        Latitude:
+          type: number
+        Logo:
+          items:
+            properties:
+              StandardResolutionURL:
+                type: string
+            type: object
+          type: array
+        LogoUrl:
+          type: string
+        Longitude:
+          type: number
+        MinimumDeliveryValue:
+          type: number
+        Name:
+          type: string
+        NewnessDate:
+          $ref: '#/components/schemas/local-date-time'
+        NumberOfRatings:
+          type: number
+        OfferPercent:
+          type: number
+        Offers:
+          items:
+            additionalProperties: true
+            type: object
+          type: array
+        OpeningTime:
+          format: date-time
+          type: string
+        OpeningTimeIso:
+          $ref: '#/components/schemas/local-date-time'
+        OpeningTimeLocal:
+          $ref: '#/components/schemas/local-date-time'
+        OpeningTimeUtc:
+          format: date-time
+          nullable: true
+          type: string
+        OpeningTimes:
+          items:
+            type: object
+          type: array
+        Postcode:
+          type: string
+        Rating:
+          properties:
+            Average:
+              type: number
+            Count:
+              type: number
+            StarRating:
+              type: number
+          type: object
+        RatingAverage:
+          type: number
+        RatingStars:
+          type: number
+        ReasonWhyTemporarilyOffline:
+          type: string
+        Score:
+          type: number
+        ScoreMetaData:
+          items:
+            properties:
+              Key:
+                type: string
+              Value:
+                type: string
+            type: object
+          type: array
+        SecondDateRank:
+          type: number
+        SecondDateRanking:
+          type: number
+        SendsOnItsWayNotifications:
+          type: boolean
+        ServiceableAreas:
+          items:
+            type: object
+          type: array
+        ShowSmiley:
+          type: boolean
+        SmileyDate:
+          nullable: true
+          type: object
+        SmileyElite:
+          type: boolean
+        SmileyResult:
+          nullable: true
+          type: object
+        SmileyUrl:
+          nullable: true
+          type: object
+        SponsoredPosition:
+          type: number
+        Tags:
+          items:
+            type: string
+          type: array
+        UniqueName:
+          type: string
+        Url:
+          type: string
+      type: object
+    ExternalSearchResponse:
+      properties:
+        Restaurants:
+          items:
+            properties:
+              Address:
+                properties:
+                  City:
+                    type: string
+                  FirstLine:
+                    type: string
+                  Latitude:
+                    type: number
+                  Longitude:
+                    type: number
+                  Postcode:
+                    type: string
+                type: object
+              DeliveryEtaMinutes:
+                properties:
+                  Approximate:
+                    type: number
+                  RangeLower:
+                    type: number
+                  RangeUpper:
+                    type: number
+                type: object
+              DriveDistance:
+                type: number
+              DriveInfoCalculated:
+                type: boolean
+              Id:
+                type: number
+              IsOpenNow:
+                type: boolean
+              IsOpenNowForDelivery:
+                type: boolean
+              Name:
+                type: string
+              UniqueName:
+                type: string
+              Url:
+                type: string
+            type: object
+          type: array
+      type: object
+    IgnoredRestaurantIds:
+      example:
+        ignoredRestaurantIds:
+        - '123'
+        - '456'
+      properties:
+        ignoredRestaurantIds:
+          description: A list of restaurant ids that were present in a request but were ignored.
+          items:
+            type: string
+          type: array
+      type: object
+    RestaurantPromotedPlacementInfo:
+      example:
+        defaultPromoted: true
+        restaurantId: '84335'
+      nullable: false
+      properties:
+        defaultPromoted:
+          description: Should be promoted by default
+          type: boolean
+        restaurantId:
+          description: Id of the restaurant
+          type: string
+      type: object
+    RestaurantFees:
+      description: An object encapsulating all possible fees which a restaurant can apply to itself
+      example:
+        bagFee:
+          description: A charge for bags in delivery
+          serviceTypes:
+            collection:
+              amount: 5
+            default:
+              amount: 0
+            delivery:
+              amount: 10
+      properties:
+        bagFee:
+          $ref: '#/components/schemas/Fee'
+          description: A fee applied for bags used for delivery and collection orders
+      type: object
+    ServiceTimesServices:
+      properties:
+        collection:
+          $ref: '#/components/schemas/ServiceTimesCollection'
+          description: The times at which customers can collect from the restaurant
+          type: object
+        delivery:
+          $ref: '#/components/schemas/ServiceTimesCollection'
+          description: The times at which the restaurant can provide delivery
+          type: object
+      type: object
+    PagedMenuItemsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          items:
+            description: List of menu items for a given restaurant's menu.
+            items:
+              $ref: '#/components/schemas/MenuItemBase'
+            type: array
+        type: object
+      example:
+        items:
+        - description: ''
+          id: '65143901'
+          labels: []
+          name: Flat Bread and Dips (Pick any 2 Dips)
+          requireOtherProducts: false
+          type: menuItem
+        - description: ''
+          id: '8547130'
+          labels: []
+          name: Margherita
+          requireOtherProducts: true
+          type: menuItem
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    ServiceTimes:
+      example:
+        desiredServiceTimes:
+          friday:
+            collection:
+            - end: '14:00:00'
+              start: '12:00:00'
+            - end: '23:00:00'
+              start: '17:00:00'
+            delivery:
+            - end: '13:30:00'
+              start: '12:00:00'
+            - end: 00:00:00
+              start: '18:00:00'
+          monday:
+            collection:
+            - end: '14:00:00'
+              start: '12:00:00'
+            - end: '23:00:00'
+              start: '17:00:00'
+            delivery:
+            - end: '13:30:00'
+              start: '12:00:00'
+            - end: 00:00:00
+              start: '18:00:00'
+          saturday:
+            collection:
+            - end: '23:00:00'
+              start: '12:00:00'
+            delivery:
+            - end: 00:00:00
+              start: '12:00:00'
+          sunday:
+            collection:
+            - end: '23:00:00'
+              start: '12:00:00'
+            delivery:
+            - end: 00:00:00
+              start: '12:00:00'
+          thursday:
+            collection:
+            - end: '14:00:00'
+              start: '12:00:00'
+            - end: '23:00:00'
+              start: '17:00:00'
+            delivery:
+            - end: '13:30:00'
+              start: '12:00:00'
+            - end: 00:00:00
+              start: '18:00:00'
+          tuesday:
+            collection:
+            - end: '14:00:00'
+              start: '12:00:00'
+            - end: '23:00:00'
+              start: '17:00:00'
+            delivery:
+            - end: '13:30:00'
+              start: '12:00:00'
+            - end: 00:00:00
+              start: '18:00:00'
+          wednesday:
+            collection:
+            - end: '14:00:00'
+              start: '12:00:00'
+            - end: '23:00:00'
+              start: '17:00:00'
+            delivery:
+            - end: '13:30:00'
+              start: '12:00:00'
+            - end: 00:00:00
+              start: '18:00:00'
+      properties:
+        serviceTimes:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesDays'
+          description: The desired times at which a restaurant is in service
+          type: object
+      type: object
+    PagedDealItemVariationResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          dealItemVariations:
+            description: List of deal item variations which form the specified deal group
+            items:
+              $ref: '#/components/schemas/DealItemVariation'
+            type: array
+        type: object
+      example:
+        dealItemVariations:
+        - additionPrice: 50
+          dealItemVariationId: '8548153'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 100
+          dealItemVariationId: '8548153'
+          maxChoices: 2
+          minChoices: 1
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    PagedAfterOnlyCursorResponse:
+      example:
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+      properties:
+        paging:
+          description: Consists of pagination information.
+          properties:
+            cursors:
+              description: Consists of cursors markers used in forward only pagination.
+              properties:
+                after:
+                  description: Cursor parameter to use in the next request to the resource to fetch the next page of data.
+                  type: string
+              type: object
+          type: object
+      type: object
+    PagedVariationsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          variations:
+            description: List of variations for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/Variation'
+            type: array
+        type: object
+      example:
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+        variations:
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 500
+          dealGroupsIds: []
+          dealOnly: true
+          id: '8547121'
+          kitchenNumber: '100'
+          modifierGroupsIds:
+          - 8547130-opt-1
+          name: Half
+          type: variation
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 1000
+          dealGroupsIds: []
+          dealOnly: false
+          id: '8547130'
+          kitchenNumber: '100'
+          modifierGroupsIds:
+          - 8547130-req-1
+          - 8547130-opt-1
+          name: 12 inch
+          type: variation
+        - availabilityIds:
+          - 1-lunch-delivery-weekday
+          - 2-lunch-collection-weekday
+          - 3-dinner-delivery-weekday
+          - 4-dinner-collection-weekday
+          basePrice: 1200
+          dealGroupsIds: []
+          dealOnly: true
+          id: '8543123'
+          kitchenNumber: '200'
+          modifierGroupsIds:
+          - 8547130-req-1
+          - 8547130-opt-1
+          name: 14 inch
+          type: variation
+    MenuItem:
+      allOf:
+      - $ref: '#/components/schemas/MenuItemBase'
+      - properties:
+          dealGroups:
+            description: A set of deal groups for this menu item.
+            items:
+              $ref: '#/components/schemas/MenuDealGroup'
+            type: array
+          imageUrl:
+            description: A menu item image URL.
+            type: string
+          modifierGroups:
+            description: A set of modifier groups for this menu item.
+            items:
+              $ref: '#/components/schemas/MenuModifierGroup'
+            type: array
+          variations:
+            description: A set of variations of this menu item.
+            items:
+              $ref: '#/components/schemas/Variation'
+            type: array
+        type: object
+      example:
+        dealGroups: []
+        description: ''
+        id: '65143901'
+        imageUrl: http://cdn.images/flat_bread_dips.png
+        labels: []
+        modifierGroups:
+        - id: 65143901-req-1
+          maxChoices: 1
+          minChoices: 1
+          modifiers:
+          - additionPrice: 0
+            id: '834502'
+            maxChoices: 1
+            minChoices: 0
+            name: Pitta Bread
+          - additionPrice: 0
+            id: '835700'
+            maxChoices: 1
+            minChoices: 0
+            name: Sourdough
+          - additionPrice: 50
+            id: '835601'
+            maxChoices: 1
+            minChoices: 0
+            name: Wholemeal
+          name: Bread
+        - id: 65143901-req-2
+          maxChoices: 2
+          minChoices: 2
+          modifiers:
+          - additionPrice: 0
+            id: '835340'
+            maxChoices: 2
+            minChoices: 0
+            name: Tzatziki
+          - additionPrice: 0
+            id: '835341'
+            maxChoices: 2
+            minChoices: 0
+            name: Taramasalata
+          - additionPrice: 0
+            id: '825344'
+            maxChoices: 2
+            minChoices: 0
+            name: Hummus
+          - additionPrice: 0
+            id: '825346'
+            maxChoices: 2
+            minChoices: 0
+            name: Onion
+          name: Dips
+        name: Flat Bread and Dips (Pick any 2 Dips)
+        requireOtherProducts: false
+        type: menuItem
+        variations:
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 650
+          dealGroupsIds: []
+          dealOnly: false
+          id: '65143901'
+          kitchenNumber: '90'
+          modifierGroupsIds:
+          - 65143901-req-1
+          - 65143901-req-2
+          name: ''
+          type: noVariation
+    SearchResponse:
+      example:
+        Area: Fleet Street
+        CuisineSets:
+        - Cuisines:
+          - Name: Pizza
+            SeoName: pizza
+          Id: user_and_local_cuisines
+          Name: ''
+          Type: area_cuisines
+        Dishes: []
+        MetaData:
+          Area: Fleet Street
+          CanonicalName: ec4-fleetstreet
+          CuisineDetails:
+          - Name: Danish
+            SeoName: danish
+            Total: 171
+          District: EC4
+          Latitude: 0
+          Longitude: 0
+          Postcode: EC4
+          ResultCount: 1
+          SearchedTerms: null
+          TagDetails:
+          - BackgroundColour: '#E6F6C5'
+            Colour: '#04822C'
+            DisplayName: Tried and Tasted
+            Key: tried-and-tasted
+            Priority: 300
+        RestaurantSets: []
+        Restaurants:
+        - Address:
+            City: London
+            FirstLine: London
+            Latitude: 51.516454
+            Longitude: -0.103137
+            Postcode: EC4M 7RF
+          Badges: []
+          BrandName: ''
+          City: London
+          CollectionMenuId: null
+          CuisineTypes:
+          - Id: 2
+            IsTopCuisine: false
+            Name: English
+            SeoName: english
+          Cuisines:
+          - Name: English
+            SeoName: english
+          Deals:
+          - Description: 20% off when you spend £20
+            DiscountPercent: 20
+            OfferType: Percent
+            QualifyingPrice: 20
+          DefaultDisplayRank: 0
+          DeliveryChargeBands: []
+          DeliveryCost: 0.12
+          DeliveryEtaMinutes:
+            Approximate: null
+            RangeLower: 10
+            RangeUpper: 25
+          DeliveryMenuId: 224651
+          DeliveryOpeningTime: '2019-11-18T01:00:00Z'
+          DeliveryOpeningTimeLocal: '2019-11-18T01:00:00'
+          DeliveryOpeningTimeUtc: null
+          DeliveryStartTime: '2019-11-18T01:00:00Z'
+          DeliveryTime: null
+          DeliveryTimeMinutes: null
+          DeliveryWorkingTimeMinutes: 10
+          DeliveryZipcode: null
+          Description: ''
+          DriveDistance: 0
+          DriveInfoCalculated: true
+          HygieneRating: null
+          Id: 102215
+          IsBrand: false
+          IsCloseBy: true
+          IsCollection: false
+          IsDelivery: true
+          IsFreeDelivery: false
+          IsHalal: false
+          IsNew: false
+          IsOpenNow: true
+          IsOpenNowForCollection: false
+          IsOpenNowForDelivery: true
+          IsOpenNowForPreorder: false
+          IsPremier: false
+          IsSponsored: false
+          IsTemporarilyOffline: false
+          IsTemporaryBoost: false
+          IsTestRestaurant: false
+          LastUpdated: '2019-09-10T10:55:58.199397'
+          Latitude: 0
+          Logo:
+          - StandardResolutionURL: http://d30v2pzvrfyzpo.cloudfront.net/uk/images/restaurants/102215.gif
+          LogoUrl: http://d30v2pzvrfyzpo.cloudfront.net/uk/images/restaurants/102215.gif
+          Longitude: 0
+          MinimumDeliveryValue: 0
+          Name: TEST_DP_1
+          NewnessDate: '2017-05-02T14:30:21'
+          NumberOfRatings: 0
+          OfferPercent: 0
+          Offers:
+          - Amount: 20
+            MaxQualifyingValue: 50
+            OfferId: '136149'
+            QualifyingValue: 20
+            Type: Percent
+          OpeningTime: '2019-11-19T01:00:00Z'
+          OpeningTimeIso: '2019-11-19T01:00:00'
+          OpeningTimeLocal: '2019-11-19T01:00:00'
+          OpeningTimeUtc: null
+          OpeningTimes: []
+          Postcode: EC4M 7RF
+          Rating:
+            Average: 0
+            Count: 0
+            StarRating: 0
+          RatingAverage: 0
+          RatingStars: 0
+          ReasonWhyTemporarilyOffline: ''
+          Score: 502
+          ScoreMetaData:
+          - Key: Distance
+            Value: '0'
+          - Key: SetName
+            Value: Default
+          SecondDateRank: 0
+          SecondDateRanking: 0
+          SendsOnItsWayNotifications: false
+          ServiceableAreas: []
+          ShowSmiley: false
+          SmileyDate: null
+          SmileyElite: false
+          SmileyResult: null
+          SmileyUrl: null
+          SponsoredPosition: 0
+          Tags: []
+          UniqueName: test_dp-london-london
+          Url: https://www.just-eat.co.uk/restaurants-test_dp-london-london
+        ShortResultText: EC4
+        Views: []
+        deliveryFees:
+          restaurants:
+            '102215':
+              bands:
+              - fee: 100
+                minimumAmount: 0
+              minimumOrderValue: 0
+              restaurantId: '102215'
+        promotedPlacement:
+          filteredSearchPromotedLimit: 5
+          rankedIds:
+          - 84335
+          restaurants:
+            '84335':
+              defaultPromoted: true
+              restaurantId: '84335'
+      properties:
+        CuisineSets:
+          items:
+            properties:
+              Cuisines:
+                items:
+                  properties:
+                    Name:
+                      type: string
+                    SeoName:
+                      type: string
+                  type: object
+                type: array
+              Id:
+                type: string
+              Name:
+                type: string
+              Type:
+                type: string
+            type: object
+          type: array
+        Dishes:
+          items:
+            properties:
+              Best:
+                items:
+                  properties:
+                    FullName:
+                      description: The full name of the product
+                      type: string
+                    Price:
+                      description: The price of the product
+                      type: number
+                    ProductId:
+                      description: Deprecated field no longer populated, but retained for backwards compatibility with clients
+                      type: number
+                    StrProductId:
+                      description: The id of the product
+                      type: string
+                  type: object
+                type: array
+              RestaurantId:
+                type: number
+              Similar:
+                items:
+                  properties:
+                    FullName:
+                      type: string
+                    Price:
+                      type: number
+                    ProductId:
+                      type: number
+                  type: object
+                type: array
+            type: object
+          type: array
+        MetaData:
+          properties:
+            Area:
+              type: string
+            CanonicalName:
+              type: string
+            CuisineDetails:
+              items:
+                properties:
+                  Name:
+                    type: string
+                  SeoName:
+                    type: string
+                  Total:
+                    type: number
+                type: object
+              type: array
+            District:
+              type: string
+            Latitude:
+              description: The latitude of the search location
+              type: number
+            Longitude:
+              description: The longitude of the search location
+              type: number
+            Postcode:
+              type: string
+            ResultCount:
+              type: number
+            SearchedTerms:
+              nullable: true
+              type: object
+            TagDetails:
+              items:
+                properties:
+                  BackgroundColour:
+                    type: string
+                  Colour:
+                    type: string
+                  DisplayName:
+                    type: string
+                  Key:
+                    type: string
+                  Priority:
+                    type: number
+                type: object
+              type: array
+          type: object
+        RestaurantSets:
+          items:
+            properties:
+              Id:
+                type: string
+              Name:
+                type: string
+              Restaurants:
+                items:
+                  properties:
+                    Id:
+                      type: number
+                    Metadata:
+                      items:
+                        properties:
+                          Key:
+                            type: string
+                          Value:
+                            type: string
+                        type: object
+                      type: array
+                  type: object
+                type: array
+              Type:
+                type: string
+            type: object
+          type: array
+        Restaurants:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+        ShortResultText:
+          type: string
+        Views:
+          items:
+            properties:
+              Components:
+                properties:
+                  Id:
+                    type: string
+                  TemplateName:
+                    type: string
+                  TrackingId:
+                    type: string
+                  Type:
+                    type: string
+                  ViewData:
+                    type: object
+                type: object
+              Target:
+                type: string
+            type: object
+          type: array
+        area:
+          type: string
+        deliveryFees:
+          description: Information related to delivery fees.
+          properties:
+            restaurants:
+              additionalProperties:
+                $ref: '#/components/schemas/RestaurantDeliveryFees'
+              description: Dictionary of `restaurantIds` to delivery fees.
+              type: object
+          type: object
+        promotedPlacement:
+          description: Information related to promoted placement restaurants.
+          properties:
+            filteredSearchPromotedLimit:
+              description: How many restaurants to promote when search is filtered
+              type: number
+            rankedIds:
+              description: Restaurants that can be promoted, in preferred order
+              items:
+                type: number
+              type: array
+            restaurants:
+              additionalProperties:
+                $ref: '#/components/schemas/RestaurantPromotedPlacementInfo'
+              description: Dictionary of `restaurantIds` to promoted placement info.
+              type: object
+          type: object
+      type: object
+    MenuBase:
+      example:
+        currency: GBP
+        description: My excellent menu
+        name: My Restaurant
+        restaurantId: '100059'
+      properties:
+        currency:
+          description: The currency of the items on the menu in ISO 4217 format, i.e. GBP, EUR or AUD
+          type: string
+        description:
+          description: A top level description for the menu.
+          type: string
+        name:
+          description: The name of the restaurant.
+          type: string
+        restaurantId:
+          description: A unique identifier at tenant level for a given restaurant.
+          type: string
+      type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    PagedMenuDealGroupsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          dealGroups:
+            description: List of deal groups for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/MenuDealGroupBase'
+            type: array
+        type: object
+      example:
+        dealGroups:
+        - id: 23435309-1
+          name: Choose your base
+          numberOfChoices: 1
+        - id: 23435309-2
+          name: Choose your halves
+          numberOfChoices: 2
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    Category:
+      allOf:
+      - $ref: '#/components/schemas/CategoryBase'
+      - properties:
+          itemIds:
+            description: The ids of the menu items that are within the category. Each id must be unique within the category.
+            items:
+              type: string
+            type: array
+        type: object
+      example:
+        description: ''
+        id: '3'
+        itemIds:
+        - '65143901'
+        - '65143902'
+        - '65143903'
+        - '65143904'
+        - '65143905'
+        name: Starters
+    Variation:
+      example:
+        availabilityIds:
+        - 1-lunch-delivery
+        - 2-lunch-collection
+        - 3-dinner-delivery
+        - 4-dinner-collection
+        basePrice: 1000
+        dealGroupsIds: []
+        dealOnly: false
+        id: '8547130'
+        kitchenNumber: '100'
+        modifierGroupsIds:
+        - 8547130-req-1
+        - 8547130-opt-1
+        name: 12 inch
+        type: variation
+      properties:
+        availabilityIds:
+          description: Maps to an availability item, availabilities determines which days and times the item can be sold.
+          items:
+            type: string
+          type: array
+        basePrice:
+          description: The base price of this variation in the minor unit of the currency.
+          format: int32
+          type: number
+        dealGroupsIds:
+          description: Maps to the deal groups that are applicable to this variation.
+          items:
+            type: string
+          type: array
+        dealOnly:
+          description: This flag indicates the variation is only available as part of a deal, the item will not be displayed as a stand alone menu item.
+          type: boolean
+        id:
+          description: A unique identifier at menu level for a variation, can be shared with parent menu item id.
+          type: string
+        kitchenNumber:
+          description: Identifies the item with a number on the physical menu that the kitchen understand e.g. on a Chinese menu number 16 could correspond to "BBQ ribs"
+          type: string
+        modifierGroupsIds:
+          description: Maps to the modifier groups that are applicable to this variation.
+          items:
+            type: string
+          type: array
+        name:
+          description: The name of the variation.
+          type: string
+        type:
+          description: Denotes the type of variation, `Variation` if there's multiple variations of the parent `menuitem`, `NoVariation` if there's only one
+          enum:
+          - noVariation
+          - variation
+          type: string
+      type: object
+    CategoryBase:
+      example:
+        description: ''
+        id: '3'
+        name: Starters
+      properties:
+        description:
+          description: The description of the category.
+          type: string
+        id:
+          description: A unique identifier at menu level for a given category.
+          type: string
+        name:
+          description: The name of the category.
+          type: string
+      type: object
+    RestaurantETAs:
+      items:
+        example:
+          etaAtRestaurant: 1
+          restaurantId: '1'
+        properties:
+          etaAtRestaurant:
+            description: Your best estimation in minutes
+            format: int32
+            type: number
+          restaurantId:
+            description: The unique identifier of the restaurant.
+            type: string
+        type: object
+      type: array
+    MenuModifierGroup:
+      example:
+        id: 8547130-req-1
+        maxChoices: 1
+        minChoices: 1
+        modifiers:
+        - additionPrice: 0
+          id: '854500'
+          maxChoices: 1
+          minChoices: 0
+          name: Classic Crust
+        - additionPrice: 200
+          id: '854600'
+          maxChoices: 1
+          minChoices: 0
+          name: Stuffed Crust
+        name: Choose your crust
+      properties:
+        id:
+          description: A unique identifier relative to the menu for a modifier group.
+          type: string
+        maxChoices:
+          description: The maximum number of modifiers that must be selected to satisfy this modifier group.
+          format: int32
+          type: integer
+        minChoices:
+          description: The minimum number of modifiers that must be selected to satisfy this modifier group.
+          format: int32
+          type: integer
+        modifiers:
+          description: The modifiers that can be selected to satisfy this modifier group.
+          items:
+            $ref: '#/components/schemas/MenuModifier'
+          type: array
+        name:
+          description: A name for the modifier group, usually phrased as a question, e.g. Would you like any extras?
+          type: string
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    PagedCategoriesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          categories:
+            description: List of categories for a given restaurant's menu.
+            items:
+              $ref: '#/components/schemas/CategoryBase'
+            type: array
+        type: object
+      example:
+        categories:
+        - description: Sumptuous starters
+          id: '3'
+          name: Starters
+        - description: Magnificent mains
+          id: '4'
+          name: Mains
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    MenuModifier:
+      example:
+        additionPrice: 200
+        id: '854600'
+        maxChoices: 1
+        minChoices: 0
+        name: Stuffed Crust
+      properties:
+        additionPrice:
+          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
+          format: int32
+          type: number
+        id:
+          description: A unique identifier relative to the menu for a modifier.
+          type: string
+        maxChoices:
+          description: The maximum number of times this modifier can be chosen within a given modifier group.
+          format: int32
+          type: integer
+        minChoices:
+          description: The minimum number of times this modifier can be chosen within a given modifier group.
+          format: int32
+          type: integer
+        name:
+          description: The name of the modifier.
+          type: string
+      type: object
+    ConsumerErrorResponse:
+      properties:
+        code:
+          format: int32
+          type: integer
+        codeText:
+          type: string
+      type: object
+    SearchWebResponse:
+      properties:
+        Closed:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+        Offline:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+        Open:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+      type: object
+    RestaurantDeliveryFees:
+      example:
+        bands:
+        - fee: 250
+          minimumAmount: 1000
+        - fee: 0
+          minimumAmount: 2000
+        minimumOrderValue: 1000
+        restaurantId: '5678'
+      nullable: false
+      properties:
+        bands:
+          description: Collection of delivery fee bands
+          items:
+            properties:
+              fee:
+                description: The delivery fee, in the smallest unit of local currency (e.g. pence).
+                format: integer
+                type: number
+              minimumAmount:
+                description: The minimum order value (excluding fees) when this fee band applies. The fee with the highest `minimumAmount` that is less than or equal to order value applies. This is in the smallest unit of local currency (e.g. pence).
+                format: integer
+                type: number
+            type: object
+          type: array
+        minimumOrderValue:
+          description: The minimum order value (excluding fees) required, in the smallest unit of local currency (e.g. pence).
+          format: integer
+          type: number
+        restaurantId:
+          description: The identifier of the restaurant
+          type: string
+      type: object
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
+  securitySchemes:
+    Bearer:
+      bearerFormat: JWT
+      description: Bearer token authentication using a JSON Web Token (JWT).
+      scheme: bearer
+      type: http
+    api_key:
+      description: APIs for delivery partners require an API key that will have been issued to you.
+      in: header
+      name: Authorization
+      type: apiKey
+    basic_auth:
+      description: A few services allow the use of basic authentication when a partner doesn't support OAuth based authentication.
+      scheme: basic
+      type: http
+    justeat_adfs:
+      description: ADFS authentication provider for internal Just Eat tools.
+      openIdConnectUrl: https://adfs.just-eat.com/adfs/.well-known/openid-configuration
+      type: openIdConnect
+    restaurantsignup_jwt:
+      bearerFormat: JWT token with payload `RestaurantId` and Role `[RestaurantRead | VerifyEmail | RestaurantWrite | FullAccess | DocumentRead]`
+      description: Bearer token authentication using a JSON Web Token (JWT), used by the restaurant sign up system
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Consumer Experience
+  tags:
+  - Authorization
+  - Consumers
+  - ConsumerOffers
+  - ConsumerQueries
+  - Consumer Queries Webhooks
+  - ConsumerOrders
+  - Search
+  - Basket
+  - Payments
+  - Giftcards
+  - Experiments
+  - Vouchers
+  - Promoted Placement
+  - Menu
+  - Recommendations
+  - Location Services
+- name: Manage Order Journey
+  tags:
+  - Order Acceptance API
+  - Order Acceptance Webhooks
+  - Order Delivery API
+  - Order Delivery Webhooks
+  - Order API
+  - Order Webhooks
+  - Customer Order Details
+  - DeliveryFee
+  - Delivery Pools API
+  - Attempted Delivery API
+  - Attempted Delivery Webhooks
+  - Checkout
+  - Courier Feedback
+- name: Restaurant Management
+  tags:
+  - Restaurant Product
+  - Restaurants
+  - RestaurantOffers
+  - Restaurant OrderTimes
+  - Restaurants Webhooks
+  - RestaurantSignup
+  - RestaurantQueries
+  - RestaurantQueries Webhooks
+  - Restaurant Claims
+  - Restaurant Events
+  - Restaurant Events Webhooks
+  - Restaurant API
+  - Restaurant Webhooks
+  - Products
+  - Logistics POS Restaurants
+  - Restaurant Smiley Rating

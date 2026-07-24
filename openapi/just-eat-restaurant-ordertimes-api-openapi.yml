@@ -1,0 +1,427 @@
+openapi: 3.0.0
+info:
+  contact:
+    x-twitter: JustEatUK
+  description: "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```"
+  title: Just Eat UK Attempted Delivery API Restaurant OrderTimes API
+  version: 1.0.0
+  x-apisguru-categories:
+  - ecommerce
+  x-logo:
+    url: https://api.apis.guru/v2/cache/logo/https_twitter.com_JustEatUK_profile_image.png
+  x-origin:
+  - format: openapi
+    url: https://uk.api.just-eat.io/docs/openapi.json
+    version: '3.0'
+  x-providerName: just-eat.co.uk
+servers:
+- description: Production URL for the UK API
+  url: https://uk.api.just-eat.io
+- description: Production URL for the DK, ES, IE, IT and NO API
+  url: https://i18n.api.just-eat.io
+- description: Production URL for the AU and NZ API
+  url: https://aus.api.just-eat.io
+tags:
+- name: Restaurant OrderTimes
+paths:
+  /restaurants/{tenant}/{restaurantId}/ordertimes:
+    get:
+      description: Get list of the delivery and collection lead times supplied by the restaurant
+      operationId: GetOrderTimes
+      parameters:
+      - description: A valid country code, e.g. "uk".
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: OAuth2 token issued for logged in restaurant
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          content:
+            application/json:
+              example:
+              - dayOfWeek: Sunday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Monday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Tuesday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Wednesday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Thursday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Friday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Saturday
+                lowerBoundMinutes: 35
+                serviceType: Delivery
+                upperBoundMinutes: 50
+              - dayOfWeek: Sunday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Monday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Tuesday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Wednesday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Thursday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Friday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              - dayOfWeek: Saturday
+                lowerBoundMinutes: 35
+                serviceType: Collection
+                upperBoundMinutes: 50
+              schema:
+                items:
+                  $ref: '#/components/schemas/orderTime'
+                maxItems: 14
+                type: array
+                uniqueItems: true
+          description: Success
+          headers:
+            cache-control:
+              description: Information about how the response can be cached.
+              schema:
+                type: string
+        '401':
+          $ref: '#/components/responses/401UnauthorizedResponse'
+        '403':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: The restaurant still uses deprecated approach of Lunch and Night menus
+                  errorCode: Forbidden
+                faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+                traceId: H3TKh4QSJUSwVBCBqEtkKw==
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Forbidden - the restaurant still uses deprecated approach of Lunch and Night menus
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500ErrorSchema'
+          description: Internal Server Error
+      summary: Get the restaurant's delivery and collection lead times
+      tags:
+      - Restaurant OrderTimes
+  /restaurants/{tenant}/{restaurantId}/ordertimes/{dayOfWeek}/{serviceType}:
+    put:
+      description: Update the restaurant's delivery and collection lead times
+      operationId: UpdateOrderTime
+      parameters:
+      - description: A valid country code, e.g. "uk".
+        in: path
+        name: tenant
+        required: true
+        schema:
+          type: string
+      - description: The restaurant Id.
+        in: path
+        name: restaurantId
+        required: true
+        schema:
+          type: string
+      - description: Day of week for order time
+        in: path
+        name: dayOfWeek
+        required: true
+        schema:
+          enum:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+          type: string
+      - description: Service type of the order time
+        in: path
+        name: serviceType
+        required: true
+        schema:
+          enum:
+          - Delivery
+          - Collection
+          type: string
+      - description: OAuth2 token issued for logged in restaurant OR API token for third party, in the format `Bearer {api_key}`
+        in: header
+        name: Authorization
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateOrderTimeRequest'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          content:
+            application/json:
+              example:
+                errors:
+                - description: Bad Request
+                  errorCode: ERR400
+                faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+                traceId: H3TKh4QSJUSwVBCBqEtkKw==
+              schema:
+                $ref: '#/components/schemas/4XXErrorSchema'
+          description: Bad Request
+        '401':
+          $ref: '#/components/responses/401UnauthorizedResponse'
+        '403':
+          $ref: '#/components/responses/403ForbiddenResponse'
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/500ErrorSchema'
+          description: Internal Server Error
+      summary: Update the restaurant's delivery and collection lead times
+      tags:
+      - Restaurant OrderTimes
+components:
+  schemas:
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    updateOrderTimeRequest:
+      description: Request object for order time update
+      example:
+        lowerBoundMinutes: 35
+        upperBoundMinutes: 50
+      properties:
+        lowerBoundMinutes:
+          description: Order time lower bound value, in minutes.
+          format: int32
+          type: integer
+        upperBoundMinutes:
+          description: Order time upper bound value, in minutes.
+          format: int32
+          type: integer
+      type: object
+    orderTime:
+      description: The object representing order time entry
+      example:
+        dayOfWeek: Monday
+        lowerBoundMinutes: 35
+        serviceType: Delivery
+        upperBoundMinutes: 50
+      properties:
+        dayOfWeek:
+          description: Day of week for order time
+          enum:
+          - Sunday
+          - Monday
+          - Tuesday
+          - Wednesday
+          - Thursday
+          - Friday
+          - Saturday
+          type: string
+        lowerBoundMinutes:
+          description: Order time lower bound value, in minutes.
+          format: int32
+          type: integer
+        serviceType:
+          description: Service type of the order time
+          enum:
+          - Delivery
+          - Collection
+          type: string
+        upperBoundMinutes:
+          description: Order time upper bound value, in minutes.
+          format: int32
+          type: integer
+      type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+  responses:
+    401UnauthorizedResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Unauthorized. The client did not provide an authentication token or the token was invalid.
+              errorCode: ERR401
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Unauthorized. The client did not provide an authentication token or the token was invalid
+    403ForbiddenResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Forbidden
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Forbidden. The client is not allowed to perform this action
+  securitySchemes:
+    Bearer:
+      bearerFormat: JWT
+      description: Bearer token authentication using a JSON Web Token (JWT).
+      scheme: bearer
+      type: http
+    api_key:
+      description: APIs for delivery partners require an API key that will have been issued to you.
+      in: header
+      name: Authorization
+      type: apiKey
+    basic_auth:
+      description: A few services allow the use of basic authentication when a partner doesn't support OAuth based authentication.
+      scheme: basic
+      type: http
+    justeat_adfs:
+      description: ADFS authentication provider for internal Just Eat tools.
+      openIdConnectUrl: https://adfs.just-eat.com/adfs/.well-known/openid-configuration
+      type: openIdConnect
+    restaurantsignup_jwt:
+      bearerFormat: JWT token with payload `RestaurantId` and Role `[RestaurantRead | VerifyEmail | RestaurantWrite | FullAccess | DocumentRead]`
+      description: Bearer token authentication using a JSON Web Token (JWT), used by the restaurant sign up system
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Consumer Experience
+  tags:
+  - Authorization
+  - Consumers
+  - ConsumerOffers
+  - ConsumerQueries
+  - Consumer Queries Webhooks
+  - ConsumerOrders
+  - Search
+  - Basket
+  - Payments
+  - Giftcards
+  - Experiments
+  - Vouchers
+  - Promoted Placement
+  - Menu
+  - Recommendations
+  - Location Services
+- name: Manage Order Journey
+  tags:
+  - Order Acceptance API
+  - Order Acceptance Webhooks
+  - Order Delivery API
+  - Order Delivery Webhooks
+  - Order API
+  - Order Webhooks
+  - Customer Order Details
+  - DeliveryFee
+  - Delivery Pools API
+  - Attempted Delivery API
+  - Attempted Delivery Webhooks
+  - Checkout
+  - Courier Feedback
+- name: Restaurant Management
+  tags:
+  - Restaurant Product
+  - Restaurants
+  - RestaurantOffers
+  - Restaurant OrderTimes
+  - Restaurants Webhooks
+  - RestaurantSignup
+  - RestaurantQueries
+  - RestaurantQueries Webhooks
+  - Restaurant Claims
+  - Restaurant Events
+  - Restaurant Events Webhooks
+  - Restaurant API
+  - Restaurant Webhooks
+  - Products
+  - Logistics POS Restaurants
+  - Restaurant Smiley Rating

@@ -1,0 +1,894 @@
+openapi: 3.0.0
+info:
+  contact:
+    x-twitter: JustEatUK
+  description: "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```"
+  title: Just Eat UK Attempted Delivery API Order Delivery Webhooks API
+  version: 1.0.0
+  x-apisguru-categories:
+  - ecommerce
+  x-logo:
+    url: https://api.apis.guru/v2/cache/logo/https_twitter.com_JustEatUK_profile_image.png
+  x-origin:
+  - format: openapi
+    url: https://uk.api.just-eat.io/docs/openapi.json
+    version: '3.0'
+  x-providerName: just-eat.co.uk
+servers:
+- description: Production URL for the UK API
+  url: https://uk.api.just-eat.io
+- description: Production URL for the DK, ES, IE, IT and NO API
+  url: https://i18n.api.just-eat.io
+- description: Production URL for the AU and NZ API
+  url: https://aus.api.just-eat.io
+tags:
+- name: Order Delivery Webhooks
+paths:
+  /driver-assigned-to-delivery:
+    put:
+      description: Driver Assigned to Delivery
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-status'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver Assigned to Delivery
+      tags:
+      - Order Delivery Webhooks
+  /driver-at-delivery-address:
+    put:
+      description: Driver at delivery address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-status'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver at delivery address
+      tags:
+      - Order Delivery Webhooks
+  /driver-at-restaurant:
+    put:
+      description: Driver at restaurant
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-status'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver at restaurant
+      tags:
+      - Order Delivery Webhooks
+  /driver-has-delivered-order:
+    put:
+      description: Driver has delivered order
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-status'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver has delivered order
+      tags:
+      - Order Delivery Webhooks
+  /driver-location:
+    put:
+      description: Driver Location
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-location'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver Location
+      tags:
+      - Order Delivery Webhooks
+  /driver-on-their-way-to-delivery-address:
+    put:
+      description: Driver on their way to delivery address
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/driver-status'
+        required: true
+      responses:
+        '200':
+          description: OK
+      summary: Driver on their way to delivery address
+      tags:
+      - Order Delivery Webhooks
+  /order-is-ready-for-pickup:
+    put:
+      description: <p>The "Ready for pickup" event lets the delivery partner know that the food has been cooked and is now ready for collection up from the restaurant.</p><p>When this event is received, it is important that you let your driver know that the order should now be collected from inside the restaurant. For example, this driver notification could take the form of an in-app notification or an SMS message.</p><p>This communication is needed to support restaurants who are unable to accommodate drivers inside their premises, as it allows restaurants to notify drivers waiting outside that they should come inside to collect their order.</p><p>NB&semi; This event can be sent by the restaurant at any point after the order is accepted by the restaurant (for instance, this event may be sent before the driver has arrived at the restaurant).</p>
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ready-for-pickup'
+        required: true
+      responses:
+        '200':
+          description: Upon successful receipt of the event, delivery partners should return a 200 HTTP status code indicating acknowledgement of transmission.
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  Details:
+                    type: string
+                  Message:
+                    type: string
+                  OrderId:
+                    type: string
+                  Timestamp:
+                    format: date-time
+                    type: string
+                type: object
+          description: In the unlikely case of unknown errors, JUST EAT will log a raw response. If possible, the response should have the following format
+      summary: Order ready for pickup
+      tags:
+      - Order Delivery Webhooks
+  /order-requires-delivery-acceptance:
+    put:
+      description: This webhook will be invoked when we have determined that an order is required acceptance for delivery. Upon receiving the request, the order should be scheduled for pickup by a courier/driver. We expect an immediate `201` response from this webhook to denote that you have received the request.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/connectorder-list'
+        required: true
+      responses:
+        '201':
+          description: In the event of successful handling of the request, a 201 status code should be returned, indicating acknowledgement of transmission success.
+        default:
+          content:
+            application/json:
+              schema:
+                properties:
+                  errors:
+                    items:
+                      properties:
+                        code:
+                          description: <p>Each code should be selected from the following list of valid reasons.</p><table><tr><th>code</th><th>explanation</th></tr><tr><td>`outside_hours`</td><td>Delivery partner is closed and not accepting requests.</td></tr><tr><td>`too_busy`</td><td>Delivery partner does not have enough capacity to accept this request.</td></tr><tr><td>`too_far`</td><td>The customer is too far away from the restaurant, either by time or distance.</td></tr><tr><td>`not_supported`</td><td>Delivery partner is currently unable to deliver to the customer's location.</td></tr><tr><td>`bad_address`</td><td>The order contains an address that could not be processed or understood.</td></tr><tr><td>`bad_request`</td><td>The order format is invalid or the order contains required data or information that cannot be processed.</td></tr><tr><td>`restaurant_not_configured`</td><td>Delivery partner is not configured to accept requests for given restaurant.</td></tr><tr><td>`duplicate`</td><td>The request has already been processed before.</td></tr><tr><td>`other`</td><td>Any validation failure or unexpected error not covered by the above codes.</td></tr></table>
+                          enum:
+                          - outside_hours
+                          - too_busy
+                          - too_far
+                          - not_supported
+                          - bad_address
+                          - bad_request
+                          - restaurant_not_configured
+                          - duplicate
+                          - other
+                          type: string
+                        message:
+                          description: <p>The accompanying message should, in each case, provide an explanation of the specific problem that was experienced.</p><br/><p>Please note that the accompanying explanatory text are part of the code is only intended as an explanation of each reason code - and should not be returned to us as the message.</p>
+                          type: string
+                      type: object
+                    type: array
+                type: object
+          description: In the case that the order cannot be accepted, an appropriate HTTP status code, such as 400 (Bad request) or 500 (Internal server error) should be returned.  In addition to the HTTP status code, a specific reason code and explanatory message should be provided within the response body
+      summary: Order requires delivery acceptance
+      tags:
+      - Order Delivery Webhooks
+components:
+  schemas:
+    location-v2:
+      example:
+        Latitude: 51.51641
+        Longitude: -0.103198
+      properties:
+        Latitude:
+          format: double
+          type: number
+        Longitude:
+          format: double
+          type: number
+      required:
+      - Latitude
+      - Longitude
+      type: object
+    order-item-restriction:
+      properties:
+        Type:
+          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
+          enum:
+          - Alcohol
+          type: string
+      type: object
+    connectorder:
+      properties:
+        BasketInfo:
+          description: Basket data
+          properties:
+            BasketId:
+              description: Unique Basket Id for the Order.
+              example: ABCb8DzdnUy7G481b0JN5g
+              type: string
+            DeliveryCharge:
+              description: Amount of cost that comes from delivery.
+              example: 5
+              format: double
+              type: number
+            Discount:
+              description: The discount amount, used in conjunction with `DiscountType`.
+              example: 4.78
+              format: double
+              type: number
+            Discounts:
+              description: Any Discounts applied to the Order.
+              items:
+                description: Discount data
+                properties:
+                  Discount:
+                    description: The discount amount, used in conjunction with `DiscountType`.
+                    example: 10
+                    format: int32
+                    type: number
+                  DiscountType:
+                    description: The type of discount, e.g. a percentage or the order or fixed amount.
+                    example: Percent
+                    type: string
+                  Id:
+                    description: Basket item id.
+                    example: 21950
+                    format: int32
+                    type: number
+                  QualifyingValue:
+                    description: The minimum order amount in order for this discount to be applicable.
+                    example: 4.78
+                    format: double
+                    type: number
+                type: object
+              type: array
+            GroupedBasketItems:
+              description: Grouped basket items
+              items:
+                description: An item in the Basket.
+                properties:
+                  BasketItem:
+                    description: An item in the Basket.
+                    properties:
+                      CombinedPrice:
+                        description: Unit Price plus individual Meal Part item cost.
+                        example: 3.58
+                        format: double
+                        type: number
+                      Discounts:
+                        description: Any discounts applied to this specific item.
+                        items:
+                          description: Discount data
+                          properties:
+                            Amount:
+                              description: Amount of the discount applied
+                              example: 4.5
+                              format: double
+                              type: number
+                            DiscountType:
+                              description: Type of the discount applied
+                              example: Percent
+                              type: string
+                          type: object
+                        type: array
+                      MealParts:
+                        description: Represents sub-parts of a meal.
+                        items:
+                          description: Meal part data
+                          properties:
+                            GroupId:
+                              description: The group Id.
+                              example: 1
+                              format: int32
+                              type: number
+                            MealPartId:
+                              description: The meal part Id.
+                              example: 45822750
+                              format: int32
+                              type: number
+                            Name:
+                              description: The name of the meal part.
+                              example: Any Sides?
+                              type: string
+                            OptionalAccessories:
+                              description: Optional accessories
+                              items:
+                                description: Optional accessory
+                                properties:
+                                  Name:
+                                    description: The name of the accessory.
+                                    example: Add Bacon
+                                    type: string
+                                  OptionalAccessoryId:
+                                    description: The accessory Id.
+                                    example: 56168
+                                    format: int32
+                                    type: number
+                                  Quantity:
+                                    description: The quantity of the accessory.
+                                    example: 1
+                                    format: int32
+                                    type: number
+                                  UnitPrice:
+                                    description: The unit price of the accessory.
+                                    example: 0.5
+                                    format: double
+                                    type: number
+                                type: object
+                              type: array
+                            RequiredAccessories:
+                              description: Required accessories
+                              items:
+                                description: Required accessory
+                                properties:
+                                  GroupId:
+                                    description: The group Id of the accessory.
+                                    example: 3
+                                    format: int32
+                                    type: number
+                                  Name:
+                                    description: The name of the accessory.
+                                    example: Coca-Cola Original Taste
+                                    type: string
+                                  RequiredAccessoryId:
+                                    description: The accessory Id.
+                                    example: 225025
+                                    format: int32
+                                    type: number
+                                  UnitPrice:
+                                    description: The unit price of the accessory.
+                                    example: 0.16
+                                    format: double
+                                    type: number
+                                type: object
+                              type: array
+                            Synonym:
+                              description: The synonym of the meal part.
+                              type: string
+                          type: object
+                        type: array
+                      MenuCardNumber:
+                        description: Menu card number.
+                        example: '1'
+                        type: string
+                      MultiBuyDiscounts:
+                        description: Any multi-purchase discounts applied to this item.
+                        items:
+                          description: Multi-purchase discount data
+                          properties:
+                            Amount:
+                              description: Amount of the discount applied
+                              example: 4.5
+                              format: double
+                              type: number
+                            DiscountType:
+                              description: Type of the discount applied
+                              example: Percent
+                              type: string
+                            OrderItemId:
+                              description: Id of the Order item.
+                              type: string
+                            ProductTypeId:
+                              description: The Id of the product type the discount applies to.
+                              format: int32
+                              type: number
+                          type: object
+                        type: array
+                      Name:
+                        description: The Item name, e.g. Chicken Tikka Masala or Family Meal Deal 3.
+                        example: Mini Fillet Burger
+                        type: string
+                      OptionalAccessories:
+                        description: An option item added to the Basket Item, this may be options such as Garlic Bread or a bottle of Coke.
+                        items:
+                          description: Optional accessory
+                          properties:
+                            Name:
+                              description: The name of the accessory.
+                              example: Add Bacon
+                              type: string
+                            OptionalAccessoryId:
+                              description: The accessory Id.
+                              example: 56168
+                              format: int32
+                              type: number
+                            Quantity:
+                              description: The quantity of the accessory.
+                              example: 1
+                              format: int32
+                              type: number
+                            UnitPrice:
+                              description: The unit price of the accessory.
+                              example: 0.5
+                              format: double
+                              type: number
+                          type: object
+                        type: array
+                      ProductId:
+                        description: Id of the Product.
+                        example: 45858074
+                        format: int32
+                        type: number
+                      ProductTypeId:
+                        description: Id of the Product.
+                        example: 428
+                        format: int32
+                        type: number
+                      RequiredAccessories:
+                        description: Items required as part of the Item, for example, Pizza base sauce.
+                        items:
+                          description: Required accessory
+                          properties:
+                            GroupId:
+                              description: The group Id of the accessory.
+                              example: 3
+                              format: int32
+                              type: number
+                            Name:
+                              description: The name of the accessory.
+                              example: Large Meal
+                              type: string
+                            RequiredAccessoryId:
+                              description: The accessory Id.
+                              example: 225025
+                              format: int32
+                              type: number
+                            UnitPrice:
+                              description: The unit price of the accessory.
+                              example: 0.1
+                              format: double
+                              type: number
+                          type: object
+                        type: array
+                      Synonym:
+                        description: Legacy - ignore.
+                        type: string
+                      UnitPrice:
+                        description: The price of the item.
+                        example: 1.79
+                        format: double
+                        type: number
+                    type: object
+                  CombinedPrice:
+                    description: The total price of the Basket Item (including discounts).
+                    example: 3.58
+                    format: double
+                    type: number
+                  MenuCardNumber:
+                    description: Menu card number.
+                    example: '1'
+                    type: string
+                  OrderSubId:
+                    description: Order `SubId`
+                    example: 0
+                    format: int32
+                    type: number
+                  Quantity:
+                    description: The quantity of Basket Items requested.
+                    example: 2
+                    format: int32
+                    type: number
+                type: object
+              type: array
+            MenuId:
+              description: Id of the Restaurant's menu.
+              example: 777890
+              format: int32
+              type: number
+            MultiBuyDiscount:
+              description: MultiBuy discount.
+              example: 0
+              format: double
+              type: number
+            SubTotal:
+              description: The Basket total cost, excluding any discounts.
+              example: 47.75
+              format: double
+              type: number
+            ToSpend:
+              description: Amount to spend.
+              example: 0
+              format: double
+              type: number
+            Total:
+              description: Total price of the Order.
+              example: 47.97
+              format: double
+              type: number
+          type: object
+        CustomerInfo:
+          description: Customer data
+          properties:
+            Address:
+              description: Customer Address. Note that Address is comma delimited.
+              example: Fleet Place House, 2 Fleet Place, London
+              type: string
+            City:
+              description: The name of the city where the Customer is located.
+              example: London
+              type: string
+            DisplayPhoneNumber:
+              description: The customer's masked phone number.
+              example: (01) 872 7863
+              type: string
+            Email:
+              description: Email address for the Customer.
+              example: contact@just-eat.com
+              type: string
+            Id:
+              description: The JUST EAT Customer Id.
+              example: '123456'
+              type: string
+            Latitude:
+              description: Customer address latitude. Will be 0 if not provided.
+              example: 51.50015
+              format: double
+              type: number
+            LocationAccuracyDescription:
+              description: Location accuracy description
+              example: ROOFTOP
+              type: string
+            LocationAccuracyInMeters:
+              description: Accuracy of the location data in meters.
+              example: 0
+              format: double
+              type: number
+            LocationSource:
+              description: Provider of the location data.
+              example: GeodataGeocoder
+              type: string
+            Longitude:
+              description: Customer address longitude. Will be 0 if not provided.
+              example: -0.12624
+              format: double
+              type: number
+            Name:
+              description: The name of the Customer.
+              example: Just Eat
+              type: string
+            PhoneMaskingCode:
+              description: Code to use when calling customer phone masked number (`DisplayPhoneNumber`) about this order. Null if phone masking not enabled
+              example: '444333222'
+              type: string
+            PhoneNumber:
+              description: The customer's unmasked phone number. Please don't expose this to drivers, instead use this number to provide your own phone masking number or use the JustEat masked number `DisplayPhoneNumber` below
+              example: 018727863
+              type: string
+            Postcode:
+              description: The post code where Customer is located.
+              example: EC4M 7RF
+              type: string
+            PreviousRestuarantOrderCount:
+              description: The number of Orders the Customer has placed at this Restaurant via JUST EAT
+              format: int32
+              type: number
+            TimeZone:
+              description: Customer timezone, e.g. 'Central European Standard Time'.
+              example: GMT Standard Time
+              type: string
+          type: object
+        CustomerOrderId:
+          deprecated: true
+          description: This is a deprecated customer-facing ID that we maintain to support existing implementations.
+          example: 348322088
+          format: int32
+          type: number
+        FriendlyOrderReference:
+          description: The customer facing identifier for the order, which should be used in any UI or receipts to identify the order to the customer, driver or restaurant. This identifier is not guaranteed to be globally unique.
+          example: '348322088'
+          type: string
+        Id:
+          deprecated: true
+          description: The unique identifier for an order within the country. You can provide this ID whenever sending requests related to the order. Note that further messages from Just Eat relating to this order may not use this same identifier, use `OrderId` for a more consistent identifier.
+          example: '348322088'
+          type: string
+        IsAMiniFistPumpOrder:
+          deprecated: true
+          description: Legacy Promotion - Ignore.
+          type: boolean
+        Order:
+          description: Order data
+          properties:
+            DueDate:
+              deprecated: true
+              description: Ignore - use `DueDateWithUtcOffset`.
+              format: date-time
+              type: string
+            DueDateWithUtcOffset:
+              description: The DateTime when the Customer has been told they will receive the Order.
+              format: date-time
+              type: string
+            InitialDueDate:
+              deprecated: true
+              description: Ignore - use `IntialDueDateWithUtcOffset`.
+              format: date-time
+              type: string
+            InitialDueDateWithUtcOffset:
+              description: When the Customer was originally told the order would be delivered (prior to Restaurant adjustment)
+              format: date-time
+              type: string
+            NoteToRestaurant:
+              description: Notes from the customer about their order. In addition to notes for the restaurant, this field can also delivery instructions - and should be displayed to the delivery driver.
+              example: Contact-free delivery
+              type: string
+            PickupNoticePeriod:
+              description: Desired minimum amount of notice needed before the driver arrives to pickup the order at the restaurant. This is to allow restaurant enough time to prepare the order. If less notice is given the driver may have to wait for the order to be prepared. Field is in the format "hh:mm:ss"
+              example: 00:10:00
+              format: timespan
+              type: string
+            PlacedDate:
+              description: Date Customer placed the order. Note that JUST EAT accepts pre-orders therefore there may be a significant difference between Placed Date and Due Date This Date/Time is set as UTC without an offset, regardless of Country.
+              format: date-time
+              type: string
+            PromptAsap:
+              description: Did the Customer request the Order to ready ASAP
+              type: boolean
+            RdsPickupTimeWithUtcOffset:
+              description: When the Delivery Partner needs to be at the Restaurant to pickup the Order.
+              format: date-time
+              type: string
+            ServiceType:
+              description: Type of the Order.
+              enum:
+              - Collection
+              - Delivery
+              type: string
+          type: object
+        OrderId:
+          description: Globally unique Identifier for the order. Please use this whenever sending requests related to this order. Just Eat will provide this same identifier on any further messages relating to this order.
+          example: ijdhpy7bdusgtc28bapspa
+          type: string
+        OrderReference:
+          deprecated: true
+          description: This field is used to store external references to the order. This is defined by either Just Eat or the partner that created the order.
+          example: 39cce3f0-0278-dd25-ae32-e8effe1ce4eb
+          type: string
+        PaymentInfo:
+          description: Payment data
+          properties:
+            CashOnDelivery:
+              description: Is the Customer paying on Delivery.
+              type: boolean
+            DriverTipValue:
+              description: The value of the tip given to the Driver.
+              example: 0
+              format: double
+              type: number
+            PaidDate:
+              description: DateTime when the Order was Paid (excludes UTC offset).
+              format: date-time
+              type: string
+            PaymentLines:
+              description: How the Customer has paid for the Order.
+              items:
+                description: Payment line data
+                properties:
+                  CardFee:
+                    description: Was there a fee for the payment mechanism.
+                    example: 0.5
+                    format: double
+                    type: number
+                  Type:
+                    description: How was the order Paid.
+                    enum:
+                    - Card
+                    type: string
+                  Value:
+                    description: The value of the payment.
+                    example: 22.05
+                    format: double
+                    type: number
+                type: object
+              type: array
+            Total:
+              description: The total order value.
+              example: 22.55
+              format: double
+              type: number
+            TotalComplementary:
+              description: Order amount covered by JUST EAT.
+              example: 0
+              format: double
+              type: number
+          type: object
+        RestaurantInfo:
+          description: Restaurant data
+          properties:
+            AddressLines:
+              description: Restaurant address.
+              items:
+                description: Address line
+                example: Fleet Place House 2, Fleet Place, London
+                type: string
+              type: array
+            City:
+              description: The name of the city where the Restaurant is located
+              example: London
+              type: string
+            DispatchMethod:
+              description: '`DispatchMethod` to use.'
+              example: Phone
+              type: string
+            EmailAddress:
+              description: Email address for the Restaurant.
+              example: contact@testrestaurant.com
+              type: string
+            Id:
+              description: Unique ID of the Restaurant.
+              example: '123456'
+              type: string
+            Latitude:
+              description: Restaurant address latitude. Will be 0 if not provided.
+              example: 51.50015
+              format: double
+              type: number
+            Longitude:
+              description: Restaurant address longitude. Will be 0 if not provided.
+              example: -0.12624
+              format: double
+              type: number
+            Name:
+              description: The name of the Restaurant.
+              example: Test Restaurant
+              type: string
+            PhoneNumber:
+              description: The Restaurant phone number.
+              example: 07123456789
+              type: string
+            PickupNotes:
+              description: Order pickup instructions for the Delivery Partner.
+              example: Use the back entrance
+              type: string
+            Postcode:
+              description: The post code where Restaurant is located
+              example: EC4M 7RF
+              type: string
+          type: object
+        Restrictions:
+          description: This is a list of types of restricted items contained in the order.
+          items:
+            $ref: '#/components/schemas/order-item-restriction'
+          type: array
+      type: object
+    driver-location:
+      properties:
+        Location:
+          $ref: '#/components/schemas/location-v2'
+        OrderId:
+          type: string
+        TimeStamp:
+          format: date-time
+          type: string
+      type: object
+    ready-for-pickup:
+      properties:
+        Event:
+          enum:
+          - Ready for pickup
+          type: string
+        Timestamp:
+          format: date-time
+          type: string
+      type: object
+    connectorder-list:
+      items:
+        $ref: '#/components/schemas/connectorder'
+      type: array
+    driver-status:
+      properties:
+        DriverContactNumber:
+          type: string
+        DriverName:
+          type: string
+        EstimatedDeliveryTime:
+          format: date-time
+          type: string
+        EstimatedPickupTime:
+          format: date-time
+          type: string
+        Event:
+          enum:
+          - DriverAssigned
+          - DriverAtRestaurant
+          - OnItsWay
+          - AtDeliveryAddress
+          - Delivered
+          type: string
+        OrderId:
+          type: string
+        TimeStamp:
+          format: date-time
+          type: string
+      type: object
+  securitySchemes:
+    Bearer:
+      bearerFormat: JWT
+      description: Bearer token authentication using a JSON Web Token (JWT).
+      scheme: bearer
+      type: http
+    api_key:
+      description: APIs for delivery partners require an API key that will have been issued to you.
+      in: header
+      name: Authorization
+      type: apiKey
+    basic_auth:
+      description: A few services allow the use of basic authentication when a partner doesn't support OAuth based authentication.
+      scheme: basic
+      type: http
+    justeat_adfs:
+      description: ADFS authentication provider for internal Just Eat tools.
+      openIdConnectUrl: https://adfs.just-eat.com/adfs/.well-known/openid-configuration
+      type: openIdConnect
+    restaurantsignup_jwt:
+      bearerFormat: JWT token with payload `RestaurantId` and Role `[RestaurantRead | VerifyEmail | RestaurantWrite | FullAccess | DocumentRead]`
+      description: Bearer token authentication using a JSON Web Token (JWT), used by the restaurant sign up system
+      scheme: bearer
+      type: http
+x-tagGroups:
+- name: Consumer Experience
+  tags:
+  - Authorization
+  - Consumers
+  - ConsumerOffers
+  - ConsumerQueries
+  - Consumer Queries Webhooks
+  - ConsumerOrders
+  - Search
+  - Basket
+  - Payments
+  - Giftcards
+  - Experiments
+  - Vouchers
+  - Promoted Placement
+  - Menu
+  - Recommendations
+  - Location Services
+- name: Manage Order Journey
+  tags:
+  - Order Acceptance API
+  - Order Acceptance Webhooks
+  - Order Delivery API
+  - Order Delivery Webhooks
+  - Order API
+  - Order Webhooks
+  - Customer Order Details
+  - DeliveryFee
+  - Delivery Pools API
+  - Attempted Delivery API
+  - Attempted Delivery Webhooks
+  - Checkout
+  - Courier Feedback
+- name: Restaurant Management
+  tags:
+  - Restaurant Product
+  - Restaurants
+  - RestaurantOffers
+  - Restaurant OrderTimes
+  - Restaurants Webhooks
+  - RestaurantSignup
+  - RestaurantQueries
+  - RestaurantQueries Webhooks
+  - Restaurant Claims
+  - Restaurant Events
+  - Restaurant Events Webhooks
+  - Restaurant API
+  - Restaurant Webhooks
+  - Products
+  - Logistics POS Restaurants
+  - Restaurant Smiley Rating
