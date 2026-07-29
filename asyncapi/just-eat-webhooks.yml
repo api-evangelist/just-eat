@@ -1,0 +1,94 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+spec_type: Webhooks
+docs: https://uk.api.just-eat.io/docs/jetconnect/index.html
+summary: >-
+  Just Eat Takeaway.com (JET Connect) pushes order-lifecycle and delivery-state
+  events to partner-hosted webhook endpoints. Some are 'async' webhooks: invoked
+  with a ?callback={returnUrl} query parameter, the receiver returns 202 Accepted
+  immediately, then POSTs a {status, message, data} envelope to returnUrl on
+  completion. Derived from the callback-style operations in the OpenAPI; this is
+  the webhook catalog, not a published AsyncAPI document (no AsyncAPI is shipped).
+delivery:
+  transport: https-webhook-post
+  async_pattern: '?callback={returnUrl} then POST 202/{status,message,data}'
+  security: HTTPS required; partner API key / signed request per JET onboarding.
+events:
+- name: order-accepted
+  operation: POST /order-accepted
+  category: order
+- name: order-rejected
+  operation: POST /order-rejected
+  category: order
+- name: order-cancelled
+  operation: POST /order-cancelled
+  category: order
+- name: order-time-updated
+  operation: POST /order-time-updated
+  category: order
+- name: order-is-ready-for-pickup
+  operation: PUT /order-is-ready-for-pickup
+  category: order
+- name: order-ready-for-preparation-sync
+  operation: POST /order-ready-for-preparation-sync
+  category: order
+- name: order-ready-for-preparation-async
+  operation: POST /order-ready-for-preparation-async
+  category: order
+  async: true
+- name: order-requires-delivery-acceptance
+  operation: PUT /order-requires-delivery-acceptance
+  category: order
+- name: acceptance-requested
+  operation: POST /acceptance-requested
+  category: order
+- name: order-eligible-for-restaurant-compensation
+  operation: POST /order-eligible-for-restaurant-compensation
+  category: order
+- name: menu-ingestion-complete
+  operation: POST /menu-ingestion-complete
+  category: menu
+  async: true
+- name: send-to-pos-failed
+  operation: POST /send-to-pos-failed
+  category: pos
+- name: restaurant-online-status
+  operation: PUT /restaurant-online-status
+  category: restaurant
+- name: restaurant-offline-status
+  operation: PUT /restaurant-offline-status
+  category: restaurant
+- name: driver-assigned-to-delivery
+  operation: PUT /driver-assigned-to-delivery
+  category: delivery
+- name: driver-at-restaurant
+  operation: PUT /driver-at-restaurant
+  category: delivery
+- name: driver-on-their-way-to-delivery-address
+  operation: PUT /driver-on-their-way-to-delivery-address
+  category: delivery
+- name: driver-at-delivery-address
+  operation: PUT /driver-at-delivery-address
+  category: delivery
+- name: driver-location
+  operation: PUT /driver-location
+  category: delivery
+- name: driver-has-delivered-order
+  operation: PUT /driver-has-delivered-order
+  category: delivery
+- name: delivery-failed
+  operation: PUT /delivery-failed
+  category: delivery
+- name: redelivery-requested
+  operation: PUT /redelivery-requested
+  category: delivery
+- name: attempted-delivery-query-resolved
+  operation: PUT /attempted-delivery-query-resolved
+  category: delivery
+- name: late-order-query
+  operation: POST /late-order-query
+  category: consumer-query
+- name: late-order-compensation-query
+  operation: POST /late-order-compensation-query
+  category: consumer-query

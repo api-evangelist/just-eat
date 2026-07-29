@@ -1,0 +1,14 @@
+{
+  "repo": "just-eat",
+  "feeds": [
+    {
+      "source": "https://uk.api.just-eat.io/docs/jetconnect/index.html",
+      "feed_url": "https://uk.api.just-eat.io/docs/jetconnect/index.html",
+      "title": "",
+      "saved": 0,
+      "method": "none"
+    }
+  ],
+  "post_count": 0,
+  "fetched": "2026-07-25T15:00:33Z"
+}

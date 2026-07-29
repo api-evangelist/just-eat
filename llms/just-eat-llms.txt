@@ -1,0 +1,26 @@
+# Just Eat
+
+> Just Eat Takeaway.com is a global online food-delivery marketplace connecting consumers with restaurants and last-mile delivery. The Just Eat UK API exposes restaurant discovery and search, product catalogue and menu ingestion, order lifecycle management, delivery-state tracking, checkout/basket, consumer communication preferences, and an extensive order and delivery webhook surface for POS (JET Connect) and delivery (JET Go) partners.
+
+## APIs
+- [Just Eat UK API docs](https://uk.api.just-eat.io/docs): Order, restaurant, catalogue, delivery and consumer operations (production hosts: uk.api.just-eat.io, i18n.api.just-eat.io, aus.api.just-eat.io).
+- [JET Connect (POS)](https://uk.api.just-eat.io/docs/jetconnect/index.html): Point-of-sale integration that pushes incoming orders into a partner POS.
+- [Delivery as a Service (JET Go)](https://uk.api.just-eat.io/docs/daas/index.html): Last-mile delivery product connecting merchants to the logistics network.
+
+## Specs
+- [OpenAPI 3.0 (Just Eat UK)](openapi/just-eat-uk-openapi-original.json): 85 paths, 671 schemas, 5 security schemes.
+
+## Artifacts
+- [Authentication profile](authentication/just-eat-authentication.yml): API key (JE-API-KEY), Bearer JWT, basic, ADFS OIDC (internal).
+- [Conventions](conventions/just-eat-conventions.yml): auth styles, tenancy, pagination, ISO 8601 dates, async webhooks.
+- [Error catalog](errors/just-eat-problem-types.yml): HTTP 4xx/5xx semantics including 429 rate limiting.
+- [Webhook catalog](asyncapi/just-eat-webhooks.yml): order-lifecycle and delivery-state events.
+- [Data model](data-model/just-eat-data-model.yml): Restaurant, Menu, Catalogue, Order, Delivery, Consumer.
+- [Conformance](conformance/just-eat-conformance.yml): HTTPS, JWT/API-key auth, ISO 8601, async webhooks.
+- [Lifecycle](lifecycle/just-eat-lifecycle.yml): versioning and deprecated operations.
+- [Agent skills](skills/_index.yml): packaged operating instructions for marquee flows.
+
+## Docs
+- [Public Developer Portal](https://developers.just-eat.com/)
+- [Engineering blog](https://tech.justeattakeaway.com/)
+- [GitHub organization](https://github.com/justeattakeaway)

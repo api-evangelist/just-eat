@@ -1,7 +1,17 @@
 aid: just-eat
 name: Just Eat
-description: Just Eat is a company surfaced as a portfolio company of redpoint-ventures and added to the
-  API Evangelist network as a stub for enrichment. This profile is a lead awaiting the enrichment pipeline.
+description: >-
+  Just Eat Takeaway.com is a leading global online food-delivery marketplace,
+  formed by the 2020 merger of Just Eat and Takeaway.com and headquartered in
+  Amsterdam. It connects consumers with local restaurants and a last-mile
+  delivery network across the UK, Europe, Australia/New Zealand and North
+  America. Its public developer surface (developers.just-eat.com) exposes the
+  Just Eat UK API for restaurant discovery and search, product catalogue and
+  menu ingestion, order-lifecycle management, delivery-state tracking, checkout
+  and basket, and consumer communication preferences, plus specialised partner
+  integrations: JET Connect (point-of-sale) and JET Go (delivery as a service).
+  Order-lifecycle and delivery-state events are pushed to partners through an
+  extensive webhook surface, including async webhooks that use a callback URL.
 url: https://raw.githubusercontent.com/api-evangelist/just-eat/refs/heads/main/apis.yml
 x-type: company
 x-source: vc-portfolio
@@ -9,17 +19,323 @@ x-backed-by:
 - redpoint-ventures
 x-tier: stub
 x-tier-reason: portfolio-lead
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: medium
+  source:
+  - authentication
+  generated: '2026-07-22'
+  method: derived
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-17'
+modified: '2026-07-19'
+image: https://logo.clearbit.com/just-eat.com
 tags:
-- Company
-apis: []
+- Food Delivery
+- Restaurants
+- Marketplace
+- Logistics
+- Orders
+- Delivery
+- Point of Sale
+- E-commerce
+apis:
+- aid: just-eat:just-eat-attempted-delivery-api-api
+  name: Just Eat Attempted Delivery API API
+  description: >-
+    The Attempted Delivery API API from Just Eat — 2 operation(s) for attempted delivery api.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Attempted Delivery API
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-attempted-delivery-api-api-openapi.yml
+- aid: just-eat:just-eat-attempted-delivery-webhooks-api
+  name: Just Eat Attempted Delivery Webhooks API
+  description: >-
+    The Attempted Delivery Webhooks API from Just Eat — 2 operation(s) for attempted delivery webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Attempted Delivery Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-attempted-delivery-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-checkout-api
+  name: Just Eat Checkout API
+  description: The Checkout API from Just Eat — 2 operation(s) for checkout.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Checkout
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-checkout-api-openapi.yml
+- aid: just-eat:just-eat-consumer-queries-webhooks-api
+  name: Just Eat Consumer Queries Webhooks API
+  description: >-
+    The Consumer Queries Webhooks API from Just Eat — 2 operation(s) for consumer queries webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Consumer Queries Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-consumer-queries-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-consumerqueries-api
+  name: Just Eat ConsumerQueries API
+  description: The ConsumerQueries API from Just Eat — 2 operation(s) for consumerqueries.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - ConsumerQueries
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-consumerqueries-api-openapi.yml
+- aid: just-eat:just-eat-consumers-api
+  name: Just Eat Consumers API
+  description: The Consumers API from Just Eat — 4 operation(s) for consumers.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Consumers
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-consumers-api-openapi.yml
+- aid: just-eat:just-eat-delivery-pools-api-api
+  name: Just Eat Delivery Pools API API
+  description: The Delivery Pools API API from Just Eat — 5 operation(s) for delivery pools api.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Delivery Pools API
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-delivery-pools-api-api-openapi.yml
+- aid: just-eat:just-eat-deliveryfee-api
+  name: Just Eat DeliveryFee API
+  description: The DeliveryFee API from Just Eat — 1 operation(s) for deliveryfee.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - DeliveryFee
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-deliveryfee-api-openapi.yml
+- aid: just-eat:just-eat-order-acceptance-api-api
+  name: Just Eat Order Acceptance API API
+  description: The Order Acceptance API API from Just Eat — 7 operation(s) for order acceptance api.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order Acceptance API
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-acceptance-api-api-openapi.yml
+- aid: just-eat:just-eat-order-acceptance-webhooks-api
+  name: Just Eat Order Acceptance Webhooks API
+  description: >-
+    The Order Acceptance Webhooks API from Just Eat — 5 operation(s) for order acceptance webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order Acceptance Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-acceptance-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-order-api-api
+  name: Just Eat Order API API
+  description: The Order API API from Just Eat — 1 operation(s) for order api.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order API
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-api-api-openapi.yml
+- aid: just-eat:just-eat-order-delivery-api-api
+  name: Just Eat Order Delivery API API
+  description: The Order Delivery API API from Just Eat — 10 operation(s) for order delivery api.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order Delivery API
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-delivery-api-api-openapi.yml
+- aid: just-eat:just-eat-order-delivery-webhooks-api
+  name: Just Eat Order Delivery Webhooks API
+  description: >-
+    The Order Delivery Webhooks API from Just Eat — 8 operation(s) for order delivery webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order Delivery Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-delivery-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-order-webhooks-api
+  name: Just Eat Order Webhooks API
+  description: The Order Webhooks API from Just Eat — 3 operation(s) for order webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Order Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-order-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-publicly-accessible-api
+  name: Just Eat publicly-accessible API
+  description: The publicly-accessible API from Just Eat — 85 operation(s) for publicly-accessible.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - publicly-accessible
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-publicly-accessible-api-openapi.yml
+- aid: just-eat:just-eat-restaurant-claims-api
+  name: Just Eat Restaurant Claims API
+  description: The Restaurant Claims API from Just Eat — 4 operation(s) for restaurant claims.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurant Claims
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurant-claims-api-openapi.yml
+- aid: just-eat:just-eat-restaurant-events-api
+  name: Just Eat Restaurant Events API
+  description: The Restaurant Events API from Just Eat — 2 operation(s) for restaurant events.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurant Events
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurant-events-api-openapi.yml
+- aid: just-eat:just-eat-restaurant-events-webhooks-api
+  name: Just Eat Restaurant Events Webhooks API
+  description: >-
+    The Restaurant Events Webhooks API from Just Eat — 2 operation(s) for restaurant events webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurant Events Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurant-events-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-restaurant-ordertimes-api
+  name: Just Eat Restaurant OrderTimes API
+  description: The Restaurant OrderTimes API from Just Eat — 2 operation(s) for restaurant ordertimes.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurant OrderTimes
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurant-ordertimes-api-openapi.yml
+- aid: just-eat:just-eat-restaurant-webhooks-api
+  name: Just Eat Restaurant Webhooks API
+  description: The Restaurant Webhooks API from Just Eat — 2 operation(s) for restaurant webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurant Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurant-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-restaurantqueries-api
+  name: Just Eat RestaurantQueries API
+  description: The RestaurantQueries API from Just Eat — 1 operation(s) for restaurantqueries.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - RestaurantQueries
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurantqueries-api-openapi.yml
+- aid: just-eat:just-eat-restaurantqueries-webhooks-api
+  name: Just Eat RestaurantQueries Webhooks API
+  description: >-
+    The RestaurantQueries Webhooks API from Just Eat — 1 operation(s) for restaurantqueries webhooks.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - RestaurantQueries Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurantqueries-webhooks-api-openapi.yml
+- aid: just-eat:just-eat-restaurants-api
+  name: Just Eat Restaurants API
+  description: The Restaurants API from Just Eat — 15 operation(s) for restaurants.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Restaurants
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-restaurants-api-openapi.yml
+- aid: just-eat:just-eat-search-api
+  name: Just Eat Search API
+  description: The Search API from Just Eat — 2 operation(s) for search.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Search
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-search-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Authentication
+  url: authentication/just-eat-authentication.yml
+- type: DomainSecurity
+  url: security/just-eat-domain-security.yml
+- type: Conventions
+  url: conventions/just-eat-conventions.yml
+- type: ErrorCatalog
+  url: errors/just-eat-problem-types.yml
+- type: Webhooks
+  url: asyncapi/just-eat-webhooks.yml
+- type: DataModel
+  url: data-model/just-eat-data-model.yml
+- type: Conformance
+  url: conformance/just-eat-conformance.yml
+- type: Lifecycle
+  url: lifecycle/just-eat-lifecycle.yml
+- type: MCPServer
+  url: mcp/just-eat-mcp.yml
+- type: LLMsTxt
+  url: llms/just-eat-llms.txt
+- type: AgentSkill
+  url: skills/_index.yml
+- type: DeveloperPortal
+  url: https://developers.just-eat.com/
+- type: Documentation
+  url: https://uk.api.just-eat.io/docs
+- type: APIReference
+  url: https://uk.api.just-eat.io/docs/jetconnect/index.html
+- type: Blog
+  url: https://tech.justeattakeaway.com/
+- type: GitHubOrganization
+  url: https://github.com/justeattakeaway
+- type: PrivacyPolicy
+  url: https://www.justeattakeaway.com/privacy-statement/
 - type: Website
   url: http://www.just-eat.com/
+x-enrichment:
+  date: '2026-07-19'
+  status: backfilled
+  pass: local-v1
+  note: backfilled from .gitignore signal + verified work evidence

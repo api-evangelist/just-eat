@@ -1,0 +1,28 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Just Eat UK
+  version: 1.0.0
+extends: openapi/just-eat-uk-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-enriched: '2026-07-19'
+    x-apievangelist-source: apis.guru (just-eat.co.uk 1.0.0)
+    x-apievangelist-artifacts:
+      authentication: authentication/just-eat-authentication.yml
+      conventions: conventions/just-eat-conventions.yml
+      errors: errors/just-eat-problem-types.yml
+      webhooks: asyncapi/just-eat-webhooks.yml
+      data-model: data-model/just-eat-data-model.yml
+      conformance: conformance/just-eat-conformance.yml
+      lifecycle: lifecycle/just-eat-lifecycle.yml
+- target: $.info
+  update:
+    x-apievangelist-auth-model: >-
+      Partner API key (JE-API-KEY in Authorization header) for delivery/POS
+      partners; Bearer JWT for consumer/user calls; basic auth on a few services.
+- target: $.info
+  update:
+    x-apievangelist-webhooks: >-
+      Order-lifecycle and delivery-state events pushed to partner endpoints;
+      async webhooks use ?callback={returnUrl} with a 202 Accepted + status envelope.

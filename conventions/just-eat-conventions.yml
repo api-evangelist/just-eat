@@ -1,0 +1,61 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+docs: https://uk.api.just-eat.io/docs
+summary: >-
+  Cross-cutting request/response semantics for the Just Eat UK API, derived from
+  the OpenAPI and the API description block. Auth is split by audience: a
+  partner API key (JE-API-KEY) for delivery/POS partners, and a Bearer JWT for
+  consumer/user calls. The platform is order- and restaurant-centric with a
+  significant asynchronous webhook/callback surface.
+authentication:
+  styles:
+  - name: partner-api-key
+    header: 'Authorization: JE-API-KEY <key>'
+    note: Issued to delivery/POS partners.
+  - name: user-jwt
+    header: 'Authorization: Bearer <jwt>'
+    note: Consumer/user token in JWT form.
+  - name: basic
+    note: A few services accept HTTP basic auth when a partner does not support OAuth-based auth.
+  cross_link: authentication/just-eat-authentication.yml
+idempotency:
+  supported: false
+  note: No Idempotency-Key header or idempotency contract is declared in the OpenAPI or description.
+pagination:
+  supported: partial
+  styles: [offset, cursor]
+  note: >-
+    Several collection endpoints (catalogue items/categories, search) expose
+    paging parameters; there is no single platform-wide cursor envelope.
+versioning:
+  scheme: uri-path-partial
+  note: >-
+    Most endpoints are unversioned at the path root; a subset uses a /v1/ prefix
+    (e.g. /v1/{tenant}/restaurants/event/offline). Tenancy is carried as a
+    {tenant} path segment rather than a version.
+tenancy:
+  mechanism: path-segment
+  parameter: '{tenant}'
+  note: Country/marketplace tenant is a required path segment on most resource operations.
+dates:
+  standard: ISO 8601
+  note: >-
+    All dates/times use ISO 8601 with a UTC offset (DueDateWithUtcOffset).
+    Callback timestamps are local time plus offset, or UTC with a 00:00 offset.
+async_webhooks:
+  supported: true
+  pattern: >-
+    Async webhooks are invoked with a ?callback={returnUrl} query parameter;
+    the receiver returns 202 Accepted immediately, performs the long-running
+    operation, then POSTs a {status, message, data} envelope to returnUrl.
+  cross_link: asyncapi/just-eat-webhooks.yml
+error_envelope:
+  content_types: [application/json, text/plain]
+  format: json
+  rfc9457: false
+  rate_limit_status: 429
+  cross_link: errors/just-eat-problem-types.yml
+transport:
+  https_required: true
+  note: All API calls and callbacks require HTTPS (port 443, valid TLS certificate).

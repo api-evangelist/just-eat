@@ -1,0 +1,12 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/just-eat-uk-openapi-original.json
+skills:
+- file: just-eat-restaurant-discovery.md
+  name: Discover restaurants and read their menu on Just Eat
+  api: openapi/just-eat-uk-openapi-original.json
+  operations: [SearchByPostcode, SearchByLocation, GetOrderTimes, getRestaurantServiceTimes]
+- file: just-eat-menu-ingestion.md
+  name: Ingest and maintain a restaurant menu on Just Eat
+  api: openapi/just-eat-uk-openapi-original.json
+  operations: [putMenuForIngestion, GetOrderTimes, UpdateOrderTime, putRestaurantServiceTimes]

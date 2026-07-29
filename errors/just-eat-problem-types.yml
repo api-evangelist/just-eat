@@ -1,0 +1,50 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+format: json
+notes: >-
+  Derived from the 4xx/5xx responses declared across the Just Eat UK OpenAPI.
+  Error bodies use application/json (and text/plain on some operations); the
+  API does not declare RFC 9457 application/problem+json. Standard HTTP status
+  semantics apply platform-wide, with 429 signalling rate limiting.
+problems:
+- status: 400
+  title: 'BAD REQUEST'
+  description: Cannot process the request due to error by client.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 401
+  title: 'UNAUTHORIZED'
+  description: Missing authentication credentials to access target resource.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 403
+  title: 'FORBIDDEN'
+  description: Not authorised to access target resource.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 404
+  title: 'NOT FOUND'
+  description: Target resource could not be found.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 409
+  title: 'CONFLICT'
+  description: Request not completed as it conflicts with target resource.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 422
+  title: 'UNPROCESSABLE ENTITY'
+  description: The request is well-formed but cannot be processed (e.g. a claim update that does not contain the referenced items).
+  example_operation: openapi/just-eat-uk-openapi-original.json#POST /restaurants/{tenant}/{restaurantId}/customerclaims/{id}/restaurantresponse
+- status: 429
+  title: 'TOO MANY REQUESTS'
+  description: Request not completed as server has received too many requests (rate limited).
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 500
+  title: 'INTERNAL SERVER ERROR'
+  description: Error on server preventing request from being fulfilled.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}
+- status: 501
+  title: 'NOT IMPLEMENTED'
+  description: The operation has not been implemented.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /consumers/{tenant}
+- status: 503
+  title: 'SERVICE UNAVAILABLE'
+  description: Server currently unable to fulfil the request.
+  example_operation: openapi/just-eat-uk-openapi-original.json#GET /checkout/{tenant}/{checkoutId}

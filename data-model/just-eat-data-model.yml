@@ -1,0 +1,87 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+summary: >-
+  Entity-relationship graph derived from the Just Eat UK OpenAPI path hierarchy
+  and id-reference fields. The domain is organised around Restaurant, Menu/
+  Catalogue, Order, Consumer, Delivery and Checkout/Basket, all scoped by a
+  {tenant} (country marketplace).
+entities:
+- name: Tenant
+  note: Country/marketplace scope carried as a {tenant} path segment.
+- name: Restaurant
+  id: restaurantId
+  note: A merchant location; root of catalogue, menus, fees, service/order times and claims.
+- name: Menu
+  belongs_to: Restaurant
+  note: Ingested per restaurant (putMenuForIngestion); versioned full menu.
+- name: Catalogue
+  belongs_to: Restaurant
+  note: Structured product catalogue (categories, items, variations, modifier groups, deal groups).
+- name: CatalogueItem
+  id: itemId
+  belongs_to: Catalogue
+- name: Category
+  id: categoryId
+  belongs_to: Catalogue
+- name: Order
+  id: orderId
+  note: Customer order against a restaurant, moving through accept/reject/prepare/deliver lifecycle.
+- name: DeliveryPool
+  id: deliveryPoolId
+  note: A grouping of restaurants for last-mile delivery availability and hours.
+- name: Consumer
+  note: End customer; communication preferences and consumer queries.
+- name: Checkout
+  id: checkoutId
+  note: In-progress checkout with available fulfilment times.
+- name: Basket
+  note: Consumer basket / basket summary.
+- name: CustomerClaim
+  belongs_to: Restaurant
+  note: Post-order claim/dispute with restaurant responses.
+relationships:
+- from: Restaurant
+  to: Menu
+  type: has_one
+  via: restaurantId
+- from: Restaurant
+  to: Catalogue
+  type: has_one
+  via: restaurantId
+- from: Catalogue
+  to: Category
+  type: has_many
+  via: categoryId
+- from: Catalogue
+  to: CatalogueItem
+  type: has_many
+  via: itemId
+- from: Category
+  to: CatalogueItem
+  type: has_many
+  via: categoryId
+- from: Order
+  to: Restaurant
+  type: belongs_to
+  via: restaurantId
+- from: Order
+  to: Consumer
+  type: belongs_to
+  via: consumer
+- from: DeliveryPool
+  to: Restaurant
+  type: has_many
+  via: deliveryPoolId
+- from: CustomerClaim
+  to: Restaurant
+  type: belongs_to
+  via: restaurantId
+- from: CustomerClaim
+  to: Order
+  type: belongs_to
+  via: orderId
+- from: Checkout
+  to: Consumer
+  type: belongs_to
+  via: checkoutId

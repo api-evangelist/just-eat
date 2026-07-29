@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/just-eat-uk-openapi-original.json
+notes: >-
+  Lifecycle posture derived from the OpenAPI plus the public developer surface.
+  A partial /v1/ path prefix is present but most endpoints are unversioned at the
+  root; tenancy (country marketplace) is carried in the {tenant} path segment.
+  No public status page, dated changelog, or formal deprecation policy page was
+  found on developers.just-eat.com / uk.api.just-eat.io at enrichment time.
+versioning:
+  scheme: uri-path-partial
+  current: v1
+  note: Subset of endpoints use /v1/; remainder are unversioned at the path root.
+  docs: https://uk.api.just-eat.io/docs
+deprecation:
+  policy_url: null
+  sunset_header: false
+  note: No RFC 8594 Sunset/Deprecation header support advertised.
+sla:
+  url: null
+status_page: null
+deprecated_operations:
+- 'openapi/just-eat-uk-openapi-original.json#GET /delivery/estimate'

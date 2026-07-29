@@ -1,0 +1,39 @@
+generated: '2026-07-19'
+method: derived
+status: candidate
+source: openapi/just-eat-uk-openapi-original.json
+notes: >-
+  No official hosted/remote Just Eat MCP server was found (developer portal,
+  npm @modelcontextprotocol, MCP registries). This is a DERIVED candidate tool
+  list mapped from safe read-oriented OpenAPI operations, for evaluation only.
+server:
+  name: just-eat
+  transport: http
+tools:
+- name: search_restaurants_by_postcode
+  description: Get restaurants serving a given postcode.
+  source_operation: openapi/just-eat-uk-openapi-original.json#SearchByPostcode
+- name: search_restaurants_by_location
+  description: Get restaurants by latitude/longitude.
+  source_operation: openapi/just-eat-uk-openapi-original.json#SearchByLocation
+- name: search_restaurants
+  description: Search restaurants within a tenant.
+  source_operation: 'openapi/just-eat-uk-openapi-original.json#GET /search/restaurants/{tenant}'
+- name: autocomplete_search
+  description: Get auto-completed restaurant search terms.
+  source_operation: 'openapi/just-eat-uk-openapi-original.json#GET /search/autocomplete/{tenant}'
+- name: get_restaurant_menu
+  description: Get the latest version of a restaurant's full menu.
+  source_operation: 'openapi/just-eat-uk-openapi-original.json#GET /restaurants/{tenant}/{restaurantId}/menu'
+- name: get_restaurant_catalogue
+  description: Get a restaurant's product catalogue.
+  source_operation: 'openapi/just-eat-uk-openapi-original.json#GET /restaurants/{tenant}/{restaurantId}/catalogue'
+- name: get_order_times
+  description: Get a restaurant's delivery and collection lead times.
+  source_operation: openapi/just-eat-uk-openapi-original.json#GetOrderTimes
+- name: get_service_times
+  description: Get a restaurant's service times.
+  source_operation: openapi/just-eat-uk-openapi-original.json#getRestaurantServiceTimes
+- name: get_delivery_estimate
+  description: Get a delivery estimate (deprecated operation).
+  source_operation: 'openapi/just-eat-uk-openapi-original.json#GET /delivery/estimate'
