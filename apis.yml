@@ -298,6 +298,8 @@ maintainers:
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Overlay
+  url: overlays/just-eat-uk-overlay.yaml
 - type: Authentication
   url: authentication/just-eat-authentication.yml
 - type: DomainSecurity
