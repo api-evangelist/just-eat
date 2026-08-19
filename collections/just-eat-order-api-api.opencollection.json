@@ -1,0 +1,39 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Order API API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders",
+            "headers": [
+              {
+                "name": "x-je-api-version",
+                "value": "2"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create order"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

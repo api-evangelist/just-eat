@@ -1,0 +1,1113 @@
+{
+  "item": [
+    {
+      "id": "1aaf749b-cbb4-4d63-a9ec-79736f175bd9",
+      "name": "Order Delivery API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "3bb35503-ad64-4c8c-a4b6-ede98673b54d",
+          "name": "Get delivery estimate",
+          "request": {
+            "name": "Get delivery estimate",
+            "description": {
+              "content": "Get delivery estimate",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "estimate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "restaurantReference",
+                  "value": "<string>",
+                  "description": "(Required) The reference of the restaurant to estimate the delivery time from."
+                },
+                {
+                  "disabled": false,
+                  "key": "toLat",
+                  "value": "<string>",
+                  "description": "The latitude of the position to estimate the delivery time to."
+                },
+                {
+                  "disabled": false,
+                  "key": "toLon",
+                  "value": "<string>",
+                  "description": "The longitude of the position to estimate the delivery time to."
+                },
+                {
+                  "disabled": false,
+                  "key": "toPostcode",
+                  "value": "<string>",
+                  "description": "The postcode to estimate the delivery time to."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "e0610a25-1de6-4dce-9b80-e4fe8accc70d",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "estimate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "restaurantReference",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toLat",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toLon",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "toPostcode",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"DurationInMinutes\": \"string\",\n  \"RestaurantReference\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3509c0e6-6181-404c-bad6-e2ab03f87019",
+          "name": "Update current driver locations (bulk upload)",
+          "request": {
+            "name": "Update current driver locations (bulk upload)",
+            "description": {
+              "content": "Current driver location (bulk upload)",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                "deliverystate",
+                "driverlocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"EtaAtDeliveryAddress\": \"<dateTime>\",\n    \"EtaAtRestaurant\": \"<dateTime>\",\n    \"Location\": {\n      \"Latitude\": \"<double>\",\n      \"Longitude\": \"<double>\",\n      \"Accuracy\": \"<double>\",\n      \"Heading\": \"<double>\",\n      \"Speed\": \"<double>\"\n    },\n    \"OrderId\": \"<string>\",\n    \"TimeStampWithUtcOffset\": \"<dateTime>\"\n  },\n  {\n    \"EtaAtDeliveryAddress\": \"<dateTime>\",\n    \"EtaAtRestaurant\": \"<dateTime>\",\n    \"Location\": {\n      \"Latitude\": \"<double>\",\n      \"Longitude\": \"<double>\",\n      \"Accuracy\": \"<double>\",\n      \"Heading\": \"<double>\",\n      \"Speed\": \"<double>\"\n    },\n    \"OrderId\": \"<string>\",\n    \"TimeStampWithUtcOffset\": \"<dateTime>\"\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "792edaa6-651d-4c43-9b5b-81c2e488f1f0",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    "deliverystate",
+                    "driverlocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n    \"EtaAtRestaurant\": \"2020-12-25T16:30:28.7537228+00:00\",\n    \"Location\": {\n      \"Accuracy\": 12.814,\n      \"Heading\": 357.10382,\n      \"Latitude\": 51.51641,\n      \"Longitude\": -0.103198,\n      \"Speed\": 8.68\n    },\n    \"OrderId\": \"<string>\",\n    \"TimeStampWithUtcOffset\": \"<dateTime>\"\n  },\n  {\n    \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n    \"EtaAtRestaurant\": \"2020-12-25T16:30:28.7537228+00:00\",\n    \"Location\": {\n      \"Accuracy\": 12.814,\n      \"Heading\": 357.10382,\n      \"Latitude\": 51.51641,\n      \"Longitude\": -0.103198,\n      \"Speed\": 8.68\n    },\n    \"OrderId\": \"<string>\",\n    \"TimeStampWithUtcOffset\": \"<dateTime>\"\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2b62c3e6-dbf0-4157-9ccc-654cc37743c6",
+          "name": "Update order with driver at delivery address details",
+          "request": {
+            "name": "Update order with driver at delivery address details",
+            "description": {
+              "content": "<p>The _at delivery address_ callback should be sent when the driver thinks that they have arrived at the specified delivery address.</p><p>NB&semi; This callback should be distinct from the delivered callback, as Just Eat use this callback to understand how much time is spent locating the customer's address.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "atdeliveryaddress"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "dd2f2dda-db7a-4ac6-8807-d596fec5b0e2",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "atdeliveryaddress"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TimeStampWithUtcOffset\": \"2018-03-10T14:45:28.7537228+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "af432273-077a-4dad-b56d-9bb2fe47a939",
+          "name": "Update order with driver at restaurant details",
+          "request": {
+            "name": "Update order with driver at restaurant details",
+            "description": {
+              "content": "The _at restaurant_ callback should be sent when the driver arrives at the restaurant and is ready to collect the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "atrestaurant"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EtaAtDeliveryAddress\": \"<dateTime>\",\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9b594274-78f8-4166-871a-5a1799d24814",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "atrestaurant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EtaAtDeliveryAddress\": \"2018-03-10T15:45:28.7537228+00:00\",\n  \"Location\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"TimeStampWithUtcOffset\": \"2018-03-10T14:45:28.7537228+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ef53a02-f95d-4552-8bbd-9bcc6cc4393d",
+          "name": "Update the driver's estimated time to arrive at the Restaurant",
+          "request": {
+            "name": "Update the driver's estimated time to arrive at the Restaurant",
+            "description": {
+              "content": "<p>In the UK, this endpoint updates the estimated arrival time at the restaurant. This value can be overridden from other endpoints like <a href=\"https://uk.api.just-eat.io/docs#tag/Order-Delivery-API/paths/~1orders~1{orderId}~1deliverystate~1driverlocation/put\">Driver Locations</a> </p> <p> This endpoint should be used to set initial at restaurant ETAs prior to driver assignment where available. The earlier a delivery partner is able to provide an estimate of when the driver will arrive at the restaurant the more likely it is that driver arrival and order preparation will be aligned. </p> <p> In other tenants (Not UK):Note that if set for a given order, this Eta will NOT be overridden by any other at restaurant ETAs provided in `DriverAssigned` or `DriverLocation` requests</p> <p>This value is significant since it informs when a restaurant is instructed to start preparing food. When the time remaining between current time and the estimated time of arrival becomes less than the restaurant's configured preparation time, food preparation is initiated</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "atrestauranteta"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bestGuess\": \"<dateTime>\",\n  \"estimatedAt\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "879a8963-9641-4d63-a689-4240c9f0ddde",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "atrestauranteta"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bestGuess\": \"<dateTime>\",\n  \"estimatedAt\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e37bbe39-9f13-4201-8b87-9908ee58dbe1",
+          "name": "Update order with delivered details",
+          "request": {
+            "name": "Update order with delivered details",
+            "description": {
+              "content": "The _delivered_ callback should be sent when the driver has handed the food to the customer and completed the order.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "delivered"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "56bdbd33-c665-4d9c-8342-bfd0e8515389",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "delivered"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"TimeStampWithUtcOffset\": \"2018-03-10T14:45:28.7537228+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cf419d0f-23a3-40f9-bc1a-fbc2f85d3612",
+          "name": "Update order with driver assigned details",
+          "request": {
+            "name": "Update order with driver assigned details",
+            "description": {
+              "content": "The _driver assigned_ callback should be sent when a driver is assigned to the order. It should communicate important details about the driver - and also an estimated time for the driver to arrive at the restaurant and delivery address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "driverassigned"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EtaAtDeliveryAddress\": \"<dateTime>\",\n  \"EtaAtRestaurant\": \"<dateTime>\",\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\",\n  \"VehicleDetails\": {\n    \"Vehicle\": \"<string>\",\n    \"VehicleRegistration\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "b62a1dd9-c3ea-48c1-9f02-70652b98bcbe",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "driverassigned"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"David\",\n  \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n  \"EtaAtRestaurant\": \"2020-12-25T15:30:28.7537228+00:00\",\n  \"Location\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"TimeStampWithUtcOffset\": \"2020-12-25T15:45:28.7537228+00:00\",\n  \"VehicleDetails\": {\n    \"Vehicle\": \"Motorbike\",\n    \"VehicleRegistration\": \"JU51 SAY\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b33bf9b2-a353-4579-a932-3b367fe3788e",
+          "name": "Update the driver's current location",
+          "request": {
+            "name": "Update the driver's current location",
+            "description": {
+              "content": "<p>Just Eat requires all delivery partners to send regular driver location callbacks, that record the GPS location of the drivers assigned to each order</p><p>Partners should aim to supply this callback approximately every 10 seconds.</p><p>Please provide an up-to-date ETA for when the driver will reach the restaurant in this request - this value is significant since it informs when a restaurant is instructed to start preparing food - when the time remaining between current time and the estimated time of arrival becomes less than the restaurant's configured preparation time, food preparation is initiated</p><p>Note that at restaurant Eta provided in this request will NOT override any ETA set in the Driver At Restaurant Eta request</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "driverlocation"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EtaAtDeliveryAddress\": \"<dateTime>\",\n  \"EtaAtRestaurant\": \"<dateTime>\",\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4eefecbd-eec5-4801-a071-e53b26245326",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "driverlocation"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n  \"EtaAtRestaurant\": \"2020-12-25T16:30:28.7537228+00:00\",\n  \"Location\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"TimeStampWithUtcOffset\": \"2020-12-25T15:45:28.7537228+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f8e2f425-02cb-44ed-87a0-6b3316b4c58b",
+          "name": "Update order with driver unassigned details",
+          "request": {
+            "name": "Update order with driver unassigned details",
+            "description": {
+              "content": "The _driver unassigned_ callback should be sent when a driver is unassigned from the order. It may details about the reason for cancelling the assignment, the driver details, and any newer at restaurant and customer estimations.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "driverunassigned"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) Just Eat order identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Comment\": \"<string>\",\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EtaAtDeliveryAddress\": \"<dateTime>\",\n  \"EtaAtRestaurant\": \"<dateTime>\",\n  \"Location:\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"Reason\": \"<string>\",\n  \"TimeStampWithUtcOffset\": \"<dateTime>\",\n  \"UnassignedBy\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "29b5a7e2-c6dd-455d-a8bc-f0fb165e3b51",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "driverunassigned"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Comment\": \"Order was not ready\",\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"David McDriverson\",\n  \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n  \"EtaAtRestaurant\": \"2020-12-25T16:30:28.7537228+00:00\",\n  \"Location:\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"Reason\": \"package_not_ready\",\n  \"TimeStampWithUtcOffset\": \"2020-12-25T15:30:28.7537228+00:00\",\n  \"UnassignedBy\": \"operation\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "8c30b249-27dd-4948-ac54-7b2349cf6320",
+              "name": "Bad Request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "driverunassigned"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) Just Eat order identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Comment\": \"Order was not ready\",\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"David McDriverson\",\n  \"EtaAtDeliveryAddress\": \"2020-12-25T16:45:28.7537228+00:00\",\n  \"EtaAtRestaurant\": \"2020-12-25T16:30:28.7537228+00:00\",\n  \"Location:\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"Reason\": \"package_not_ready\",\n  \"TimeStampWithUtcOffset\": \"2020-12-25T15:30:28.7537228+00:00\",\n  \"UnassignedBy\": \"operation\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"partnerId\": [\n    \"Partner id was not found or could not be parsed\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "42dc9392-b14a-4ac8-b7c6-033b24679999",
+          "name": "Update order with driver on its way details",
+          "request": {
+            "name": "Update order with driver on its way details",
+            "description": {
+              "content": "The _on its way_ callback should be sent when the driver departs the restaurant with the customer's order. It should contain an ETA that records when the driver expects to arrive at the customer's address.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "orders",
+                ":orderId",
+                "deliverystate",
+                "onitsway"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"EstimatedArrivalTime\": \"<dateTime>\",\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\",\n    \"Accuracy\": \"<double>\",\n    \"Heading\": \"<double>\",\n    \"Speed\": \"<double>\"\n  },\n  \"TimeStampWithUtcOffset\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "9c73eb28-d109-4620-9b39-da784dd0a866",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "orders",
+                    ":orderId",
+                    "deliverystate",
+                    "onitsway"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"EstimatedArrivalTime\": \"2020-12-25T16:45:28.7537228+00:00\",\n  \"Location\": {\n    \"Accuracy\": 12.814,\n    \"Heading\": 357.10382,\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198,\n    \"Speed\": 8.68\n  },\n  \"TimeStampWithUtcOffset\": \"2020-12-25T15:30:28.7537228+00:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://uk.api.just-eat.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b901ec47-3bcf-4ca5-adda-91e0164e029d",
+    "name": "Just Eat UK Attempted Delivery API Order Delivery API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```",
+      "type": "text/plain"
+    }
+  }
+}

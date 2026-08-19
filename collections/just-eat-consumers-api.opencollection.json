@@ -1,0 +1,213 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Consumers API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get consumers details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant."
+              },
+              {
+                "name": "emailAddress",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the consumer."
+              },
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "The account type of the consumer - currently only 'registered' accounts are supported."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the number of consumers that matches the `emailAddress` and `accountType`. The query value should be empty, e.g. `/consumers/uk/?emailAddress=someone@email.com&accountType=registered&count`."
+              }
+            ]
+          },
+          "docs": "Currently this operation only supports retrieving a count of consumer accounts given an email address."
+        },
+        {
+          "info": {
+            "name": "Create consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant. The only supported tenants are `uk`, `au` and `nz`"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a consumer for the given tenant."
+        },
+        {
+          "info": {
+            "name": "Get communication preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              }
+            ]
+          },
+          "docs": "Get all communication preferences for a given consumer."
+        },
+        {
+          "info": {
+            "name": "Get channel subscriptions for a given consumer's communication preference type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              }
+            ]
+          },
+          "docs": "Get channel subscriptions for a given consumer's communication preference type"
+        },
+        {
+          "info": {
+            "name": "Set only the channel subscriptions for a given consumer's communication preference type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set only the channel subscriptions for a given consumer's communication preference type. E.g., An empty list of subscribed Channels implies unsubscribe from all channels."
+        },
+        {
+          "info": {
+            "name": "Subscribe to a specific communication preference channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type/subscribedChannels/:channel",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "path",
+                "description": "The channel."
+              }
+            ]
+          },
+          "docs": "Subscribe to a specific communication preference channel."
+        },
+        {
+          "info": {
+            "name": "Remove subscription of a specific communication preference channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type/subscribedChannels/:channel",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preference."
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "path",
+                "description": "The channel."
+              }
+            ]
+          },
+          "docs": "Remove subscription of a specific communication preference channel."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

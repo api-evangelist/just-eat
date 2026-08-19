@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API ConsumerQueries API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "ConsumerQueries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Response to Late Order Update Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/consumerqueries/lateorder/restaurantresponse",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a customer has requested an update on the status of a late order, a response can be given by calling this endpoint."
+        },
+        {
+          "info": {
+            "name": "Update late order compensation request with Restaurant response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/consumerqueries/lateordercompensation/restaurantresponse",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a customer has requested compensation for a late order, a restaurant response is given by calling this endpoint."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

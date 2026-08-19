@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Restaurant Claims API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restaurant Claims",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date limiter"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "End date limiter"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Provides claims for a given restaurant with optional filtering"
+        },
+        {
+          "info": {
+            "name": "Get order claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about a order claim"
+        },
+        {
+          "info": {
+            "name": "Submit a restaurant response for the claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id/restaurantresponse",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a restaurant response for the claim, where the restaurant can tell us if they accept or reject the claim"
+        },
+        {
+          "info": {
+            "name": "Add reason and comments to the response",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id/restaurantresponse/justification",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add reason and optional comments in case of rejection of order claim"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

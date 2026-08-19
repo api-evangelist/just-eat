@@ -1,0 +1,33 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API RestaurantQueries Webhooks API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RestaurantQueries Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Order Eligible For Restaurant Compensation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-eligible-for-restaurant-compensation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked for every cancelled order and it will inform if the order is eligible for compensation.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Order Acceptance Webhooks API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Acceptance Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Acceptance requested",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/acceptance-requested",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever acceptance has been requested for the order."
+        },
+        {
+          "info": {
+            "name": "Order accepted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-accepted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was accepted."
+        },
+        {
+          "info": {
+            "name": "Order cancelled",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-cancelled",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was cancelled."
+        },
+        {
+          "info": {
+            "name": "Order rejected",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-rejected",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was rejected."
+        },
+        {
+          "info": {
+            "name": "Customer Requested Redelivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/redelivery-requested",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the customer responds to the attempted delivery notification."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API RestaurantQueries API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "RestaurantQueries",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Compensation requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/restaurantqueries/compensation",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an order is cancelled the restaurant might be eligible for compensation, this endpoint allows a request for compensation to be created."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

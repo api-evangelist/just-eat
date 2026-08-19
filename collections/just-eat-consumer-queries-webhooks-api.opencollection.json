@@ -1,0 +1,48 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Consumer Queries Webhooks API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Consumer Queries Webhooks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "late order compensation query, restaurant response required",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/late-order-compensation-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when a late order compensation query has been raised and a restaurant response is required."
+        },
+        {
+          "info": {
+            "name": "late order query, restaurant response required",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/late-order-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when a late order query has been raised and a restaurant response is required."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

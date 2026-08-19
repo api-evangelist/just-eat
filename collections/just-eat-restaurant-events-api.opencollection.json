@@ -1,0 +1,86 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Restaurant Events API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restaurant Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create Offline Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/v1/:tenant/restaurants/event/offline",
+            "headers": [
+              {
+                "name": "X-JE-Requester",
+                "value": ""
+              },
+              {
+                "name": "X-JE-User-Role",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an event for the specified restaurants that indicates a reason for those restaurants to be offline."
+        },
+        {
+          "info": {
+            "name": "Delete Offline Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/v1/:tenant/restaurants/:id/event/offline",
+            "headers": [
+              {
+                "name": "X-JE-Requester",
+                "value": ""
+              },
+              {
+                "name": "X-JE-User-Role",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the restaurant"
+              }
+            ]
+          },
+          "docs": "Removes specified restaurant from offline events. If role header is `System` or `Operations` only events created by the specified role will be affected. If role header is `Restaurant` then all events that have `allowRestaurantOverride=true` will be affected."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Restaurant OrderTimes API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restaurant OrderTimes",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get the restaurant's delivery and collection lead times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/ordertimes",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              }
+            ]
+          },
+          "docs": "Get list of the delivery and collection lead times supplied by the restaurant"
+        },
+        {
+          "info": {
+            "name": "Update the restaurant's delivery and collection lead times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/ordertimes/:dayOfWeek/:serviceType",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "dayOfWeek",
+                "value": "",
+                "type": "path",
+                "description": "Day of week for order time"
+              },
+              {
+                "name": "serviceType",
+                "value": "",
+                "type": "path",
+                "description": "Service type of the order time"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the restaurant's delivery and collection lead times"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

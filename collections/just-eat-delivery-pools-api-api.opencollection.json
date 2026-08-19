@@ -1,0 +1,235 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Delivery Pools API API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Delivery Pools API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get your delivery pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools"
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Create a new delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/delivery/pools",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Get an individual delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Replace an existing delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace an existing delivery pool changing all of its properties"
+        },
+        {
+          "info": {
+            "name": "Modify a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify a delivery pool, changing its name, restaurants or both"
+        },
+        {
+          "info": {
+            "name": "Delete a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "The restaurants will no longer be associated with the pool."
+        },
+        {
+          "info": {
+            "name": "Get availability for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/availability/relative",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "Get the current amount of time it will take a driver to collect a new order from a restaurant in the pool."
+        },
+        {
+          "info": {
+            "name": "Set availability for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/availability/relative",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool."
+        },
+        {
+          "info": {
+            "name": "Set the delivery pools daily start and end times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/hours",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the daily start and end times for a pool or set closed flag if the pool does not operate on that day. Start and end times for all days must be provided. Though the API accepts array of start and end times for each day, multiple start and end time for a day are not accepted. If the end time for a day is equal to or before start time, end time will be considered as time for the next day."
+        },
+        {
+          "info": {
+            "name": "Add restaurants to an existing delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/restaurants",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "Add additional restaurants to a delivery pool"
+        },
+        {
+          "info": {
+            "name": "Remove restaurants from a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/restaurants",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove restaurants from a delivery pool"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

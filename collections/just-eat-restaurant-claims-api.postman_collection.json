@@ -1,0 +1,2420 @@
+{
+  "item": [
+    {
+      "id": "2911d23c-ac67-43b6-b936-0b6a53da1a38",
+      "name": "Restaurant Claims",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11bc1be3-dcdc-4f25-938f-d3b202b7f10b",
+          "name": "Get claims",
+          "request": {
+            "name": "Get claims",
+            "description": {
+              "content": "Provides claims for a given restaurant with optional filtering",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restaurants",
+                ":tenant",
+                ":restaurantId",
+                "customerclaims"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fromDate",
+                  "value": "<dateTime>",
+                  "description": "Start date limiter"
+                },
+                {
+                  "disabled": false,
+                  "key": "toDate",
+                  "value": "<dateTime>",
+                  "description": "End date limiter"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "20",
+                  "description": "Pagination limit"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<integer>",
+                  "description": "Pagination offset"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Two letter code indicating the tenant"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restaurantId",
+                  "description": "(Required) Just Eat restaurant identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e0b6da74-4537-486d-b4ac-473e235892e7",
+              "name": "Request succeeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Information about how the response can be cached",
+                  "key": "cache-control",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"claims\": [\n    {\n      \"affectedItems\": [\n        {\n          \"additionalContext\": \"Potato skin was damaged\",\n          \"decision\": \"Rejected\",\n          \"name\": \"Potato skin\",\n          \"quantity\": 1,\n          \"reference\": \"productid%4t56574596\",\n          \"totalClaimed\": 1900,\n          \"unitPrice\": 2000\n        },\n        {\n          \"additionalContext\": \"Pizza was damaged too\",\n          \"decision\": \"Accepted\",\n          \"name\": \"Pizza\",\n          \"quantity\": 1,\n          \"reference\": \"productid%t5y6574596\",\n          \"totalClaimed\": 1900,\n          \"unitPrice\": 2000\n        }\n      ],\n      \"currency\": \"GBP\",\n      \"expirationDate\": \"2020-05-22T14:22:11.1053368+00:00\",\n      \"friendlyOrderReference\": \"451226580\",\n      \"issueType\": \"Damaged\",\n      \"orderId\": \"r23tqoxdoeupdx9w8evorw\",\n      \"resolution\": {\n        \"decision\": \"PartiallyAccepted\",\n        \"resolvedChannel\": \"PartnerCentre\",\n        \"resolvedDate\": \"2020-05-28T06:40:48.1053368+00:00\",\n        \"totalClaimedAccepted\": 1900\n      },\n      \"restaurantResponse\": {\n        \"decision\": \"PartiallyAccepted\",\n        \"items\": [\n          {\n            \"decision\": \"Rejected\"\n          },\n          {\n            \"decision\": \"Accepted\"\n          }\n        ],\n        \"justification\": {\n          \"comments\": \"The food was packed properly\",\n          \"reason\": \"Other\"\n        }\n      },\n      \"state\": \"Closed\",\n      \"submittedDate\": \"2020-05-20T14:22:11.1053368+00:00\",\n      \"totalClaimed\": 3800\n    },\n    {\n      \"affectedItems\": [\n        {\n          \"additionalContext\": \"Potato skin was damaged\",\n          \"decision\": \"Rejected\",\n          \"name\": \"Potato skin\",\n          \"quantity\": 1,\n          \"reference\": \"productid%4t56574596\",\n          \"totalClaimed\": 1900,\n          \"unitPrice\": 2000\n        },\n        {\n          \"additionalContext\": \"Pizza was damaged too\",\n          \"decision\": \"Accepted\",\n          \"name\": \"Pizza\",\n          \"quantity\": 1,\n          \"reference\": \"productid%t5y6574596\",\n          \"totalClaimed\": 1900,\n          \"unitPrice\": 2000\n        }\n      ],\n      \"currency\": \"GBP\",\n      \"expirationDate\": \"2020-05-22T14:22:11.1053368+00:00\",\n      \"friendlyOrderReference\": \"451226580\",\n      \"issueType\": \"Damaged\",\n      \"orderId\": \"r23tqoxdoeupdx9w8evorw\",\n      \"resolution\": {\n        \"decision\": \"PartiallyAccepted\",\n        \"resolvedChannel\": \"PartnerCentre\",\n        \"resolvedDate\": \"2020-05-28T06:40:48.1053368+00:00\",\n        \"totalClaimedAccepted\": 1900\n      },\n      \"restaurantResponse\": {\n        \"decision\": \"PartiallyAccepted\",\n        \"items\": [\n          {\n            \"decision\": \"Rejected\"\n          },\n          {\n            \"decision\": \"Accepted\"\n          }\n        ],\n        \"justification\": {\n          \"comments\": \"The food was packed properly\",\n          \"reason\": \"Other\"\n        }\n      },\n      \"state\": \"Closed\",\n      \"submittedDate\": \"2020-05-20T14:22:11.1053368+00:00\",\n      \"totalClaimed\": 3800\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b1e63101-ec21-42f1-86c6-423788751817",
+              "name": "Bad Request. Returned if the request is invalid e.g. has incorrect date limiter format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Bad Request. End date limiter should have date-time format.\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6b59a566-59bc-421b-91b2-3f8f2e5ecc9e",
+              "name": "Unauthorized. The client did not provide an authentication token or the token was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Unauthorized. The client did not provide an authentication token or the token was invalid.\",\n      \"errorCode\": \"ERR401\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f03c1c93-50c6-49c5-932d-5f5ee0ca32f5",
+              "name": "Forbidden. The client is not allowed to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Forbidden\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e427e059-a8e4-4af2-8b02-d7c7835730ff",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fromDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "toDate",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "20"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<integer>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Internal Server Error\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c356ffcc-740b-495b-bbfe-e95f9787406f",
+          "name": "Get order claim",
+          "request": {
+            "name": "Get order claim",
+            "description": {
+              "content": "Get information about a order claim",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restaurants",
+                ":tenant",
+                ":restaurantId",
+                "customerclaims",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Two letter code indicating the tenant"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restaurantId",
+                  "description": "(Required) Just Eat restaurant identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Claim identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3a30b700-8024-4fce-9b95-3a3aab44f33f",
+              "name": "Request succeeded",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "disabled": false,
+                  "description": "Information about how the response can be cached.",
+                  "key": "cache-control",
+                  "value": "string"
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"affectedItems\": [\n    {\n      \"additionalContext\": \"Potato skin was damaged\",\n      \"decision\": \"Rejected\",\n      \"name\": \"Potato skin\",\n      \"quantity\": 1,\n      \"reference\": \"productid%4t56574596\",\n      \"totalClaimed\": 1900,\n      \"unitPrice\": 2000\n    },\n    {\n      \"additionalContext\": \"Pizza was damaged too\",\n      \"decision\": \"Accepted\",\n      \"name\": \"Pizza\",\n      \"quantity\": 1,\n      \"reference\": \"productid%t5y6574596\",\n      \"totalClaimed\": 1900,\n      \"unitPrice\": 2000\n    }\n  ],\n  \"currency\": \"GBP\",\n  \"expirationDate\": \"2020-05-22T14:22:11.1053368+00:00\",\n  \"friendlyOrderReference\": \"451226580\",\n  \"issueType\": \"Damaged\",\n  \"orderId\": \"r23tqoxdoeupdx9w8evorw\",\n  \"resolution\": {\n    \"decision\": \"PartiallyAccepted\",\n    \"resolvedChannel\": \"PartnerCentre\",\n    \"resolvedDate\": \"2020-05-28T06:40:48.1053368+00:00\",\n    \"totalClaimedAccepted\": 1900\n  },\n  \"restaurantResponse\": {\n    \"decision\": \"PartiallyAccepted\",\n    \"items\": [\n      {\n        \"decision\": \"Rejected\"\n      },\n      {\n        \"decision\": \"Accepted\"\n      }\n    ],\n    \"justification\": {\n      \"comments\": \"The food was packed properly\",\n      \"reason\": \"Other\"\n    }\n  },\n  \"state\": \"Closed\",\n  \"submittedDate\": \"2020-05-20T14:22:11.1053368+00:00\",\n  \"totalClaimed\": 3800\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8ce083d7-f167-4bed-9f31-82403005b80b",
+              "name": "Unauthorized. The client did not provide an authentication token or the token was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Unauthorized. The client did not provide an authentication token or the token was invalid.\",\n      \"errorCode\": \"ERR401\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "be9a1d0a-c6bd-413e-83f4-424ae2e0de34",
+              "name": "Forbidden. The client is not allowed to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Forbidden\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0906e87d-0da5-409c-a26e-317b14bbb953",
+              "name": "Not Found. Claim could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault\": {\n    \"faultId\": \"string\",\n    \"errors\": [\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      },\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    ],\n    \"traceId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5c8fbc27-2d04-48d7-8dae-2577384398ce",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "Indicates what type of response client understands and is also used for content type negotiation (if version is specified), otherwise tells the server to return the latest version",
+                    "key": "Accept",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Internal Server Error\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2d6dfe77-38c5-4d06-bc94-f6f2d7a76133",
+          "name": "Submit a restaurant response for the claim",
+          "request": {
+            "name": "Submit a restaurant response for the claim",
+            "description": {
+              "content": "Submit a restaurant response for the claim, where the restaurant can tell us if they accept or reject the claim",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restaurants",
+                ":tenant",
+                ":restaurantId",
+                "customerclaims",
+                ":id",
+                "restaurantresponse"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Two letter code indicating the tenant"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restaurantId",
+                  "description": "(Required) Just Eat restaurant identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Claim identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"decision\": \"<string>\",\n  \"items\": [\n    {\n      \"decision\": \"<string>\",\n      \"id\": \"<string>\"\n    },\n    {\n      \"decision\": \"<string>\",\n      \"id\": \"<string>\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"<string>\",\n    \"reason\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5b72a22f-7d2b-4b4c-ab9b-4f069a22827a",
+              "name": "Request succeeded. Your response to the claim has been submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0bd6bfec-9c90-403d-996a-9d78b23cc197",
+              "name": "Bad Request. Returned if the request is invalid e.g. decision value is incorrect",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Bad Request. Incorrect decision\",\n      \"errorCode\": \"IncorrectDecision\"\n    },\n    {\n      \"description\": \"Bad Request. Missing decision\",\n      \"errorCode\": \"MissingDecision\"\n    },\n    {\n      \"description\": \"Bad Request. The request you are sending is missing some items for the claim you are trying to resolve\",\n      \"errorCode\": \"MissingItems\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0dcb9c13-7a87-49a7-a9df-4f0d207ffef4",
+              "name": "Unauthorized. The client did not provide an authentication token or the token was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Unauthorized. The client did not provide an authentication token or the token was invalid.\",\n      \"errorCode\": \"ERR401\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ee8aab6f-930d-438d-9d0e-332d7541dd17",
+              "name": "Forbidden. The client is not allowed to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Forbidden\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d08ff509-d36e-4714-83ec-4268be4e91eb",
+              "name": "Not Found. Claim could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault\": {\n    \"faultId\": \"string\",\n    \"errors\": [\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      },\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    ],\n    \"traceId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "96f28260-f8d8-4a7a-8281-b96ef5744b54",
+              "name": "Conflict. The claim you are attempting to resolve is has been resolved",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"The claim you are attempting to resolve is has been resolved\",\n      \"errorCode\": \"AlreadyResolved\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "0ef6ff1a-0df1-4ee5-a5b0-8cfc5f697588",
+              "name": "Unprocessable. The claim you are attempting to update does not contain the items from the request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"The claim you are attempting to update does not contain the items from the request\",\n      \"errorCode\": \"WrongItems\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e7d5f344-2cd2-4f8d-a6a2-edb419a334c2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"decision\": \"PartiallyAccepted\",\n  \"items\": [\n    {\n      \"decision\": \"Accepted\"\n    },\n    {\n      \"decision\": \"Rejected\"\n    }\n  ],\n  \"justification\": {\n    \"comments\": \"The food was packed properly\",\n    \"reason\": \"Other\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Internal Server Error\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "55730b0e-6304-4a0b-ae23-8afa598f7028",
+          "name": "Add reason and comments to the response",
+          "request": {
+            "name": "Add reason and comments to the response",
+            "description": {
+              "content": "Add reason and optional comments in case of rejection of order claim",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "restaurants",
+                ":tenant",
+                ":restaurantId",
+                "customerclaims",
+                ":id",
+                "restaurantresponse",
+                "justification"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "tenant",
+                  "description": "(Required) Two letter code indicating the tenant"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "restaurantId",
+                  "description": "(Required) Just Eat restaurant identifier"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) Claim identifier"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"comments\": \"<string>\",\n  \"reason\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4862fc62-eaf3-4617-9a44-186c840a007e",
+              "name": "Request succeeded. Justification was successfully submitted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97baeacd-2cc2-4795-a10e-0843d1d99f62",
+              "name": "Bad Request. Returned if the request is invalid e.g. reason doesn't match any of the predefined values",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Bad Request. Reason doesn't match any of the predefined values\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2d391c0c-aec6-4741-8d38-65dadb45d8e8",
+              "name": "Unauthorized. The client did not provide an authentication token or the token was invalid",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Unauthorized. The client did not provide an authentication token or the token was invalid.\",\n      \"errorCode\": \"ERR401\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e586f49-07f9-486e-a6bd-344bfec1b980",
+              "name": "Forbidden. The client is not allowed to perform this action",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Forbidden\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "17296627-709c-4bfc-9804-f57333d956cd",
+              "name": "Not Found. Claim could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault\": {\n    \"faultId\": \"string\",\n    \"errors\": [\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      },\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    ],\n    \"traceId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "ea52421d-ecfc-4b57-9794-efb26680b23e",
+              "name": "Conflict. The claim you are attempting to update is older than the current claim. Fetch the last copy of the entity and try the request again.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fault\": {\n    \"faultId\": \"string\",\n    \"errors\": [\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      },\n      {\n        \"description\": \"string\",\n        \"errorCode\": \"string\"\n      }\n    ],\n    \"traceId\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "51ac0569-4827-426d-956c-14d88176d99d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "restaurants",
+                    ":tenant",
+                    ":restaurantId",
+                    "customerclaims",
+                    ":id",
+                    "restaurantresponse",
+                    "justification"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "tenant",
+                      "description": "(Required) Two letter code indicating the tenant"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "restaurantId",
+                      "description": "(Required) Just Eat restaurant identifier"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) Claim identifier"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Indicates the representation of the request body the client is sending (including version)",
+                    "key": "Content-Type",
+                    "value": "application/json;v=1"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"comments\": \"The food was packed properly\",\n  \"reason\": \"Other\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"description\": \"Internal Server Error\"\n    }\n  ],\n  \"faultId\": \"25bbe062-c53d-4fbc-9d6c-3df6127b94fd\",\n  \"traceId\": \"H3TKh4QSJUSwVBCBqEtkKw==\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://uk.api.just-eat.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cd1b7a08-73e5-4cf5-9000-223c0cc3024c",
+    "name": "Just Eat UK Attempted Delivery API Restaurant Claims API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```",
+      "type": "text/plain"
+    }
+  }
+}

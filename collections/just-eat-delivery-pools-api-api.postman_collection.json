@@ -1,0 +1,2142 @@
+{
+  "item": [
+    {
+      "id": "5873557a-1344-479c-b3f6-89121e86db32",
+      "name": "Delivery Pools API",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "ef4cbd93-9030-41af-b2ce-2b7857dc722e",
+          "name": "Get your delivery pools",
+          "request": {
+            "name": "Get your delivery pools",
+            "description": {
+              "content": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "5ff82d5b-e00f-4917-8e83-995eab5e0010",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"b9c6673b8e5948b98cfbd14a982de2c2\": {\n    \"name\": \"Toronto - East\",\n    \"restaurants\": [\n      789\n    ]\n  },\n  \"d5f72466a6dd49a08166d5a044c5b9e4\": {\n    \"name\": \"Toronto - West\",\n    \"restaurants\": [\n      123,\n      456\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2c62733c-c878-4ac6-826c-47eded61d0f1",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0387290f-cac3-4d84-b585-f62320c03ab3",
+          "name": "Create a new delivery pool",
+          "request": {
+            "name": "Create a new delivery pool",
+            "description": {
+              "content": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"restaurants\": [\n    \"<int32>\",\n    \"<int32>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4707f153-f1cf-4a68-a85f-b68cfecda810",
+              "name": "Pool has been created.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6e616ab7-a9c3-4e0b-8d14-0301621cd810",
+              "name": "There was something invalid in your request - check response body for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": [\n    \"'Name' should not be empty\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8093529f-cdd5-4b1a-bd4f-2da8d44c2f56",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "95513279-4d69-4154-9b5b-837624a53fb0",
+          "name": "Delete a delivery pool",
+          "request": {
+            "name": "Delete a delivery pool",
+            "description": {
+              "content": "The restaurants will no longer be associated with the pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8704ebd8-66c0-4477-9e75-c930bc79d9e3",
+              "name": "Pool deleted",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e2058aeb-290f-4a42-b301-3f0016ec18df",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "533ebc23-1779-409a-8228-33aaac13e24c",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "0d26190f-4252-47ba-8877-8db69145ca65",
+          "name": "Get an individual delivery pool",
+          "request": {
+            "name": "Get an individual delivery pool",
+            "description": {
+              "content": "A delivery pool is a named group of drivers which deliver food for a set of restaurants.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "c31dfac1-1604-4a1b-bbf2-f543ba5ed607",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e88de08-d097-403d-8d12-7e8e7adae230",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "5677dc38-422c-4c75-a9c4-b544133f5618",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "6dae36cc-3804-434a-9fa9-8e63542967ab",
+          "name": "Modify a delivery pool",
+          "request": {
+            "name": "Modify a delivery pool",
+            "description": {
+              "content": "Modify a delivery pool, changing its name, restaurants or both",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PATCH",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"restaurants\": [\n    \"<int32>\",\n    \"<int32>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "6d98ed88-09e7-4462-9c17-ddc21c4ecf45",
+              "name": "Pool has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - North\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Toronto - North\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c619964-a3b0-48ef-88d8-a035bf932f1c",
+              "name": "There was something invalid in your request - check response body for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - North\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": [\n    \"'Name' should not be empty\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f2926545-486c-48fa-8580-9e9d5f5100ec",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - North\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ec8b14ac-70aa-4863-a568-216c838f2b8f",
+              "name": "A restaurant in your request already belongs to another pool",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - North\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Restaurant(s) are already assigned to pools : `{RestaurantId:55474, PoolId:cccebb96452349b799b71a7adc51df66}`",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "688de8c8-0800-4018-88c9-a4b1b2c66c5e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PATCH",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - North\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b0eae591-0a33-4396-9f5f-5faad64c550a",
+          "name": "Replace an existing delivery pool",
+          "request": {
+            "name": "Replace an existing delivery pool",
+            "description": {
+              "content": "Replace an existing delivery pool changing all of its properties",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"restaurants\": [\n    \"<int32>\",\n    \"<int32>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0830a24b-3bf0-4f32-8b34-83e6d8dbcf6b",
+              "name": "Pool has been replaced",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e3349f78-ba2f-4640-9198-0842ce2e9902",
+              "name": "There was something invalid in your request - check response body for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"name\": [\n    \"'Name' should not be empty\"\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9f19a4a3-7788-40d7-a598-91f1b08f2a2c",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "90319646-7d47-4b66-a9ff-1c8235e06503",
+              "name": "A restaurant in your request already belongs to another pool",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Restaurant(s) are already assigned to pools : `{RestaurantId:55474, PoolId:cccebb96452349b799b71a7adc51df66}`",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9662a2f2-773d-4d04-8ff8-0cc8f8623368",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Toronto - West\",\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "Internal Server Error",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ea5bafd1-681d-4a1d-9c6f-33b479be3e89",
+          "name": "Get availability for pickup",
+          "request": {
+            "name": "Get availability for pickup",
+            "description": {
+              "content": "Get the current amount of time it will take a driver to collect a new order from a restaurant in the pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId",
+                "availability",
+                "relative"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "67c9bb1e-e4d4-4375-88ba-3f48862d7042",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "availability",
+                    "relative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"bestGuess\": \"00:35:00\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "25ff87b8-7156-450e-a27c-e546282c94e0",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "availability",
+                    "relative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2092bd14-7ea4-4571-8624-d6f1ba993691",
+          "name": "Set availability for pickup",
+          "request": {
+            "name": "Set availability for pickup",
+            "description": {
+              "content": "Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId",
+                "availability",
+                "relative"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"bestGuess\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "82965789-7c8f-4eb5-b8a5-2cc91ceec9fc",
+              "name": "Update will take effect shortly",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "availability",
+                    "relative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bestGuess\": \"00:35:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Accepted",
+              "code": 202,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0dc49c44-1a46-4150-8dc0-e1c21bb0efee",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "availability",
+                    "relative"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"bestGuess\": \"00:35:00\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "67fd4b18-f4bf-4cbe-88e9-8b57336e3202",
+          "name": "Set the delivery pools daily start and end times",
+          "request": {
+            "name": "Set the delivery pools daily start and end times",
+            "description": {
+              "content": "Set the daily start and end times for a pool or set closed flag if the pool does not operate on that day. Start and end times for all days must be provided. Though the API accepts array of start and end times for each day, multiple start and end time for a day are not accepted. If the end time for a day is equal to or before start time, end time will be considered as time for the next day.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId",
+                "hours"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"monday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"tuesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"wednesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"thursday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"friday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"saturday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"sunday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "d5f03cd7-853e-4760-a160-549935773871",
+              "name": "Pool hours have been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"monday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"tuesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"wednesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"thursday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"friday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"saturday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"sunday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b5311832-0033-4a25-bf59-e196c35ffec0",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "hours"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"monday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"tuesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"wednesday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"thursday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"friday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"saturday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  },\n  \"sunday\": {\n    \"poolTimes\": [\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      },\n      {\n        \"startTime\": \"<string>\",\n        \"endTime\": \"<string>\"\n      }\n    ],\n    \"closed\": \"<boolean>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eaaf916b-c69c-412c-8488-bb1b9d9d159a",
+          "name": "Remove restaurants from a delivery pool",
+          "request": {
+            "name": "Remove restaurants from a delivery pool",
+            "description": {
+              "content": "Remove restaurants from a delivery pool",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId",
+                "restaurants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "DELETE",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"restaurants\": [\n    \"<int32>\",\n    \"<int32>\"\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "41d3cc28-f68d-41de-8d5e-5e3422342893",
+              "name": "Pool has been updated",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e06404b4-5cc9-4aa5-9973-ab3a37e8fc2b",
+              "name": "There was something invalid in your request - check response body for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e8388e0f-615a-42e6-8980-a41628711632",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "16b40721-4c72-48f0-99dc-e3c98ee2434b",
+          "name": "Add restaurants to an existing delivery pool",
+          "request": {
+            "name": "Add restaurants to an existing delivery pool",
+            "description": {
+              "content": "Add additional restaurants to a delivery pool",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "delivery",
+                "pools",
+                ":deliveryPoolId",
+                "restaurants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "deliveryPoolId",
+                  "description": "(Required) Identifier for the pool"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8be6eeb0-0f56-40d8-8929-880f0008f7f8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"restaurants\": [\n    123,\n    456\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2af97db6-b5f7-4ae7-9860-cd4222c96782",
+              "name": "There was something invalid in your request - check response body for details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "97a2a66b-ff1d-4ac9-9292-fa6a1b02483d",
+              "name": "The pool could not be found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e87740aa-8461-4e90-82fa-be5fd9a40a4f",
+              "name": "The restaurants could not be added to the pool. Typically this is because they are already assigned to another pool",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "delivery",
+                    "pools",
+                    ":deliveryPoolId",
+                    "restaurants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "deliveryPoolId",
+                      "description": "(Required) Identifier for the pool"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://uk.api.just-eat.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "034107f8-5914-4d0d-b25e-83f12d933ad3",
+    "name": "Just Eat UK Attempted Delivery API Delivery Pools API API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```",
+      "type": "text/plain"
+    }
+  }
+}

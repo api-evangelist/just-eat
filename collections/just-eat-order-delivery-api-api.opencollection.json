@@ -1,0 +1,253 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Order Delivery API API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Order Delivery API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get delivery estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/estimate",
+            "params": [
+              {
+                "name": "restaurantReference",
+                "value": "",
+                "type": "query",
+                "description": "The reference of the restaurant to estimate the delivery time from."
+              },
+              {
+                "name": "toLat",
+                "value": "",
+                "type": "query",
+                "description": "The latitude of the position to estimate the delivery time to."
+              },
+              {
+                "name": "toLon",
+                "value": "",
+                "type": "query",
+                "description": "The longitude of the position to estimate the delivery time to."
+              },
+              {
+                "name": "toPostcode",
+                "value": "",
+                "type": "query",
+                "description": "The postcode to estimate the delivery time to."
+              }
+            ]
+          },
+          "docs": "Get delivery estimate"
+        },
+        {
+          "info": {
+            "name": "Update current driver locations (bulk upload)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/deliverystate/driverlocation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Current driver location (bulk upload)"
+        },
+        {
+          "info": {
+            "name": "Update order with driver at delivery address details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atdeliveryaddress",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>The _at delivery address_ callback should be sent when the driver thinks that they have arrived at the specified delivery address.</p><p>NB&semi; This callback should be distinct from the delivered callback, as Just Eat use this callback to understand how much time is spent locating the customer's address.</p>"
+        },
+        {
+          "info": {
+            "name": "Update order with driver at restaurant details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atrestaurant",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _at restaurant_ callback should be sent when the driver arrives at the restaurant and is ready to collect the order."
+        },
+        {
+          "info": {
+            "name": "Update the driver's estimated time to arrive at the Restaurant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atrestauranteta",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>In the UK, this endpoint updates the estimated arrival time at the restaurant. This value can be overridden from other endpoints like <a href=\"https://uk.api.just-eat.io/docs#tag/Order-Delivery-API/paths/~1orders~1{orderId}~1deliverystate~1driverlocation/put\">Driver Locations</a> </p> <p> This endpoint should be used to set initial at restaurant ETAs prior to driver assignment where available. The earlier a delivery partner is able to provide an estimate of when the driver will arrive at the "
+        },
+        {
+          "info": {
+            "name": "Update order with delivered details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/delivered",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _delivered_ callback should be sent when the driver has handed the food to the customer and completed the order."
+        },
+        {
+          "info": {
+            "name": "Update order with driver assigned details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverassigned",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _driver assigned_ callback should be sent when a driver is assigned to the order. It should communicate important details about the driver - and also an estimated time for the driver to arrive at the restaurant and delivery address."
+        },
+        {
+          "info": {
+            "name": "Update the driver's current location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverlocation",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>Just Eat requires all delivery partners to send regular driver location callbacks, that record the GPS location of the drivers assigned to each order</p><p>Partners should aim to supply this callback approximately every 10 seconds.</p><p>Please provide an up-to-date ETA for when the driver will reach the restaurant in this request - this value is significant since it informs when a restaurant is instructed to start preparing food - when the time remaining between current time and the estimate"
+        },
+        {
+          "info": {
+            "name": "Update order with driver unassigned details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverunassigned",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _driver unassigned_ callback should be sent when a driver is unassigned from the order. It may details about the reason for cancelling the assignment, the driver details, and any newer at restaurant and customer estimations."
+        },
+        {
+          "info": {
+            "name": "Update order with driver on its way details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/onitsway",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _on its way_ callback should be sent when the driver departs the restaurant with the customer's order. It should contain an ETA that records when the driver expects to arrive at the customer's address."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

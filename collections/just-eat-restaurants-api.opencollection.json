@@ -1,0 +1,688 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Restaurants API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Restaurants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get restaurants by location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/bylatlong",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Accept-Tenant",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that deliver to the specified location"
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that deliver to the specified location"
+              },
+              {
+                "name": "cuisine",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that offer the specified cuisine"
+              },
+              {
+                "name": "restaurantName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that have a name that matches the specified value"
+              },
+              {
+                "name": "brandName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants of the specified brand"
+              }
+            ]
+          },
+          "docs": "Provides details of all restaurants that deliver to the specified location"
+        },
+        {
+          "info": {
+            "name": "Get restaurants by postcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/bypostcode/:postcode",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Accept-Tenant",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "postcode",
+                "value": "",
+                "type": "path",
+                "description": "Filter search results to only include restaurants that deliver to the specified postcode"
+              },
+              {
+                "name": "cuisine",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that offer the specified cuisine"
+              },
+              {
+                "name": "restaurantName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that have a name that matches the specified value"
+              },
+              {
+                "name": "brandName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants of the specified brand"
+              }
+            ]
+          },
+          "docs": "Provides details of restaurants that deliver to the specified postcode"
+        },
+        {
+          "info": {
+            "name": "Set ETA for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/driver/eta",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the average amount of time it will take a driver to collect a new order from a restaurant."
+        },
+        {
+          "info": {
+            "name": "Get product catalogue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              }
+            ]
+          },
+          "docs": "Get details of the restaurant's product catalogue"
+        },
+        {
+          "info": {
+            "name": "Get all availabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/availabilities",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of availabilities to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all availabilities on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/categories",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of categories to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all categories on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all category item IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/categories/:categoryId/items",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID."
+              },
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "The category ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of item IDs to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all item IDs which are assigned to the specified category"
+        },
+        {
+          "info": {
+            "name": "Get all menu items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all menu items on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all menu item deal groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/dealgroups",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all deal groups for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get all deal item variations for a deal group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/dealgroups/:dealGroupId/dealitemvariations",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "dealGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all deal item variations for the deal group with the specified ID, in the menu item with the specified ID"
+        },
+        {
+          "info": {
+            "name": "Get all menu item modifier groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/modifiergroups",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all modifier groups for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get all menu item variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/variations",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all variations for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get Restaurant Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/fees",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code for which country the restaurant resides in."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a restaurant"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the fees currently applied to a restaurant in a particular tenant"
+        },
+        {
+          "info": {
+            "name": "Create or Update Restaurant Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/fees",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code for which country the restaurant resides in."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a restaurant"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates or Updates the fees for a restaurant in a particular tenant"
+        },
+        {
+          "info": {
+            "name": "Get the latest version of the restaurant's full menu",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/menu",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The tenant of the restaurant in which to put a menu"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier to associated with the menu"
+              }
+            ]
+          },
+          "docs": "The endpoint will return a 301 redirect containing a URL that will grant access to the Menu file. The URL will only be available for a short period of time. The Menu file will be a single document containing the information that Just Eat has and uses to display the Menu on our customer clients. This will include a collection of items, a collection of Categories and a collection of Availabilities for when the items are available. Partners will be able to retrieve the Menu for any Restaurants that"
+        },
+        {
+          "info": {
+            "name": "Create or update a menu",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/menu",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The tenant of the restaurant in which to put a menu"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier to associated with the menu"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will begin an asynchronous process that will lead to that menu becoming live on the Just Eat platform"
+        },
+        {
+          "info": {
+            "name": "Get service times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/servicetimes",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code of restaurant's tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier"
+              }
+            ]
+          },
+          "docs": "Gets the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant"
+        },
+        {
+          "info": {
+            "name": "Create or update service times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/servicetimes",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code of restaurant's tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

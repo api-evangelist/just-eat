@@ -1,0 +1,88 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Attempted Delivery API",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Delivery Attempt Failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/:tenant/orders/:orderId/queries/attempteddelivery",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant e.g. uk."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the customer hasn't answered the door to collect the order, then an attempted delivery event can be created using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Request Redelivery of the Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/:tenant/orders/:orderId/queries/attempteddelivery/resolution/redeliverorder",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant e.g. uk."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the customer responds, then you can trigger the redelivery of an order through this endpoint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

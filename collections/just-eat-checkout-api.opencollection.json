@@ -1,0 +1,123 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API Checkout API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Checkout",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the details required to fulfil an order, which includes:\n  - The restaurant selling the items to be purchased\n  - The customer making the purchase\n  - How, where and when the items will be received by the customer\n  - Instructions about the order\n"
+        },
+        {
+          "info": {
+            "name": "Update Checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the details required to fulfil an order, which includes:\n  - The customer making the purchase\n  - Where and when the items will be received by the customer\n  - Instructions about the order\n"
+        },
+        {
+          "info": {
+            "name": "Get Available Fulfilment Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId/fulfilment/availabletimes",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ]
+          },
+          "docs": "Gets a collection of times for when an order can be fulfilled."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,2608 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Just Eat UK Attempted Delivery API publicly-accessible API",
+    "version": "3.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "publicly-accessible",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Acceptance requested",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/acceptance-requested",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever acceptance has been requested for the order."
+        },
+        {
+          "info": {
+            "name": "Attempted delivery query resolved",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/attempted-delivery-query-resolved",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever an attempted delivery query has been resolved."
+        },
+        {
+          "info": {
+            "name": "Get Checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the details required to fulfil an order, which includes:\n  - The restaurant selling the items to be purchased\n  - The customer making the purchase\n  - How, where and when the items will be received by the customer\n  - Instructions about the order\n"
+        },
+        {
+          "info": {
+            "name": "Update Checkout",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Update the details required to fulfil an order, which includes:\n  - The customer making the purchase\n  - Where and when the items will be received by the customer\n  - Instructions about the order\n"
+        },
+        {
+          "info": {
+            "name": "Get Available Fulfilment Times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/checkout/:tenant/:checkoutId/fulfilment/availabletimes",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code. \n\nThe following countries are supported:\n  - United Kingdom (UK)\n  - Australia (AU)\n  - New Zealand (NZ)\n"
+              },
+              {
+                "name": "checkoutId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a checkout. This is currently a Basket Id."
+              }
+            ]
+          },
+          "docs": "Gets a collection of times for when an order can be fulfilled."
+        },
+        {
+          "info": {
+            "name": "Get consumers details",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant."
+              },
+              {
+                "name": "emailAddress",
+                "value": "",
+                "type": "query",
+                "description": "Email address of the consumer."
+              },
+              {
+                "name": "accountType",
+                "value": "",
+                "type": "query",
+                "description": "The account type of the consumer - currently only 'registered' accounts are supported."
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query",
+                "description": "Returns the number of consumers that matches the `emailAddress` and `accountType`. The query value should be empty, e.g. `/consumers/uk/?emailAddress=someone@email.com&accountType=registered&count`."
+              }
+            ]
+          },
+          "docs": "Currently this operation only supports retrieving a count of consumer accounts given an email address."
+        },
+        {
+          "info": {
+            "name": "Create consumer",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant. The only supported tenants are `uk`, `au` and `nz`"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a consumer for the given tenant."
+        },
+        {
+          "info": {
+            "name": "Get communication preferences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              }
+            ]
+          },
+          "docs": "Get all communication preferences for a given consumer."
+        },
+        {
+          "info": {
+            "name": "Get channel subscriptions for a given consumer's communication preference type",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              }
+            ]
+          },
+          "docs": "Get channel subscriptions for a given consumer's communication preference type"
+        },
+        {
+          "info": {
+            "name": "Set only the channel subscriptions for a given consumer's communication preference type",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set only the channel subscriptions for a given consumer's communication preference type. E.g., An empty list of subscribed Channels implies unsubscribe from all channels."
+        },
+        {
+          "info": {
+            "name": "Subscribe to a specific communication preference channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type/subscribedChannels/:channel",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preferences."
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "path",
+                "description": "The channel."
+              }
+            ]
+          },
+          "docs": "Subscribe to a specific communication preference channel."
+        },
+        {
+          "info": {
+            "name": "Remove subscription of a specific communication preference channel",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/consumers/:tenant/me/communication-preferences/:type/subscribedChannels/:channel",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "type",
+                "value": "",
+                "type": "path",
+                "description": "The type of communication preference."
+              },
+              {
+                "name": "channel",
+                "value": "",
+                "type": "path",
+                "description": "The channel."
+              }
+            ]
+          },
+          "docs": "Remove subscription of a specific communication preference channel."
+        },
+        {
+          "info": {
+            "name": "Delivery Attempt Failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever an attempted delivery event is created from the device."
+        },
+        {
+          "info": {
+            "name": "Get restaurant delivery fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery-fees/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "uk",
+                "type": "path",
+                "description": "Tenant containing the restaurants."
+              },
+              {
+                "name": "restaurantIds",
+                "value": "1,2,3,4",
+                "type": "query",
+                "description": "Restaurant IDs which fees are requested for. e.g. `?restaurantIds=1,2,3,4`"
+              },
+              {
+                "name": "deliveryTime",
+                "value": "2019-09-05T12:43:48.431Z",
+                "type": "query",
+                "description": "Delivery date/time when fees are required (ISO8601 format)."
+              },
+              {
+                "name": "zone",
+                "value": "BS1",
+                "type": "query",
+                "description": "Postcode or other location name identifying the location to which delivery is required. For use when precise location is not available. This will be removed in future in favour of location."
+              },
+              {
+                "name": "latlong",
+                "value": "51.3851513,-2.0841275",
+                "type": "query",
+                "description": "Point to which delivery is required (latitude, longitude). Supply this where possible as support for zone-only based lookups will be removed in future."
+              }
+            ]
+          },
+          "docs": "Retrieve delivery fees for many restaurants. Returns fees and minimum order values required for delivery orders."
+        },
+        {
+          "info": {
+            "name": "Get delivery estimate",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/estimate",
+            "params": [
+              {
+                "name": "restaurantReference",
+                "value": "",
+                "type": "query",
+                "description": "The reference of the restaurant to estimate the delivery time from."
+              },
+              {
+                "name": "toLat",
+                "value": "",
+                "type": "query",
+                "description": "The latitude of the position to estimate the delivery time to."
+              },
+              {
+                "name": "toLon",
+                "value": "",
+                "type": "query",
+                "description": "The longitude of the position to estimate the delivery time to."
+              },
+              {
+                "name": "toPostcode",
+                "value": "",
+                "type": "query",
+                "description": "The postcode to estimate the delivery time to."
+              }
+            ]
+          },
+          "docs": "Get delivery estimate"
+        },
+        {
+          "info": {
+            "name": "Get your delivery pools",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools"
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Create a new delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/delivery/pools",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Get an individual delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "A delivery pool is a named group of drivers which deliver food for a set of restaurants."
+        },
+        {
+          "info": {
+            "name": "Replace an existing delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Replace an existing delivery pool changing all of its properties"
+        },
+        {
+          "info": {
+            "name": "Modify a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Modify a delivery pool, changing its name, restaurants or both"
+        },
+        {
+          "info": {
+            "name": "Delete a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "The restaurants will no longer be associated with the pool."
+        },
+        {
+          "info": {
+            "name": "Get availability for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/availability/relative",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "Get the current amount of time it will take a driver to collect a new order from a restaurant in the pool."
+        },
+        {
+          "info": {
+            "name": "Set availability for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/availability/relative",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the average amount of time it will take a driver to collect a new order from a restaurant in the pool."
+        },
+        {
+          "info": {
+            "name": "Set the delivery pools daily start and end times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/hours",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the daily start and end times for a pool or set closed flag if the pool does not operate on that day. Start and end times for all days must be provided. Though the API accepts array of start and end times for each day, multiple start and end time for a day are not accepted. If the end time for a day is equal to or before start time, end time will be considered as time for the next day."
+        },
+        {
+          "info": {
+            "name": "Add restaurants to an existing delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/restaurants",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ]
+          },
+          "docs": "Add additional restaurants to a delivery pool"
+        },
+        {
+          "info": {
+            "name": "Remove restaurants from a delivery pool",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/delivery/pools/:deliveryPoolId/restaurants",
+            "params": [
+              {
+                "name": "deliveryPoolId",
+                "value": "",
+                "type": "path",
+                "description": "Identifier for the pool"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Remove restaurants from a delivery pool"
+        },
+        {
+          "info": {
+            "name": "Driver Assigned to Delivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-assigned-to-delivery",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver Assigned to Delivery"
+        },
+        {
+          "info": {
+            "name": "Driver at delivery address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-at-delivery-address",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver at delivery address"
+        },
+        {
+          "info": {
+            "name": "Driver at restaurant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-at-restaurant",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver at restaurant"
+        },
+        {
+          "info": {
+            "name": "Driver has delivered order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-has-delivered-order",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver has delivered order"
+        },
+        {
+          "info": {
+            "name": "Driver Location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-location",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver Location"
+        },
+        {
+          "info": {
+            "name": "Driver on their way to delivery address",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/driver-on-their-way-to-delivery-address",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Driver on their way to delivery address"
+        },
+        {
+          "info": {
+            "name": "late order compensation query, restaurant response required",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/late-order-compensation-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when a late order compensation query has been raised and a restaurant response is required."
+        },
+        {
+          "info": {
+            "name": "late order query, restaurant response required",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/late-order-query",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when a late order query has been raised and a restaurant response is required."
+        },
+        {
+          "info": {
+            "name": "Menu ingestion complete",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/menu-ingestion-complete",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Callback to confirm that an attempt to ingest a menu has completed either successfully or unsuccessfully"
+        },
+        {
+          "info": {
+            "name": "Order accepted",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-accepted",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was accepted."
+        },
+        {
+          "info": {
+            "name": "Order cancelled",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-cancelled",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was cancelled."
+        },
+        {
+          "info": {
+            "name": "Order Eligible For Restaurant Compensation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-eligible-for-restaurant-compensation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked for every cancelled order and it will inform if the order is eligible for compensation.\n"
+        },
+        {
+          "info": {
+            "name": "Order ready for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/order-is-ready-for-pickup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>The \"Ready for pickup\" event lets the delivery partner know that the food has been cooked and is now ready for collection up from the restaurant.</p><p>When this event is received, it is important that you let your driver know that the order should now be collected from inside the restaurant. For example, this driver notification could take the form of an in-app notification or an SMS message.</p><p>This communication is needed to support restaurants who are unable to accommodate drivers insi"
+        },
+        {
+          "info": {
+            "name": "Order ready for preparation (async)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-ready-for-preparation-async",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when we have determined that an order is ready for preparation. Upon receiving the request, you should perform any preparation-related activities, such as sending the order to the POS system / kitchen screen.\n**NOTE:** This version of the webhook is asynchronous, and we expect a response in two parts:\n  1. We expect an immediate `202` response from this webhook to denote that you have received the request;\n  2. Following that, we expect an [async callback](#section/A"
+        },
+        {
+          "info": {
+            "name": "Order ready for preparation (sync)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-ready-for-preparation-sync",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when we have determined that an order is ready for preparation. Upon receiving the request, you should perform any preparation-related activities, such as sending the order to the POS system / kitchen screen.\n"
+        },
+        {
+          "info": {
+            "name": "Order rejected",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-rejected",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the order was rejected."
+        },
+        {
+          "info": {
+            "name": "Order requires delivery acceptance",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/order-requires-delivery-acceptance",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked when we have determined that an order is required acceptance for delivery. Upon receiving the request, the order should be scheduled for pickup by a courier/driver. We expect an immediate `201` response from this webhook to denote that you have received the request."
+        },
+        {
+          "info": {
+            "name": "Order time updated",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/order-time-updated",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Callback to notify recipients that there has been a change to the restaurant order times for a given day and service type"
+        },
+        {
+          "info": {
+            "name": "Create order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders",
+            "headers": [
+              {
+                "name": "x-je-api-version",
+                "value": "2"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Create order"
+        },
+        {
+          "info": {
+            "name": "Update current driver locations (bulk upload)",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/deliverystate/driverlocation",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Current driver location (bulk upload)"
+        },
+        {
+          "info": {
+            "name": "Accept order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/accept",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Call when an order has been accepted. An order can only be accepted if it hasn't previously been accepted, rejected, cancelled or ignored"
+        },
+        {
+          "info": {
+            "name": "Cancel order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/cancel",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Call when an order has been cancelled by Ops. Cancelling an order overrides any previous accept/reject calls. This should not be used for restaurant rejection but only from Ops involvement"
+        },
+        {
+          "info": {
+            "name": "Complete order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/complete",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the order to mark as complete"
+              }
+            ]
+          },
+          "docs": "Call when an order is complete. An order can only be marked as complete if it hasn't already been marked as cancelled or complete."
+        },
+        {
+          "info": {
+            "name": "Update order with driver at delivery address details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atdeliveryaddress",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>The _at delivery address_ callback should be sent when the driver thinks that they have arrived at the specified delivery address.</p><p>NB&semi; This callback should be distinct from the delivered callback, as Just Eat use this callback to understand how much time is spent locating the customer's address.</p>"
+        },
+        {
+          "info": {
+            "name": "Update order with driver at restaurant details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atrestaurant",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _at restaurant_ callback should be sent when the driver arrives at the restaurant and is ready to collect the order."
+        },
+        {
+          "info": {
+            "name": "Update the driver's estimated time to arrive at the Restaurant",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/atrestauranteta",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>In the UK, this endpoint updates the estimated arrival time at the restaurant. This value can be overridden from other endpoints like <a href=\"https://uk.api.just-eat.io/docs#tag/Order-Delivery-API/paths/~1orders~1{orderId}~1deliverystate~1driverlocation/put\">Driver Locations</a> </p> <p> This endpoint should be used to set initial at restaurant ETAs prior to driver assignment where available. The earlier a delivery partner is able to provide an estimate of when the driver will arrive at the "
+        },
+        {
+          "info": {
+            "name": "Update order with delivered details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/delivered",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _delivered_ callback should be sent when the driver has handed the food to the customer and completed the order."
+        },
+        {
+          "info": {
+            "name": "Update order with driver assigned details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverassigned",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _driver assigned_ callback should be sent when a driver is assigned to the order. It should communicate important details about the driver - and also an estimated time for the driver to arrive at the restaurant and delivery address."
+        },
+        {
+          "info": {
+            "name": "Update the driver's current location",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverlocation",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "<p>Just Eat requires all delivery partners to send regular driver location callbacks, that record the GPS location of the drivers assigned to each order</p><p>Partners should aim to supply this callback approximately every 10 seconds.</p><p>Please provide an up-to-date ETA for when the driver will reach the restaurant in this request - this value is significant since it informs when a restaurant is instructed to start preparing food - when the time remaining between current time and the estimate"
+        },
+        {
+          "info": {
+            "name": "Update order with driver unassigned details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/driverunassigned",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat order identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _driver unassigned_ callback should be sent when a driver is unassigned from the order. It may details about the reason for cancelling the assignment, the driver details, and any newer at restaurant and customer estimations."
+        },
+        {
+          "info": {
+            "name": "Update order with driver on its way details",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/deliverystate/onitsway",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "The _on its way_ callback should be sent when the driver departs the restaurant with the customer's order. It should contain an ETA that records when the driver expects to arrive at the customer's address."
+        },
+        {
+          "info": {
+            "name": "Update order ETA",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/duedate",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Use this to update the estimated time of arrival for an order (i.e. when you expect the customer to receive the food). NOTE: An initial estimate is given [upon acceptance](#/paths/~1orders~1{orderId}~1accept/put). This endpoint can be used to update that estimate.\n"
+        },
+        {
+          "info": {
+            "name": "Ignore order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/ignore",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Call when an order has been ignored by restaurant. An order can only be ignored if it hasn't previously been accepted, rejected, cancelled or ignored"
+        },
+        {
+          "info": {
+            "name": "Mark order as ready for collection",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/readyforcollection",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the order to mark as ready for collection"
+              }
+            ]
+          },
+          "docs": "Call when a collection order is ready to be collected by the customer. An order can only be marked as ready for collection if it is a collection order in the accepted state."
+        },
+        {
+          "info": {
+            "name": "Reject order",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/orders/:orderId/reject",
+            "params": [
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Call when an order has been rejected. An order can only be rejected if it hasn't previously been accepted, rejected, cancelled or ignored"
+        },
+        {
+          "info": {
+            "name": "Response to Late Order Update Request",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/consumerqueries/lateorder/restaurantresponse",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a customer has requested an update on the status of a late order, a response can be given by calling this endpoint."
+        },
+        {
+          "info": {
+            "name": "Update late order compensation request with Restaurant response",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/consumerqueries/lateordercompensation/restaurantresponse",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If a customer has requested compensation for a late order, a restaurant response is given by calling this endpoint."
+        },
+        {
+          "info": {
+            "name": "Create Compensation requests",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/orders/:tenant/:orderId/restaurantqueries/compensation",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "When an order is cancelled the restaurant might be eligible for compensation, this endpoint allows a request for compensation to be created."
+        },
+        {
+          "info": {
+            "name": "Customer Requested Redelivery",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/redelivery-requested",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked whenever the customer responds to the attempted delivery notification."
+        },
+        {
+          "info": {
+            "name": "Restaurant Offline Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurant-offline-status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Callback to notify that a restaurant has been taken offline through an active Restaurant Event or there's been a change in whether the restaurant can override a previous offline status."
+        },
+        {
+          "info": {
+            "name": "Restaurant Online Status",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurant-online-status",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Callback to notify that a restaurant is now able to come back online as there are no longer any active offline Restaurant Events"
+        },
+        {
+          "info": {
+            "name": "Get restaurants by location",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/bylatlong",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Accept-Tenant",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "latitude",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that deliver to the specified location"
+              },
+              {
+                "name": "longitude",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that deliver to the specified location"
+              },
+              {
+                "name": "cuisine",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that offer the specified cuisine"
+              },
+              {
+                "name": "restaurantName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that have a name that matches the specified value"
+              },
+              {
+                "name": "brandName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants of the specified brand"
+              }
+            ]
+          },
+          "docs": "Provides details of all restaurants that deliver to the specified location"
+        },
+        {
+          "info": {
+            "name": "Get restaurants by postcode",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/bypostcode/:postcode",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Accept-Tenant",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "postcode",
+                "value": "",
+                "type": "path",
+                "description": "Filter search results to only include restaurants that deliver to the specified postcode"
+              },
+              {
+                "name": "cuisine",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that offer the specified cuisine"
+              },
+              {
+                "name": "restaurantName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants that have a name that matches the specified value"
+              },
+              {
+                "name": "brandName",
+                "value": "",
+                "type": "query",
+                "description": "Filter search results to only include restaurants of the specified brand"
+              }
+            ]
+          },
+          "docs": "Provides details of restaurants that deliver to the specified postcode"
+        },
+        {
+          "info": {
+            "name": "Set ETA for pickup",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/driver/eta",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set the average amount of time it will take a driver to collect a new order from a restaurant."
+        },
+        {
+          "info": {
+            "name": "Get product catalogue",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              }
+            ]
+          },
+          "docs": "Get details of the restaurant's product catalogue"
+        },
+        {
+          "info": {
+            "name": "Get all availabilities",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/availabilities",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of availabilities to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all availabilities on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all categories",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/categories",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of categories to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all categories on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all category item IDs",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/categories/:categoryId/items",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID."
+              },
+              {
+                "name": "categoryId",
+                "value": "",
+                "type": "path",
+                "description": "The category ID."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of item IDs to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all item IDs which are assigned to the specified category"
+        },
+        {
+          "info": {
+            "name": "Get all menu items",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all menu items on the restaurant's menu"
+        },
+        {
+          "info": {
+            "name": "Get all menu item deal groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/dealgroups",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all deal groups for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get all deal item variations for a deal group",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/dealgroups/:dealGroupId/dealitemvariations",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "dealGroupId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all deal item variations for the deal group with the specified ID, in the menu item with the specified ID"
+        },
+        {
+          "info": {
+            "name": "Get all menu item modifier groups",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/modifiergroups",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all modifier groups for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get all menu item variations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/catalogue/items/:itemId/variations",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant ID"
+              },
+              {
+                "name": "itemId",
+                "value": "",
+                "type": "path",
+                "description": "The menu item ID"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of menu items to fetch."
+              },
+              {
+                "name": "after",
+                "value": "",
+                "type": "query",
+                "description": "Value representing a cursor - position to use when retrieving the next page of data. If provided, the value of this parameter must be URL encoded."
+              }
+            ]
+          },
+          "docs": "Get all variations for the menu item with the provided ID"
+        },
+        {
+          "info": {
+            "name": "Get claims",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "fromDate",
+                "value": "",
+                "type": "query",
+                "description": "Start date limiter"
+              },
+              {
+                "name": "toDate",
+                "value": "",
+                "type": "query",
+                "description": "End date limiter"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Pagination limit"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "Pagination offset"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Provides claims for a given restaurant with optional filtering"
+        },
+        {
+          "info": {
+            "name": "Get order claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id",
+            "headers": [
+              {
+                "name": "Accept",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get information about a order claim"
+        },
+        {
+          "info": {
+            "name": "Submit a restaurant response for the claim",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id/restaurantresponse",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Submit a restaurant response for the claim, where the restaurant can tell us if they accept or reject the claim"
+        },
+        {
+          "info": {
+            "name": "Add reason and comments to the response",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/customerclaims/:id/restaurantresponse/justification",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": "application/json;v=1"
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code indicating the tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "Just Eat restaurant identifier"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "Claim identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Add reason and optional comments in case of rejection of order claim"
+        },
+        {
+          "info": {
+            "name": "Get Restaurant Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/fees",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code for which country the restaurant resides in."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a restaurant"
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Get the fees currently applied to a restaurant in a particular tenant"
+        },
+        {
+          "info": {
+            "name": "Create or Update Restaurant Fees",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/fees",
+            "headers": [
+              {
+                "name": "User-Agent",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A two-character country code for which country the restaurant resides in."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "A unique identifier for a restaurant"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates or Updates the fees for a restaurant in a particular tenant"
+        },
+        {
+          "info": {
+            "name": "Get the latest version of the restaurant's full menu",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/menu",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The tenant of the restaurant in which to put a menu"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier to associated with the menu"
+              }
+            ]
+          },
+          "docs": "The endpoint will return a 301 redirect containing a URL that will grant access to the Menu file. The URL will only be available for a short period of time. The Menu file will be a single document containing the information that Just Eat has and uses to display the Menu on our customer clients. This will include a collection of items, a collection of Categories and a collection of Availabilities for when the items are available. Partners will be able to retrieve the Menu for any Restaurants that"
+        },
+        {
+          "info": {
+            "name": "Create or update a menu",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/menu",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The tenant of the restaurant in which to put a menu"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier to associated with the menu"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This will begin an asynchronous process that will lead to that menu becoming live on the Just Eat platform"
+        },
+        {
+          "info": {
+            "name": "Get the restaurant's delivery and collection lead times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/ordertimes",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              }
+            ]
+          },
+          "docs": "Get list of the delivery and collection lead times supplied by the restaurant"
+        },
+        {
+          "info": {
+            "name": "Update the restaurant's delivery and collection lead times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/ordertimes/:dayOfWeek/:serviceType",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant Id."
+              },
+              {
+                "name": "dayOfWeek",
+                "value": "",
+                "type": "path",
+                "description": "Day of week for order time"
+              },
+              {
+                "name": "serviceType",
+                "value": "",
+                "type": "path",
+                "description": "Service type of the order time"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Update the restaurant's delivery and collection lead times"
+        },
+        {
+          "info": {
+            "name": "Get service times",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/servicetimes",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code of restaurant's tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier"
+              }
+            ]
+          },
+          "docs": "Gets the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant"
+        },
+        {
+          "info": {
+            "name": "Create or update service times",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://uk.api.just-eat.io/restaurants/:tenant/:restaurantId/servicetimes",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Two letter code of restaurant's tenant"
+              },
+              {
+                "name": "restaurantId",
+                "value": "",
+                "type": "path",
+                "description": "The restaurant identifier"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates or updates the service times (the weekly times at which a restaurant is in service for delivery or collection) for a restaurant"
+        },
+        {
+          "info": {
+            "name": "Get auto-completed search terms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/search/autocomplete/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "searchTerm",
+                "value": "",
+                "type": "query",
+                "description": "User's search term - at least one character required"
+              },
+              {
+                "name": "latlong",
+                "value": "51.501285,-0.1424422",
+                "type": "query",
+                "description": "The latitude and longitude coordinates of the location in which to search.\r\nSpecify the coordinates as latitude,longitude."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of auto-completed terms returned by the API. Defaults to 7. Valid values 1 - 10"
+              }
+            ]
+          },
+          "docs": "Provides auto-completed search terms for restaurants, cuisines and products available in a given location."
+        },
+        {
+          "info": {
+            "name": "Search restaurants",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://uk.api.just-eat.io/search/restaurants/:tenant",
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "A valid country code, e.g. \"uk\"."
+              },
+              {
+                "name": "searchTerm",
+                "value": "",
+                "type": "query",
+                "description": "User's search term."
+              },
+              {
+                "name": "latlong",
+                "value": "51.501285,-0.1424422",
+                "type": "query",
+                "description": "The latitude and longitude coordinates of the location in which to search.\r\nSpecify the coordinates as latitude,longitude."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Limit the number of restaurants returned by the API.\r\nValid values are numbers between 1 and 500.\r\nIf not provided, the limit defaults to 300."
+              }
+            ]
+          },
+          "docs": "Get restaurants available in a given lat-long which match a search term.\r\nMatches can be found against the name, a cuisine or a product."
+        },
+        {
+          "info": {
+            "name": "Send to POS failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/send-to-pos-failed",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "This webhook will be invoked if we experience an error or timeout in sending an order to the underlying POS / kitchen screen. When notified via this webhook, typically you will perform some form of alerting or backup flow (e.g. ask the operator to enter the order manually into the POS). NOTE: This message contains the `OrderId`, but not the full order. It is assumed that you have stored/cached the full order details earlier in the flow - e.g. via the [/order-ready-for-preparation](#/paths/~1orde"
+        },
+        {
+          "info": {
+            "name": "Create Offline Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/v1/:tenant/restaurants/event/offline",
+            "headers": [
+              {
+                "name": "X-JE-Requester",
+                "value": ""
+              },
+              {
+                "name": "X-JE-User-Role",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates an event for the specified restaurants that indicates a reason for those restaurants to be offline."
+        },
+        {
+          "info": {
+            "name": "Delete Offline Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://uk.api.just-eat.io/v1/:tenant/restaurants/:id/event/offline",
+            "headers": [
+              {
+                "name": "X-JE-Requester",
+                "value": ""
+              },
+              {
+                "name": "X-JE-User-Role",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the tenant"
+              },
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "The identifier for the restaurant"
+              }
+            ]
+          },
+          "docs": "Removes specified restaurant from offline events. If role header is `System` or `Operations` only events created by the specified role will be affected. If role header is `Restaurant` then all events that have `allowRestaurantOverride=true` will be affected."
+        },
+        {
+          "info": {
+            "name": "Delivery Attempt Failed",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/:tenant/orders/:orderId/queries/attempteddelivery",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant e.g. uk."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the customer hasn't answered the door to collect the order, then an attempted delivery event can be created using this endpoint."
+        },
+        {
+          "info": {
+            "name": "Request Redelivery of the Order",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://uk.api.just-eat.io/:tenant/orders/:orderId/queries/attempteddelivery/resolution/redeliverorder",
+            "headers": [
+              {
+                "name": "Authorization",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "tenant",
+                "value": "",
+                "type": "path",
+                "description": "Request tenant e.g. uk."
+              },
+              {
+                "name": "orderId",
+                "value": "",
+                "type": "path",
+                "description": "Id for the order."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "If the customer responds, then you can trigger the redelivery of an order through this endpoint"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

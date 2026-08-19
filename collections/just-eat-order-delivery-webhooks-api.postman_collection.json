@@ -1,0 +1,774 @@
+{
+  "item": [
+    {
+      "id": "706ba560-fd97-4aa2-a11f-d6a7eee1f686",
+      "name": "Order Delivery Webhooks",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "9feaae24-039a-447b-9c64-af51fbb32a15",
+          "name": "Driver Assigned to Delivery",
+          "request": {
+            "name": "Driver Assigned to Delivery",
+            "description": {
+              "content": "Driver Assigned to Delivery",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-assigned-to-delivery"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "01be976b-09de-4543-bf07-b3475d8ab452",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-assigned-to-delivery"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "f81d18d2-9179-4136-ba75-582df15e65f0",
+          "name": "Driver at delivery address",
+          "request": {
+            "name": "Driver at delivery address",
+            "description": {
+              "content": "Driver at delivery address",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-at-delivery-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "23312852-c785-4f1c-b94b-4b76f6222516",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-at-delivery-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7cd0f1a4-3f77-41c2-8a4b-5249afc65fd8",
+          "name": "Driver at restaurant",
+          "request": {
+            "name": "Driver at restaurant",
+            "description": {
+              "content": "Driver at restaurant",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-at-restaurant"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "77a6a215-cbc2-4ba9-a839-604fe931c50a",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-at-restaurant"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d6080957-8e3d-42da-8457-af287c83c0e5",
+          "name": "Driver has delivered order",
+          "request": {
+            "name": "Driver has delivered order",
+            "description": {
+              "content": "Driver has delivered order",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-has-delivered-order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "18a43b92-ae32-4072-aaf8-6fa790578c35",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-has-delivered-order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "bd6ac9d0-64bd-40c2-b0c0-035306ba2805",
+          "name": "Driver Location",
+          "request": {
+            "name": "Driver Location",
+            "description": {
+              "content": "Driver Location",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Location\": {\n    \"Latitude\": \"<double>\",\n    \"Longitude\": \"<double>\"\n  },\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "2f3392fe-fbf6-43df-bd3a-86fe601f20e8",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Location\": {\n    \"Latitude\": 51.51641,\n    \"Longitude\": -0.103198\n  },\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3f09c28e-4a07-4284-ba3e-48c226715443",
+          "name": "Driver on their way to delivery address",
+          "request": {
+            "name": "Driver on their way to delivery address",
+            "description": {
+              "content": "Driver on their way to delivery address",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "driver-on-their-way-to-delivery-address"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "e3d6e153-b092-4c82-8d8a-2eec49500913",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "driver-on-their-way-to-delivery-address"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"DriverContactNumber\": \"<string>\",\n  \"DriverName\": \"<string>\",\n  \"EstimatedDeliveryTime\": \"<dateTime>\",\n  \"EstimatedPickupTime\": \"<dateTime>\",\n  \"Event\": \"<string>\",\n  \"OrderId\": \"<string>\",\n  \"TimeStamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "32bb16d8-5b1f-49d9-a4cb-928ef7205d67",
+          "name": "Order ready for pickup",
+          "request": {
+            "name": "Order ready for pickup",
+            "description": {
+              "content": "<p>The \"Ready for pickup\" event lets the delivery partner know that the food has been cooked and is now ready for collection up from the restaurant.</p><p>When this event is received, it is important that you let your driver know that the order should now be collected from inside the restaurant. For example, this driver notification could take the form of an in-app notification or an SMS message.</p><p>This communication is needed to support restaurants who are unable to accommodate drivers inside their premises, as it allows restaurants to notify drivers waiting outside that they should come inside to collect their order.</p><p>NB&semi; This event can be sent by the restaurant at any point after the order is accepted by the restaurant (for instance, this event may be sent before the driver has arrived at the restaurant).</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order-is-ready-for-pickup"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"Event\": \"<string>\",\n  \"Timestamp\": \"<dateTime>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "c4d7b856-0f77-470b-a06c-a9248b963f20",
+              "name": "Upon successful receipt of the event, delivery partners should return a 200 HTTP status code indicating acknowledgement of transmission.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-is-ready-for-pickup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Event\": \"<string>\",\n  \"Timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e083d279-bd72-4950-94d3-dad9fa633f52",
+              "name": "In the unlikely case of unknown errors, JUST EAT will log a raw response. If possible, the response should have the following format",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-is-ready-for-pickup"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"Event\": \"<string>\",\n  \"Timestamp\": \"<dateTime>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Details\": \"string\",\n  \"Message\": \"string\",\n  \"OrderId\": \"string\",\n  \"Timestamp\": \"2016-01-22T18:19:17.715Z\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a3eb99d1-9888-4d8a-b3b1-a0120898063a",
+          "name": "Order requires delivery acceptance",
+          "request": {
+            "name": "Order requires delivery acceptance",
+            "description": {
+              "content": "This webhook will be invoked when we have determined that an order is required acceptance for delivery. Upon receiving the request, the order should be scheduled for pickup by a courier/driver. We expect an immediate `201` response from this webhook to denote that you have received the request.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order-requires-delivery-acceptance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"<string>\",\n      \"DeliveryCharge\": \"<double>\",\n      \"Discount\": \"<double>\",\n      \"Discounts\": [\n        {\n          \"Discount\": \"<int32>\",\n          \"DiscountType\": \"<string>\",\n          \"Id\": \"<int32>\",\n          \"QualifyingValue\": \"<double>\"\n        },\n        {\n          \"Discount\": \"<int32>\",\n          \"DiscountType\": \"<string>\",\n          \"Id\": \"<int32>\",\n          \"QualifyingValue\": \"<double>\"\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": \"<double>\",\n            \"Discounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"<string>\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"<string>\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"ProductId\": \"<int32>\",\n            \"ProductTypeId\": \"<int32>\",\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": \"<double>\"\n          },\n          \"CombinedPrice\": \"<double>\",\n          \"MenuCardNumber\": \"<string>\",\n          \"OrderSubId\": \"<int32>\",\n          \"Quantity\": \"<int32>\"\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": \"<double>\",\n            \"Discounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"<string>\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"<string>\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"ProductId\": \"<int32>\",\n            \"ProductTypeId\": \"<int32>\",\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": \"<double>\"\n          },\n          \"CombinedPrice\": \"<double>\",\n          \"MenuCardNumber\": \"<string>\",\n          \"OrderSubId\": \"<int32>\",\n          \"Quantity\": \"<int32>\"\n        }\n      ],\n      \"MenuId\": \"<int32>\",\n      \"MultiBuyDiscount\": \"<double>\",\n      \"SubTotal\": \"<double>\",\n      \"ToSpend\": \"<double>\",\n      \"Total\": \"<double>\"\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"<string>\",\n      \"City\": \"<string>\",\n      \"DisplayPhoneNumber\": \"<string>\",\n      \"Email\": \"<string>\",\n      \"Id\": \"<string>\",\n      \"Latitude\": \"<double>\",\n      \"LocationAccuracyDescription\": \"<string>\",\n      \"LocationAccuracyInMeters\": \"<double>\",\n      \"LocationSource\": \"<string>\",\n      \"Longitude\": \"<double>\",\n      \"Name\": \"<string>\",\n      \"PhoneMaskingCode\": \"<string>\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"<string>\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"<string>\"\n    },\n    \"CustomerOrderId\": \"<int32>\",\n    \"FriendlyOrderReference\": \"<string>\",\n    \"Id\": \"<string>\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"<string>\",\n      \"PickupNoticePeriod\": \"<timespan>\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"<string>\",\n    \"OrderReference\": \"<string>\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": \"<double>\",\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": \"<double>\",\n          \"Type\": \"<string>\",\n          \"Value\": \"<double>\"\n        },\n        {\n          \"CardFee\": \"<double>\",\n          \"Type\": \"<string>\",\n          \"Value\": \"<double>\"\n        }\n      ],\n      \"Total\": \"<double>\",\n      \"TotalComplementary\": \"<double>\"\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"City\": \"<string>\",\n      \"DispatchMethod\": \"<string>\",\n      \"EmailAddress\": \"<string>\",\n      \"Id\": \"<string>\",\n      \"Latitude\": \"<double>\",\n      \"Longitude\": \"<double>\",\n      \"Name\": \"<string>\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"<string>\",\n      \"Postcode\": \"<string>\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"<string>\",\n      \"DeliveryCharge\": \"<double>\",\n      \"Discount\": \"<double>\",\n      \"Discounts\": [\n        {\n          \"Discount\": \"<int32>\",\n          \"DiscountType\": \"<string>\",\n          \"Id\": \"<int32>\",\n          \"QualifyingValue\": \"<double>\"\n        },\n        {\n          \"Discount\": \"<int32>\",\n          \"DiscountType\": \"<string>\",\n          \"Id\": \"<int32>\",\n          \"QualifyingValue\": \"<double>\"\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": \"<double>\",\n            \"Discounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"<string>\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"<string>\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"ProductId\": \"<int32>\",\n            \"ProductTypeId\": \"<int32>\",\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": \"<double>\"\n          },\n          \"CombinedPrice\": \"<double>\",\n          \"MenuCardNumber\": \"<string>\",\n          \"OrderSubId\": \"<int32>\",\n          \"Quantity\": \"<int32>\"\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": \"<double>\",\n            \"Discounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"MealPartId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"<string>\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": \"<double>\",\n                \"DiscountType\": \"<string>\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"<string>\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"Name\": \"<string>\",\n                \"OptionalAccessoryId\": \"<int32>\",\n                \"Quantity\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"ProductId\": \"<int32>\",\n            \"ProductTypeId\": \"<int32>\",\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              },\n              {\n                \"GroupId\": \"<int32>\",\n                \"Name\": \"<string>\",\n                \"RequiredAccessoryId\": \"<int32>\",\n                \"UnitPrice\": \"<double>\"\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": \"<double>\"\n          },\n          \"CombinedPrice\": \"<double>\",\n          \"MenuCardNumber\": \"<string>\",\n          \"OrderSubId\": \"<int32>\",\n          \"Quantity\": \"<int32>\"\n        }\n      ],\n      \"MenuId\": \"<int32>\",\n      \"MultiBuyDiscount\": \"<double>\",\n      \"SubTotal\": \"<double>\",\n      \"ToSpend\": \"<double>\",\n      \"Total\": \"<double>\"\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"<string>\",\n      \"City\": \"<string>\",\n      \"DisplayPhoneNumber\": \"<string>\",\n      \"Email\": \"<string>\",\n      \"Id\": \"<string>\",\n      \"Latitude\": \"<double>\",\n      \"LocationAccuracyDescription\": \"<string>\",\n      \"LocationAccuracyInMeters\": \"<double>\",\n      \"LocationSource\": \"<string>\",\n      \"Longitude\": \"<double>\",\n      \"Name\": \"<string>\",\n      \"PhoneMaskingCode\": \"<string>\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"<string>\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"<string>\"\n    },\n    \"CustomerOrderId\": \"<int32>\",\n    \"FriendlyOrderReference\": \"<string>\",\n    \"Id\": \"<string>\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"<string>\",\n      \"PickupNoticePeriod\": \"<timespan>\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"<string>\",\n    \"OrderReference\": \"<string>\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": \"<double>\",\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": \"<double>\",\n          \"Type\": \"<string>\",\n          \"Value\": \"<double>\"\n        },\n        {\n          \"CardFee\": \"<double>\",\n          \"Type\": \"<string>\",\n          \"Value\": \"<double>\"\n        }\n      ],\n      \"Total\": \"<double>\",\n      \"TotalComplementary\": \"<double>\"\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"City\": \"<string>\",\n      \"DispatchMethod\": \"<string>\",\n      \"EmailAddress\": \"<string>\",\n      \"Id\": \"<string>\",\n      \"Latitude\": \"<double>\",\n      \"Longitude\": \"<double>\",\n      \"Name\": \"<string>\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"<string>\",\n      \"Postcode\": \"<string>\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  }\n]",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccc1da47-1544-4bea-aaf5-aeaf5df038fe",
+              "name": "In the event of successful handling of the request, a 201 status code should be returned, indicating acknowledgement of transmission success.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-requires-delivery-acceptance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"ABCb8DzdnUy7G481b0JN5g\",\n      \"DeliveryCharge\": 5,\n      \"Discount\": 4.78,\n      \"Discounts\": [\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        },\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        }\n      ],\n      \"MenuId\": 777890,\n      \"MultiBuyDiscount\": 0,\n      \"SubTotal\": 47.75,\n      \"ToSpend\": 0,\n      \"Total\": 47.97\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"Fleet Place House, 2 Fleet Place, London\",\n      \"City\": \"London\",\n      \"DisplayPhoneNumber\": \"(01) 872 7863\",\n      \"Email\": \"contact@just-eat.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"LocationAccuracyDescription\": \"ROOFTOP\",\n      \"LocationAccuracyInMeters\": 0,\n      \"LocationSource\": \"GeodataGeocoder\",\n      \"Longitude\": -0.12624,\n      \"Name\": \"Just Eat\",\n      \"PhoneMaskingCode\": \"444333222\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"EC4M 7RF\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"GMT Standard Time\"\n    },\n    \"CustomerOrderId\": 348322088,\n    \"FriendlyOrderReference\": \"348322088\",\n    \"Id\": \"348322088\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"Contact-free delivery\",\n      \"PickupNoticePeriod\": \"00:10:00\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"ijdhpy7bdusgtc28bapspa\",\n    \"OrderReference\": \"39cce3f0-0278-dd25-ae32-e8effe1ce4eb\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": 0,\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        },\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        }\n      ],\n      \"Total\": 22.55,\n      \"TotalComplementary\": 0\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"Fleet Place House 2, Fleet Place, London\",\n        \"Fleet Place House 2, Fleet Place, London\"\n      ],\n      \"City\": \"London\",\n      \"DispatchMethod\": \"Phone\",\n      \"EmailAddress\": \"contact@testrestaurant.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"Longitude\": -0.12624,\n      \"Name\": \"Test Restaurant\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"Use the back entrance\",\n      \"Postcode\": \"EC4M 7RF\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"ABCb8DzdnUy7G481b0JN5g\",\n      \"DeliveryCharge\": 5,\n      \"Discount\": 4.78,\n      \"Discounts\": [\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        },\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        }\n      ],\n      \"MenuId\": 777890,\n      \"MultiBuyDiscount\": 0,\n      \"SubTotal\": 47.75,\n      \"ToSpend\": 0,\n      \"Total\": 47.97\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"Fleet Place House, 2 Fleet Place, London\",\n      \"City\": \"London\",\n      \"DisplayPhoneNumber\": \"(01) 872 7863\",\n      \"Email\": \"contact@just-eat.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"LocationAccuracyDescription\": \"ROOFTOP\",\n      \"LocationAccuracyInMeters\": 0,\n      \"LocationSource\": \"GeodataGeocoder\",\n      \"Longitude\": -0.12624,\n      \"Name\": \"Just Eat\",\n      \"PhoneMaskingCode\": \"444333222\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"EC4M 7RF\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"GMT Standard Time\"\n    },\n    \"CustomerOrderId\": 348322088,\n    \"FriendlyOrderReference\": \"348322088\",\n    \"Id\": \"348322088\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"Contact-free delivery\",\n      \"PickupNoticePeriod\": \"00:10:00\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"ijdhpy7bdusgtc28bapspa\",\n    \"OrderReference\": \"39cce3f0-0278-dd25-ae32-e8effe1ce4eb\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": 0,\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        },\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        }\n      ],\n      \"Total\": 22.55,\n      \"TotalComplementary\": 0\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"Fleet Place House 2, Fleet Place, London\",\n        \"Fleet Place House 2, Fleet Place, London\"\n      ],\n      \"City\": \"London\",\n      \"DispatchMethod\": \"Phone\",\n      \"EmailAddress\": \"contact@testrestaurant.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"Longitude\": -0.12624,\n      \"Name\": \"Test Restaurant\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"Use the back entrance\",\n      \"Postcode\": \"EC4M 7RF\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f2196b4d-6815-4482-9d61-c2d776ce863a",
+              "name": "In the case that the order cannot be accepted, an appropriate HTTP status code, such as 400 (Bad request) or 500 (Internal server error) should be returned.  In addition to the HTTP status code, a specific reason code and explanatory message should be provided within the response body",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order-requires-delivery-acceptance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "[\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"ABCb8DzdnUy7G481b0JN5g\",\n      \"DeliveryCharge\": 5,\n      \"Discount\": 4.78,\n      \"Discounts\": [\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        },\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        }\n      ],\n      \"MenuId\": 777890,\n      \"MultiBuyDiscount\": 0,\n      \"SubTotal\": 47.75,\n      \"ToSpend\": 0,\n      \"Total\": 47.97\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"Fleet Place House, 2 Fleet Place, London\",\n      \"City\": \"London\",\n      \"DisplayPhoneNumber\": \"(01) 872 7863\",\n      \"Email\": \"contact@just-eat.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"LocationAccuracyDescription\": \"ROOFTOP\",\n      \"LocationAccuracyInMeters\": 0,\n      \"LocationSource\": \"GeodataGeocoder\",\n      \"Longitude\": -0.12624,\n      \"Name\": \"Just Eat\",\n      \"PhoneMaskingCode\": \"444333222\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"EC4M 7RF\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"GMT Standard Time\"\n    },\n    \"CustomerOrderId\": 348322088,\n    \"FriendlyOrderReference\": \"348322088\",\n    \"Id\": \"348322088\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"Contact-free delivery\",\n      \"PickupNoticePeriod\": \"00:10:00\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"ijdhpy7bdusgtc28bapspa\",\n    \"OrderReference\": \"39cce3f0-0278-dd25-ae32-e8effe1ce4eb\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": 0,\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        },\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        }\n      ],\n      \"Total\": 22.55,\n      \"TotalComplementary\": 0\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"Fleet Place House 2, Fleet Place, London\",\n        \"Fleet Place House 2, Fleet Place, London\"\n      ],\n      \"City\": \"London\",\n      \"DispatchMethod\": \"Phone\",\n      \"EmailAddress\": \"contact@testrestaurant.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"Longitude\": -0.12624,\n      \"Name\": \"Test Restaurant\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"Use the back entrance\",\n      \"Postcode\": \"EC4M 7RF\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  },\n  {\n    \"BasketInfo\": {\n      \"BasketId\": \"ABCb8DzdnUy7G481b0JN5g\",\n      \"DeliveryCharge\": 5,\n      \"Discount\": 4.78,\n      \"Discounts\": [\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        },\n        {\n          \"Discount\": 10,\n          \"DiscountType\": \"Percent\",\n          \"Id\": 21950,\n          \"QualifyingValue\": 4.78\n        }\n      ],\n      \"GroupedBasketItems\": [\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        },\n        {\n          \"BasketItem\": {\n            \"CombinedPrice\": 3.58,\n            \"Discounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\"\n              }\n            ],\n            \"MealParts\": [\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              },\n              {\n                \"GroupId\": 1,\n                \"MealPartId\": 45822750,\n                \"Name\": \"Any Sides?\",\n                \"OptionalAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"RequiredAccessories\": [\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  },\n                  {\n                    \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n                  }\n                ],\n                \"Synonym\": \"<string>\"\n              }\n            ],\n            \"MenuCardNumber\": \"1\",\n            \"MultiBuyDiscounts\": [\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              },\n              {\n                \"Amount\": 4.5,\n                \"DiscountType\": \"Percent\",\n                \"OrderItemId\": \"<string>\",\n                \"ProductTypeId\": \"<int32>\"\n              }\n            ],\n            \"Name\": \"Mini Fillet Burger\",\n            \"OptionalAccessories\": [\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              },\n              {\n                \"Name\": \"Add Bacon\",\n                \"OptionalAccessoryId\": 56168,\n                \"Quantity\": 1,\n                \"UnitPrice\": 0.5\n              }\n            ],\n            \"ProductId\": 45858074,\n            \"ProductTypeId\": 428,\n            \"RequiredAccessories\": [\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              },\n              {\n                \"GroupId\": 3,\n                \"Name\": \"Large Meal\",\n                \"RequiredAccessoryId\": 225025,\n                \"UnitPrice\": 0.1\n              }\n            ],\n            \"Synonym\": \"<string>\",\n            \"UnitPrice\": 1.79\n          },\n          \"CombinedPrice\": 3.58,\n          \"MenuCardNumber\": \"1\",\n          \"OrderSubId\": 0,\n          \"Quantity\": 2\n        }\n      ],\n      \"MenuId\": 777890,\n      \"MultiBuyDiscount\": 0,\n      \"SubTotal\": 47.75,\n      \"ToSpend\": 0,\n      \"Total\": 47.97\n    },\n    \"CustomerInfo\": {\n      \"Address\": \"Fleet Place House, 2 Fleet Place, London\",\n      \"City\": \"London\",\n      \"DisplayPhoneNumber\": \"(01) 872 7863\",\n      \"Email\": \"contact@just-eat.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"LocationAccuracyDescription\": \"ROOFTOP\",\n      \"LocationAccuracyInMeters\": 0,\n      \"LocationSource\": \"GeodataGeocoder\",\n      \"Longitude\": -0.12624,\n      \"Name\": \"Just Eat\",\n      \"PhoneMaskingCode\": \"444333222\",\n      \"PhoneNumber\": \"<string>\",\n      \"Postcode\": \"EC4M 7RF\",\n      \"PreviousRestuarantOrderCount\": \"<int32>\",\n      \"TimeZone\": \"GMT Standard Time\"\n    },\n    \"CustomerOrderId\": 348322088,\n    \"FriendlyOrderReference\": \"348322088\",\n    \"Id\": \"348322088\",\n    \"IsAMiniFistPumpOrder\": \"<boolean>\",\n    \"Order\": {\n      \"DueDate\": \"<dateTime>\",\n      \"DueDateWithUtcOffset\": \"<dateTime>\",\n      \"InitialDueDate\": \"<dateTime>\",\n      \"InitialDueDateWithUtcOffset\": \"<dateTime>\",\n      \"NoteToRestaurant\": \"Contact-free delivery\",\n      \"PickupNoticePeriod\": \"00:10:00\",\n      \"PlacedDate\": \"<dateTime>\",\n      \"PromptAsap\": \"<boolean>\",\n      \"RdsPickupTimeWithUtcOffset\": \"<dateTime>\",\n      \"ServiceType\": \"<string>\"\n    },\n    \"OrderId\": \"ijdhpy7bdusgtc28bapspa\",\n    \"OrderReference\": \"39cce3f0-0278-dd25-ae32-e8effe1ce4eb\",\n    \"PaymentInfo\": {\n      \"CashOnDelivery\": \"<boolean>\",\n      \"DriverTipValue\": 0,\n      \"PaidDate\": \"<dateTime>\",\n      \"PaymentLines\": [\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        },\n        {\n          \"CardFee\": 0.5,\n          \"Type\": \"<string>\",\n          \"Value\": 22.05\n        }\n      ],\n      \"Total\": 22.55,\n      \"TotalComplementary\": 0\n    },\n    \"RestaurantInfo\": {\n      \"AddressLines\": [\n        \"Fleet Place House 2, Fleet Place, London\",\n        \"Fleet Place House 2, Fleet Place, London\"\n      ],\n      \"City\": \"London\",\n      \"DispatchMethod\": \"Phone\",\n      \"EmailAddress\": \"contact@testrestaurant.com\",\n      \"Id\": \"123456\",\n      \"Latitude\": 51.50015,\n      \"Longitude\": -0.12624,\n      \"Name\": \"Test Restaurant\",\n      \"PhoneNumber\": \"<string>\",\n      \"PickupNotes\": \"Use the back entrance\",\n      \"Postcode\": \"EC4M 7RF\"\n    },\n    \"Restrictions\": [\n      {\n        \"Type\": \"<string>\"\n      },\n      {\n        \"Type\": \"<string>\"\n      }\n    ]\n  }\n]",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"errors\": [\n    {\n      \"code\": \"not_supported\",\n      \"message\": \"string\"\n    },\n    {\n      \"code\": \"other\",\n      \"message\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://uk.api.just-eat.io",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "95cf950c-9ab5-4c6c-81ae-eb0996227b2e",
+    "name": "Just Eat UK Attempted Delivery API Order Delivery Webhooks API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "# Just Eat API\nJust Eat offers services for our various business partners and our consumer applications.\nHow you interact with the API depends on the services you wish to interact with.\n## Security\n### HTTPS\nAll api calls and callbacks require HTTPS. Your service will need a valid SSL certificate and be accessible via the standard SSL port (port 443).\n## Making an API request\nSome API calls require an API key, to authenticate the partner calling the API.\n```\nPUT https://uk-partnerapi.just-eat.io/orders/abcd1234 HTTP/1.1\nAuthorization: JE-API-KEY abcd123456789\n```\nOther calls require a user token in the form of a JWT.\n```\nGET https://uk.api.just-eat.io/consumer/me/orders/uk HTTP/1.1\nAuthorization: Bearer abcd123456789\n```\n\n## Date Formats\n### Date and time formats\nAll dates and times should use the [ISO 8601 standard for representation of dates and times](https://en.wikipedia.org/wiki/ISO_8601).\n\n#### For instance:\n* DueDateWithUtcOffset: `\"2015-05-26T14:52:35.5444292+01:00\"`\n  - Local time: `14:52`\n  - UTC time: `13:52`\n  - UTC offset: `+1hr` (due to daylight time saving)\n* DueDateWithUtcOffset: `\"2015-02-03T11:10:00.0000000+00:00\"`\n  - Local time: `11:10`\n  - UTC time: `11:10`\n  - UTC offset: `0` (no daylight time saving, local time is equivalent to UTC)\n\nNote that the offset may be for a timezone different to your own, so you should alway convert to your own local time for display purposes (e.g. on receipts and terminals).\n\n### Callback timestamps\nTimestamps sent to Just Eat should be recorded as the current local time (including any changes needed to account for daylight saving) with an accompanying offset that shows the difference between the recorded local time and the current UTC time.\n\nIf it is not possible to record timestamps in local time, timestamps may be recorded in UTC time with a 00:00 offset.\n## Async Webhooks\nSome of the webhooks on the platform are configured as being 'async' webhooks. These are for long-running operations, and work as follows:\n  1. Your webhook is invoked with a `?callback={returnUrl}` query string parameter. The `returnUrl` is a unique URL that you will need to send the async response to.\n  2. Return an immediate `202 Accepted` response from the webhook endpoint, to indicate that you have received the request.\n  3. Perform the long-running operation. This can be deemed either a _success_; or a _failure_.\n  4. If the result is a _**success**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Success\",\n        \"message\": \"{successMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```\n  5. Otherwise, if the result is a _**failure**_, return the following:\n  ```\n  POST {returnUrl} HTTP/1.1\n\n  {\n        \"status\": \"Failure\",\n        \"message\": \"{failureMessage}\",\n        \"data\": {}   // webhook-specific response object\n  }\n  ```",
+      "type": "text/plain"
+    }
+  }
+}
