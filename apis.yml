@@ -37,6 +37,15 @@ modified: '2026-07-19'
 image: https://logo.clearbit.com/just-eat.com
 tags:
 - Food Delivery
+- Restaurant
+- Marketplace
+- Logistics
+- Order
+- Delivery
+- Point-of-Sale
+- E-Commerce
+tags_raw:
+- Food Delivery
 - Restaurants
 - Marketplace
 - Logistics
@@ -124,6 +133,8 @@ apis:
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
+  - Delivery fee
+  tags_raw:
   - DeliveryFee
   properties:
   - type: OpenAPI
@@ -278,6 +289,8 @@ apis:
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
+  - Restaurant
+  tags_raw:
   - Restaurants
   properties:
   - type: OpenAPI
