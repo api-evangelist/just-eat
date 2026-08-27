@@ -242,16 +242,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/just-eat-restaurant-events-webhooks-api-openapi.yml
-- aid: just-eat:just-eat-restaurant-ordertimes-api
-  name: Just Eat Restaurant OrderTimes API
-  description: The Restaurant OrderTimes API from Just Eat — 2 operation(s) for restaurant ordertimes.
-  humanURL: https://uk.api.just-eat.io/docs
-  baseURL: https://uk.api.just-eat.io
-  tags:
-  - Restaurant OrderTimes
-  properties:
-  - type: OpenAPI
-    url: openapi/just-eat-restaurant-ordertimes-api-openapi.yml
 - aid: just-eat:just-eat-restaurant-webhooks-api
   name: Just Eat Restaurant Webhooks API
   description: The Restaurant Webhooks API from Just Eat — 2 operation(s) for restaurant webhooks.
