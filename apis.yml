@@ -144,7 +144,7 @@ apis:
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
-  - DeliveryFee
+  - Delivery fee
   tags_raw:
   - DeliveryFee
   properties:
