@@ -65,7 +65,8 @@ tags_raw:
 apis:
 - aid: just-eat:just-eat-attempted-delivery-api-api
   name: Just Eat Attempted Delivery API
-  description: The Attempted Delivery API API from Just Eat — 2 operation(s) for attempted delivery api.
+  description: >-
+    The Attempted Delivery API API from Just Eat — 2 operation(s) for attempted delivery api.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -75,8 +76,8 @@ apis:
     url: openapi/just-eat-attempted-delivery-api-api-openapi.yml
 - aid: just-eat:just-eat-attempted-delivery-webhooks-api
   name: Just Eat Attempted Delivery Webhooks API
-  description: The Attempted Delivery Webhooks API from Just Eat — 2 operation(s) for attempted delivery
-    webhooks.
+  description: >-
+    The Attempted Delivery Webhooks API from Just Eat — 2 operation(s) for attempted delivery webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -96,7 +97,8 @@ apis:
     url: openapi/just-eat-checkout-api-openapi.yml
 - aid: just-eat:just-eat-consumer-queries-webhooks-api
   name: Just Eat Consumer Queries Webhooks API
-  description: The Consumer Queries Webhooks API from Just Eat — 2 operation(s) for consumer queries webhooks.
+  description: >-
+    The Consumer Queries Webhooks API from Just Eat — 2 operation(s) for consumer queries webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -134,18 +136,6 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/just-eat-delivery-pools-api-api-openapi.yml
-- aid: just-eat:just-eat-deliveryfee-api
-  name: Just Eat DeliveryFee API
-  description: The DeliveryFee API from Just Eat — 1 operation(s) for deliveryfee.
-  humanURL: https://uk.api.just-eat.io/docs
-  baseURL: https://uk.api.just-eat.io
-  tags:
-  - Delivery fee
-  tags_raw:
-  - DeliveryFee
-  properties:
-  - type: OpenAPI
-    url: openapi/just-eat-deliveryfee-api-openapi.yml
 - aid: just-eat:just-eat-order-acceptance-api-api
   name: Just Eat Order Acceptance API
   description: The Order Acceptance API API from Just Eat — 7 operation(s) for order acceptance api.
@@ -158,7 +148,8 @@ apis:
     url: openapi/just-eat-order-acceptance-api-api-openapi.yml
 - aid: just-eat:just-eat-order-acceptance-webhooks-api
   name: Just Eat Order Acceptance Webhooks API
-  description: The Order Acceptance Webhooks API from Just Eat — 5 operation(s) for order acceptance webhooks.
+  description: >-
+    The Order Acceptance Webhooks API from Just Eat — 5 operation(s) for order acceptance webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -188,7 +179,8 @@ apis:
     url: openapi/just-eat-order-delivery-api-api-openapi.yml
 - aid: just-eat:just-eat-order-delivery-webhooks-api
   name: Just Eat Order Delivery Webhooks API
-  description: The Order Delivery Webhooks API from Just Eat — 8 operation(s) for order delivery webhooks.
+  description: >-
+    The Order Delivery Webhooks API from Just Eat — 8 operation(s) for order delivery webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -238,8 +230,8 @@ apis:
     url: openapi/just-eat-restaurant-events-api-openapi.yml
 - aid: just-eat:just-eat-restaurant-events-webhooks-api
   name: Just Eat Restaurant Events Webhooks API
-  description: The Restaurant Events Webhooks API from Just Eat — 2 operation(s) for restaurant events
-    webhooks.
+  description: >-
+    The Restaurant Events Webhooks API from Just Eat — 2 operation(s) for restaurant events webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -269,8 +261,8 @@ apis:
     url: openapi/just-eat-restaurantqueries-api-openapi.yml
 - aid: just-eat:just-eat-restaurantqueries-webhooks-api
   name: Just Eat RestaurantQueries Webhooks API
-  description: The RestaurantQueries Webhooks API from Just Eat — 1 operation(s) for restaurantqueries
-    webhooks.
+  description: >-
+    The RestaurantQueries Webhooks API from Just Eat — 1 operation(s) for restaurantqueries webhooks.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io
   tags:
@@ -300,6 +292,16 @@ apis:
   properties:
   - type: OpenAPI
     url: openapi/just-eat-search-api-openapi.yml
+- aid: just-eat:just-eat-delivery-fee-api
+  name: Just Eat Delivery fee API
+  description: The Delivery fee API from Just Eat — 1 operation(s) for delivery fee.
+  humanURL: https://uk.api.just-eat.io/docs
+  baseURL: https://uk.api.just-eat.io
+  tags:
+  - Delivery fee
+  properties:
+  - type: OpenAPI
+    url: openapi/just-eat-delivery-fee-api-openapi.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
