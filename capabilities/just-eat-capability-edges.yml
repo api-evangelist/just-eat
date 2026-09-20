@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 7
+edge_count: 10
 edges:
 - tag: Order Delivery API
   spec_file: just-eat-order-delivery-api-api-openapi.yml
@@ -46,6 +46,17 @@ edges:
     late order compensation request with Restaurant response
   reason: Captures restaurant responses/resolutions to consumer late-order complaints and compensation
     requests — complaint capture and resolution.
+- tag: Delivery Pools API
+  spec_file: just-eat-delivery-pools-api-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.75
+  evidence: POST /delivery/pools    Create a new delivery pool; PUT /delivery/pools/{deliveryPoolId}/hours    Set
+    the delivery pools daily start and end times
+  reason: Configures last-mile delivery pools, their operating hours, pickup availability and assigned
+    restaurants — transport/delivery network operations management.
+  recovered_from: vertical-agriculture-food-production-edges.json
 - tag: Restaurant Claims
   spec_file: just-eat-restaurant-claims-api-openapi.yml
   capability_id: BC-430.20
@@ -75,6 +86,27 @@ edges:
   evidence: POST /late-order-compensation-query late order compensation query, restaurant response required
   reason: Pushes consumer late-order and compensation queries to restaurants for response — customer complaint/issue
     intake and resolution routing.
+- tag: Consumers
+  spec_file: just-eat-consumers-api-openapi.yml
+  capability_id: BC-420.10
+  capability_id_l1: BC-420
+  capability_name: Customer Data Management
+  confidence: 0.7
+  evidence: POST /consumers/{tenant}    Create consumer; GET /consumers/{tenant}/me/communication-preferences
+  reason: Creates and retrieves consumer records and manages their marketing/communication channel subscriptions
+    — customer master data plus consent preferences. Communication-preference operations could also lean
+    to marketing, so not maximal confidence.
+  recovered_from: vertical-agriculture-food-production-edges.json
+- tag: Order API
+  spec_file: just-eat-order-api-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: 'POST /orders    Create order (schemas: order-request-v2, fulfilment-v2, payment-v2, items-v2)'
+  reason: Creates a customer food order with items, fulfilment and payment details — order capture and
+    fulfilment orchestration.
+  recovered_from: vertical-agriculture-food-production-edges.json
 - tag: Order Acceptance API
   spec_file: just-eat-order-acceptance-api-api-openapi.yml
   capability_id: BC-520.40
