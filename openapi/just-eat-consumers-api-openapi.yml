@@ -535,13 +535,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    CommunicationPreferences:
-      properties:
-        marketing:
-          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
-          description: The marketing communication preferences.
-          type: object
-      type: object
     ChannelSubscriptionsWithDerivedField:
       properties:
         isDefault:
@@ -552,25 +545,6 @@ components:
           items:
             $ref: '#/components/schemas/CommunicationChannels'
           type: array
-      type: object
-    ConsumerCreateResponse:
-      example:
-        token: SKgaDl0wZxnwjNgLxBnU646PDTquWLHOyPuyzidIZIg=
-        type: otac
-      properties:
-        token:
-          description: The One Time Access Code (OTAC)
-          type: string
-        type:
-          description: 'The type of token. At the moment, this will only ever be a One Time Access Code (OTAC)
-
-            '
-          enum:
-          - otac
-          type: string
-      required:
-      - type
-      - token
       type: object
     500ErrorSchema:
       description: A HTTP 500 error response
@@ -584,42 +558,6 @@ components:
                     description: If returned, the only value returned will be Internal Server Error"
                     enum:
                     - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    CommunicationChannels:
-      enum:
-      - email
-      - sms
-      - push
-      type: string
-    CommunicationTypes:
-      enum:
-      - marketing
-      type: string
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
                     type: string
                 type: object
               type: array
@@ -674,6 +612,70 @@ components:
       - firstName
       - lastName
       type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    CommunicationPreferences:
+      properties:
+        marketing:
+          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
+          description: The marketing communication preferences.
+          type: object
+      type: object
+    CommunicationTypes:
+      enum:
+      - marketing
+      type: string
+    ChannelSubscriptions:
+      properties:
+        subscribedChannels:
+          description: The list of channels that the consumer should only be subscribed to.
+          items:
+            $ref: '#/components/schemas/CommunicationChannels'
+          type: array
+      type: object
+    ConsumerCreateResponse:
+      example:
+        token: SKgaDl0wZxnwjNgLxBnU646PDTquWLHOyPuyzidIZIg=
+        type: otac
+      properties:
+        token:
+          description: The One Time Access Code (OTAC)
+          type: string
+        type:
+          description: 'The type of token. At the moment, this will only ever be a One Time Access Code (OTAC)
+
+            '
+          enum:
+          - otac
+          type: string
+      required:
+      - type
+      - token
+      type: object
     5XXErrorSchema:
       description: A HTTP 5xx error response
       properties:
@@ -702,6 +704,12 @@ components:
           - faultId
           type: object
       type: object
+    CommunicationChannels:
+      enum:
+      - email
+      - sms
+      - push
+      type: string
     consumerMarketingPreference:
       items:
         properties:
@@ -721,14 +729,6 @@ components:
             type: boolean
         type: object
       type: array
-    ChannelSubscriptions:
-      properties:
-        subscribedChannels:
-          description: The list of channels that the consumer should only be subscribed to.
-          items:
-            $ref: '#/components/schemas/CommunicationChannels'
-          type: array
-      type: object
   responses:
     500ErrorResponse:
       content:

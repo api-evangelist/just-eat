@@ -337,21 +337,10 @@ components:
           format: money
           type: number
       type: object
-    item-v2:
+    send-to-pos-failed:
       properties:
-        Items:
-          items:
-            $ref: '#/components/schemas/item-v2'
-          type: array
-        Name:
+        OrderId:
           type: string
-        Quantity:
-          type: integer
-        Reference:
-          type: string
-        UnitPrice:
-          format: money
-          type: integer
       type: object
     location:
       description: GeoLocation object containing latitude and longitude values.
@@ -386,10 +375,21 @@ components:
       - Latitude
       - Longitude
       type: object
-    send-to-pos-failed:
+    item-v2:
       properties:
-        OrderId:
+        Items:
+          items:
+            $ref: '#/components/schemas/item-v2'
+          type: array
+        Name:
           type: string
+        Quantity:
+          type: integer
+        Reference:
+          type: string
+        UnitPrice:
+          format: money
+          type: integer
       type: object
   securitySchemes:
     Bearer:

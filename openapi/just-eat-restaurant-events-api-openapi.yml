@@ -141,69 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    UserRole:
-      description: '
-
-        - `System` : Role for an automated process action.
-
-        - `Operations` : Role for an operations user action.
-
-        - `Restaurant` : Role for a restaurant owner/employee user action.'
-      enum:
-      - System
-      - Operations
-      - Restaurant
-      type: string
-    OfflineRestaurantsRequestModel:
-      additionalProperties: false
-      example:
-        allowRestaurantOverride: true
-        duration: '1:00:00'
-        name: Out of Chicken
-        reason: No more chicken in stock.
-        restaurantIds: '12345'
-        startDate: '2020-01-16T09:00:00Z'
-      properties:
-        allowRestaurantOverride:
-          description: Whether a restaurant should be allowed to delete this event, regardless of who raised it.
-          type: boolean
-        category:
-          deprecated: true
-          description: A free text category used to group multiple events. This field is not intended to be used by clients.
-          type: string
-        duration:
-          description: Either a timespan in the HH:mm format or `untilTomorrow` (this will be the next day at 4:30 am +/- 10 minutes local time). Note if both duration and `endDate` are specified duration takes precedence.
-          type: string
-        endDate:
-          description: ISO 8601 format of the end datetime of the offline event.
-          format: date-time
-          minLength: 1
-          type:
-          - string
-          - 'null'
-        legacyTempOfflineType:
-          $ref: '#/components/schemas/LegacyTempOfflineStatus'
-        name:
-          description: Name of the offline event to be created.
-          type: string
-        reason:
-          description: The reason for creating the offline event.
-          type: string
-        restaurantIds:
-          description: A comma separated list of the IDs of the restaurants to include in the offline event. No limit to the number accepted by the endpoint, but unexpected behaviour mat occur at more than 500 IDs.
-          type: string
-        startDate:
-          description: ISO 8601 format of the start datetime of the offline event.
-          format: date-time
-          minLength: 1
-          type: string
-      required:
-      - restaurantIds
-      - name
-      - reason
-      - startDate
-      - allowRestaurantOverride
-      type: object
     ValidationError:
       additionalProperties: false
       example:
@@ -256,6 +193,19 @@ components:
           description: Severity of a validation rule. Will always be 0 (Error).
           type: number
       type: object
+    UserRole:
+      description: '
+
+        - `System` : Role for an automated process action.
+
+        - `Operations` : Role for an operations user action.
+
+        - `Restaurant` : Role for a restaurant owner/employee user action.'
+      enum:
+      - System
+      - Operations
+      - Restaurant
+      type: string
     LegacyTempOfflineStatus:
       default: ClosedDueToEvent
       description: '
@@ -285,6 +235,56 @@ components:
       - NoTrOverride
       - IgnoredOrders
       type: string
+    OfflineRestaurantsRequestModel:
+      additionalProperties: false
+      example:
+        allowRestaurantOverride: true
+        duration: '1:00:00'
+        name: Out of Chicken
+        reason: No more chicken in stock.
+        restaurantIds: '12345'
+        startDate: '2020-01-16T09:00:00Z'
+      properties:
+        allowRestaurantOverride:
+          description: Whether a restaurant should be allowed to delete this event, regardless of who raised it.
+          type: boolean
+        category:
+          deprecated: true
+          description: A free text category used to group multiple events. This field is not intended to be used by clients.
+          type: string
+        duration:
+          description: Either a timespan in the HH:mm format or `untilTomorrow` (this will be the next day at 4:30 am +/- 10 minutes local time). Note if both duration and `endDate` are specified duration takes precedence.
+          type: string
+        endDate:
+          description: ISO 8601 format of the end datetime of the offline event.
+          format: date-time
+          minLength: 1
+          type:
+          - string
+          - 'null'
+        legacyTempOfflineType:
+          $ref: '#/components/schemas/LegacyTempOfflineStatus'
+        name:
+          description: Name of the offline event to be created.
+          type: string
+        reason:
+          description: The reason for creating the offline event.
+          type: string
+        restaurantIds:
+          description: A comma separated list of the IDs of the restaurants to include in the offline event. No limit to the number accepted by the endpoint, but unexpected behaviour mat occur at more than 500 IDs.
+          type: string
+        startDate:
+          description: ISO 8601 format of the start datetime of the offline event.
+          format: date-time
+          minLength: 1
+          type: string
+      required:
+      - restaurantIds
+      - name
+      - reason
+      - startDate
+      - allowRestaurantOverride
+      type: object
   securitySchemes:
     Bearer:
       bearerFormat: JWT

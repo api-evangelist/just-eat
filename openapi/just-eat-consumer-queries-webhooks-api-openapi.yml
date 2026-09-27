@@ -62,11 +62,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    late-order-compensation-options:
-      items:
-        $ref: '#/components/schemas/LateOrderCompensationOption'
-        type: object
-      type: array
     late-order-query:
       example:
         OrderId: wiej234idf09i29jijgf4
@@ -94,6 +89,11 @@ components:
           description: Whether this option is the recommended option
           type: boolean
       type: object
+    late-order-compensation-options:
+      items:
+        $ref: '#/components/schemas/LateOrderCompensationOption'
+        type: object
+      type: array
     late-order-compensation-query:
       example:
         CompensationOptions:

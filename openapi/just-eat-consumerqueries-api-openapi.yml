@@ -231,6 +231,41 @@ components:
           - faultId
           type: object
       type: object
+    LateOrderCompensationRestaurantResolution:
+      example:
+        acceptedAmount: 500
+        isAccepted: true
+        orderId: 69rqfxyfze2gjzf5nusdcw
+      properties:
+        acceptedAmount:
+          description: The monetary amount of compensation granted, in cents/pence. Required when `isAccepted = true`.
+          type: integer
+        isAccepted:
+          description: Flag to indicate whether a compensation request has been accepted or rejected.
+          type: boolean
+        orderId:
+          description: The ID of the late order compensation request that this response relates to.
+          type: string
+        rejectedReasonCode:
+          description: '
+
+            - `BadTraffic` : The driver was stuck in heavy traffic, sorry.
+
+            - `BadWeather` : The bad weather was delaying our deliveries, sorry.
+
+            - `BusierThanExpected` : Our restaurant was busier than we expected.
+
+            - `CompensatedWithItem` : We gave you something from the menu free of charge to make up for it.
+
+            - `NoReason` : We''re really sorry your order was late. We hope you enjoyed your food.'
+          enum:
+          - BadTraffic
+          - BadWeather
+          - BusierThanExpected
+          - CompensatedWithItem
+          - NoReason
+          type: string
+      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -268,41 +303,6 @@ components:
           - Preparing
           - OnItsWay
           - Delivered
-          type: string
-      type: object
-    LateOrderCompensationRestaurantResolution:
-      example:
-        acceptedAmount: 500
-        isAccepted: true
-        orderId: 69rqfxyfze2gjzf5nusdcw
-      properties:
-        acceptedAmount:
-          description: The monetary amount of compensation granted, in cents/pence. Required when `isAccepted = true`.
-          type: integer
-        isAccepted:
-          description: Flag to indicate whether a compensation request has been accepted or rejected.
-          type: boolean
-        orderId:
-          description: The ID of the late order compensation request that this response relates to.
-          type: string
-        rejectedReasonCode:
-          description: '
-
-            - `BadTraffic` : The driver was stuck in heavy traffic, sorry.
-
-            - `BadWeather` : The bad weather was delaying our deliveries, sorry.
-
-            - `BusierThanExpected` : Our restaurant was busier than we expected.
-
-            - `CompensatedWithItem` : We gave you something from the menu free of charge to make up for it.
-
-            - `NoReason` : We''re really sorry your order was late. We hope you enjoyed your food.'
-          enum:
-          - BadTraffic
-          - BadWeather
-          - BusierThanExpected
-          - CompensatedWithItem
-          - NoReason
           type: string
       type: object
   responses:

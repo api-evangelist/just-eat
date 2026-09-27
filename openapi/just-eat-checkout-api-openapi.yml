@@ -503,120 +503,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    AvailableFulfilmentTimes409Error:
-      description: An HTTP 409 error response
-      properties:
-        fault:
-          additionalProperties: false
-          description: A list of values that helps identify this response back to logs, so we can easily find faults.
-          properties:
-            errors:
-              description: List of errors that may assist you in resolving the issues.
-              items:
-                additionalProperties: false
-                description: Details about the error that may assist you in resolving the issue.
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue.
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
-                    enum:
-                    - FULFILMENT_TIME_BANDS_INVALID
-                    - FULFILMENT_TIME_BANDS_NOT_FOUND
-                    type: string
-                required:
-                - description
-                - errorCode
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
-              type: string
-          required:
-          - faultId
-          - traceId
-          - errors
-          type:
-          - object
-          - 'null'
-      type: object
-    Checkout409Error:
-      description: An HTTP 409 error response
-      properties:
-        fault:
-          additionalProperties: false
-          description: A list of values that helps identify this response back to logs, so we can easily find faults .
-          properties:
-            errors:
-              description: List of errors that may assist you in resolving the issues.
-              items:
-                additionalProperties: false
-                description: Details about the error that may assist you in resolving the issue.
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue.
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
-                    enum:
-                    - CHECKOUT_INVALID
-                    type: string
-                required:
-                - description
-                - errorCode
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
-              type: string
-          required:
-          - faultId
-          - traceId
-          - errors
-          type:
-          - object
-          - 'null'
-      type: object
-    CheckoutDefaultError:
-      description: A default HTTP error response
-      properties:
-        fault:
-          additionalProperties: false
-          description: A list of values that helps identify this response back to logs, so we can easily find faults.
-          properties:
-            errors:
-              description: List of errors that may assist you in resolving the issues.
-              items:
-                additionalProperties: false
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue.
-                    type: string
-                required:
-                - description
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
-              type: string
-          required:
-          - faultId
-          - traceId
-          - errors
-          type:
-          - object
-          - 'null'
-      type: object
     CheckoutIssue:
       discriminator:
         mapping:
@@ -662,6 +548,47 @@ components:
           type: string
       required:
       - code
+      type: object
+    CheckoutGet400Error:
+      description: An HTTP 400 error response
+      properties:
+        fault:
+          additionalProperties: false
+          description: A list of values that helps identify this response back to logs, so we can easily find faults.
+          properties:
+            errors:
+              description: List of errors that may assist you in resolving the issues.
+              items:
+                additionalProperties: false
+                description: Details about the error that may assist you in resolving the issue.
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue.
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
+                    enum:
+                    - TENANT_INVALID
+                    - CHECKOUT_ID_INVALID
+                    type: string
+                required:
+                - description
+                - errorCode
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
+              type: string
+          required:
+          - faultId
+          - traceId
+          - errors
+          type:
+          - object
+          - 'null'
       type: object
     Checkout404Error:
       description: An HTTP 404 error response
@@ -894,6 +821,183 @@ components:
           - array
           - 'null'
       type: object
+    CheckoutUpdateResponse:
+      properties:
+        isFulfillable:
+          description: Whether the proposed order can be placed.
+          type: boolean
+        issues:
+          description: One or more issues associated the proposed order, that may impact whether it can be placed.
+          items:
+            $ref: '#/components/schemas/CheckoutIssue'
+            description: Represents a single issue associated with the proposed order.
+          maxItems: 18
+          minItems: 0
+          type: array
+      required:
+      - isFulfillable
+      - issues
+      type: object
+    CheckoutUpdate400Error:
+      description: An HTTP 400 error response
+      properties:
+        fault:
+          additionalProperties: false
+          description: A list of values that helps identify this response back to logs, so we can easily find faults.
+          properties:
+            errors:
+              description: List of errors that may assist you in resolving the issues.
+              items:
+                additionalProperties: false
+                description: Details about the error that may assist you in resolving the issue.
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue.
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
+                    enum:
+                    - TENANT_INVALID
+                    - CHECKOUT_ID_INVALID
+                    - INVALID_REQUEST
+                    - FIRST_NAME_INVALID
+                    - LAST_NAME_INVALID
+                    - PHONE_NUMBER_INVALID
+                    - DATE_OF_BIRTH_INVALID
+                    - FULFILMENT_TIME_INVALID
+                    - ADDRESS_LINES_INVALID
+                    - LOCALITY_INVALID
+                    - ADMINISTRATIVE_AREA_INVALID
+                    - POSTAL_CODE_INVALID
+                    - GEOLOCATION_INVALID
+                    - DELIVERY_NOTE_INVALID
+                    type: string
+                required:
+                - description
+                - errorCode
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
+              type: string
+          required:
+          - faultId
+          - traceId
+          - errors
+          type:
+          - object
+          - 'null'
+      type: object
+    GetAvailableFulfilmentTimesResponse:
+      properties:
+        asapAvailable:
+          description: If the option to fulfil an order as soon as possible is available.
+          type: boolean
+        times:
+          description: Collection of time bands for when an order can be fulfilled.
+          items:
+            description: A time band for when an order can be fulfilled.
+            properties:
+              from:
+                description: Start time represented in ISO 8601 UTC (Zulu Time).
+                format: date-time
+                type: string
+              to:
+                description: 'End time represented in ISO 8601 UTC (Zulu Time).
+
+
+                  This time can be equal to the from time.
+
+                  '
+                format: date-time
+                type: string
+            required:
+            - from
+            - to
+            type: object
+          maxItems: 576
+          minItems: 0
+          type: array
+      required:
+      - times
+      - asapAvailable
+      type: object
+    CheckoutDefaultError:
+      description: A default HTTP error response
+      properties:
+        fault:
+          additionalProperties: false
+          description: A list of values that helps identify this response back to logs, so we can easily find faults.
+          properties:
+            errors:
+              description: List of errors that may assist you in resolving the issues.
+              items:
+                additionalProperties: false
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue.
+                    type: string
+                required:
+                - description
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
+              type: string
+          required:
+          - faultId
+          - traceId
+          - errors
+          type:
+          - object
+          - 'null'
+      type: object
+    Checkout409Error:
+      description: An HTTP 409 error response
+      properties:
+        fault:
+          additionalProperties: false
+          description: A list of values that helps identify this response back to logs, so we can easily find faults .
+          properties:
+            errors:
+              description: List of errors that may assist you in resolving the issues.
+              items:
+                additionalProperties: false
+                description: Details about the error that may assist you in resolving the issue.
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue.
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
+                    enum:
+                    - CHECKOUT_INVALID
+                    type: string
+                required:
+                - description
+                - errorCode
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
+              type: string
+          required:
+          - faultId
+          - traceId
+          - errors
+          type:
+          - object
+          - 'null'
+      type: object
     CheckoutGetResponse:
       description: Properties apply to all supported country codes, except where specified.
       properties:
@@ -1091,25 +1195,8 @@ components:
       - isFulfillable
       - issues
       type: object
-    CheckoutUpdateResponse:
-      properties:
-        isFulfillable:
-          description: Whether the proposed order can be placed.
-          type: boolean
-        issues:
-          description: One or more issues associated the proposed order, that may impact whether it can be placed.
-          items:
-            $ref: '#/components/schemas/CheckoutIssue'
-            description: Represents a single issue associated with the proposed order.
-          maxItems: 18
-          minItems: 0
-          type: array
-      required:
-      - isFulfillable
-      - issues
-      type: object
-    CheckoutGet400Error:
-      description: An HTTP 400 error response
+    AvailableFulfilmentTimes409Error:
+      description: An HTTP 409 error response
       properties:
         fault:
           additionalProperties: false
@@ -1127,8 +1214,8 @@ components:
                   errorCode:
                     description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
                     enum:
-                    - TENANT_INVALID
-                    - CHECKOUT_ID_INVALID
+                    - FULFILMENT_TIME_BANDS_INVALID
+                    - FULFILMENT_TIME_BANDS_NOT_FOUND
                     type: string
                 required:
                 - description
@@ -1148,93 +1235,6 @@ components:
           type:
           - object
           - 'null'
-      type: object
-    CheckoutUpdate400Error:
-      description: An HTTP 400 error response
-      properties:
-        fault:
-          additionalProperties: false
-          description: A list of values that helps identify this response back to logs, so we can easily find faults.
-          properties:
-            errors:
-              description: List of errors that may assist you in resolving the issues.
-              items:
-                additionalProperties: false
-                description: Details about the error that may assist you in resolving the issue.
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue.
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error.
-                    enum:
-                    - TENANT_INVALID
-                    - CHECKOUT_ID_INVALID
-                    - INVALID_REQUEST
-                    - FIRST_NAME_INVALID
-                    - LAST_NAME_INVALID
-                    - PHONE_NUMBER_INVALID
-                    - DATE_OF_BIRTH_INVALID
-                    - FULFILMENT_TIME_INVALID
-                    - ADDRESS_LINES_INVALID
-                    - LOCALITY_INVALID
-                    - ADMINISTRATIVE_AREA_INVALID
-                    - POSTAL_CODE_INVALID
-                    - GEOLOCATION_INVALID
-                    - DELIVERY_NOTE_INVALID
-                    type: string
-                required:
-                - description
-                - errorCode
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault.
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated.
-              type: string
-          required:
-          - faultId
-          - traceId
-          - errors
-          type:
-          - object
-          - 'null'
-      type: object
-    GetAvailableFulfilmentTimesResponse:
-      properties:
-        asapAvailable:
-          description: If the option to fulfil an order as soon as possible is available.
-          type: boolean
-        times:
-          description: Collection of time bands for when an order can be fulfilled.
-          items:
-            description: A time band for when an order can be fulfilled.
-            properties:
-              from:
-                description: Start time represented in ISO 8601 UTC (Zulu Time).
-                format: date-time
-                type: string
-              to:
-                description: 'End time represented in ISO 8601 UTC (Zulu Time).
-
-
-                  This time can be equal to the from time.
-
-                  '
-                format: date-time
-                type: string
-            required:
-            - from
-            - to
-            type: object
-          maxItems: 576
-          minItems: 0
-          type: array
-      required:
-      - times
-      - asapAvailable
       type: object
   securitySchemes:
     Bearer:

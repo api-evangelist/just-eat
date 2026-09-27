@@ -113,36 +113,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    order-cancelled:
-      example:
-        Event: OrderCancelled
-        OrderId: ijdhpy7bdusgtc28bapspa
-        Reason: system_cancelled_other
-      properties:
-        Event:
-          type: string
-        OrderId:
-          type: string
-        Reason:
-          description: The reason the order was cancelled.
-          enum:
-          - cust_cancelled_changed_mind
-          - cust_cancelled_delivery_too_long
-          - cust_cancelled_made_mistake
-          - cust_cancelled_other
-          - delivery_partner_cancelled
-          - rest_cancelled_customer_absent
-          - rest_cancelled_customer_requested
-          - rest_cancelled_declined
-          - rest_cancelled_drivers_unavailable
-          - rest_cancelled_fake_order
-          - rest_cancelled_other
-          - rest_cancelled_out_of_stock
-          - rest_cancelled_too_busy
-          - system_cancelled_other
-          - system_cancelled_test_order
-          type: string
-      type: object
     acceptance-requested:
       example:
         Currency: GBP
@@ -373,6 +343,36 @@ components:
           format: money
           type: number
       type: object
+    order-cancelled:
+      example:
+        Event: OrderCancelled
+        OrderId: ijdhpy7bdusgtc28bapspa
+        Reason: system_cancelled_other
+      properties:
+        Event:
+          type: string
+        OrderId:
+          type: string
+        Reason:
+          description: The reason the order was cancelled.
+          enum:
+          - cust_cancelled_changed_mind
+          - cust_cancelled_delivery_too_long
+          - cust_cancelled_made_mistake
+          - cust_cancelled_other
+          - delivery_partner_cancelled
+          - rest_cancelled_customer_absent
+          - rest_cancelled_customer_requested
+          - rest_cancelled_declined
+          - rest_cancelled_drivers_unavailable
+          - rest_cancelled_fake_order
+          - rest_cancelled_other
+          - rest_cancelled_out_of_stock
+          - rest_cancelled_too_busy
+          - system_cancelled_other
+          - system_cancelled_test_order
+          type: string
+      type: object
     order-address:
       properties:
         City:
@@ -393,25 +393,14 @@ components:
         PostalCode:
           type: string
       type: object
-    order-item:
-      items:
-        properties:
-          Items:
-            $ref: '#/components/schemas/order-item'
-          Name:
-            type: string
-          Quantity:
-            type: number
-          Reference:
-            type: string
-          TotalPrice:
-            format: money
-            type: number
-          UnitPrice:
-            format: money
-            type: number
-        type: object
-      type: array
+    order-item-restriction:
+      properties:
+        Type:
+          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
+          enum:
+          - Alcohol
+          type: string
+      type: object
     attempted-delivery-response-received:
       example:
         Notes: Please press 123 on the door
@@ -442,14 +431,6 @@ components:
         OrderId:
           type: string
       type: object
-    order-item-restriction:
-      properties:
-        Type:
-          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
-          enum:
-          - Alcohol
-          type: string
-      type: object
     order-rejected:
       example:
         Event: OrderRejected
@@ -467,6 +448,25 @@ components:
         RejectedReason:
           type: string
       type: object
+    order-item:
+      items:
+        properties:
+          Items:
+            $ref: '#/components/schemas/order-item'
+          Name:
+            type: string
+          Quantity:
+            type: number
+          Reference:
+            type: string
+          TotalPrice:
+            format: money
+            type: number
+          UnitPrice:
+            format: money
+            type: number
+        type: object
+      type: array
   securitySchemes:
     Bearer:
       bearerFormat: JWT

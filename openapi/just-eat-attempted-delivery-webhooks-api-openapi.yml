@@ -63,6 +63,26 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    attempted-delivery-created:
+      example:
+        OrderId: wiej234idf09i29jijgf4
+        Reason: Customer did not answer the door
+        RestaurantId: 110230
+        Tenant: uk
+      properties:
+        OrderId:
+          description: The id of the order
+          type: string
+        Reason:
+          description: The reason for creating the attempted delivery
+          type: string
+        RestaurantId:
+          description: The id of the restaurant
+          type: number
+        Tenant:
+          description: The tenant associated with the order
+          type: string
+      type: object
     attempted-delivery-resolved:
       example:
         OrderId: wiej234idf09i29jijgf4
@@ -128,26 +148,6 @@ components:
           - 'no'
           - au
           - nz
-          type: string
-      type: object
-    attempted-delivery-created:
-      example:
-        OrderId: wiej234idf09i29jijgf4
-        Reason: Customer did not answer the door
-        RestaurantId: 110230
-        Tenant: uk
-      properties:
-        OrderId:
-          description: The id of the order
-          type: string
-        Reason:
-          description: The reason for creating the attempted delivery
-          type: string
-        RestaurantId:
-          description: The id of the restaurant
-          type: number
-        Tenant:
-          description: The tenant associated with the order
           type: string
       type: object
   securitySchemes:

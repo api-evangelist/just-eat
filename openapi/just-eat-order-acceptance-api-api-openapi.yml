@@ -249,29 +249,12 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    order-reject-request:
+    order-cancel-request:
       example:
-        Message: Kitchen overloaded
+        Message: Customer requested the order to be cancelled
       properties:
         Message:
-          description: Reason why this order is being rejected.
-          type: string
-      type: object
-    order-accept-request:
-      example:
-        TimeAcceptedFor: '2018-03-10T14:45:28Z'
-      properties:
-        TimeAcceptedFor:
-          format: date-time
-          type: string
-      type: object
-    order-due-date-request:
-      example:
-        DueDate: '2019-12-25T14:45:28Z'
-      properties:
-        DueDate:
-          description: The updated ETA for the order
-          format: date-time
+          description: Reason why this order is being cancelled.
           type: string
       type: object
     500ErrorSchema:
@@ -299,14 +282,6 @@ components:
           - faultId
           type: object
       type: object
-    order-cancel-request:
-      example:
-        Message: Customer requested the order to be cancelled
-      properties:
-        Message:
-          description: Reason why this order is being cancelled.
-          type: string
-      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -332,6 +307,31 @@ components:
           required:
           - faultId
           type: object
+      type: object
+    order-reject-request:
+      example:
+        Message: Kitchen overloaded
+      properties:
+        Message:
+          description: Reason why this order is being rejected.
+          type: string
+      type: object
+    order-due-date-request:
+      example:
+        DueDate: '2019-12-25T14:45:28Z'
+      properties:
+        DueDate:
+          description: The updated ETA for the order
+          format: date-time
+          type: string
+      type: object
+    order-accept-request:
+      example:
+        TimeAcceptedFor: '2018-03-10T14:45:28Z'
+      properties:
+        TimeAcceptedFor:
+          format: date-time
+          type: string
       type: object
   responses:
     500ErrorResponse:

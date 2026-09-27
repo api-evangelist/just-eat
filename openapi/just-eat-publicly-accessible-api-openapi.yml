@@ -226,6 +226,21 @@ paths:
       - publicly-accessible
 components:
   schemas:
+    updateOrderTimeRequest:
+      description: Request object for order time update
+      example:
+        lowerBoundMinutes: 35
+        upperBoundMinutes: 50
+      properties:
+        lowerBoundMinutes:
+          description: Order time lower bound value, in minutes.
+          format: int32
+          type: integer
+        upperBoundMinutes:
+          description: Order time upper bound value, in minutes.
+          format: int32
+          type: integer
+      type: object
     orderTime:
       description: The object representing order time entry
       example:
@@ -310,21 +325,6 @@ components:
           required:
           - faultId
           type: object
-      type: object
-    updateOrderTimeRequest:
-      description: Request object for order time update
-      example:
-        lowerBoundMinutes: 35
-        upperBoundMinutes: 50
-      properties:
-        lowerBoundMinutes:
-          description: Order time lower bound value, in minutes.
-          format: int32
-          type: integer
-        upperBoundMinutes:
-          description: Order time upper bound value, in minutes.
-          format: int32
-          type: integer
       type: object
   responses:
     403ForbiddenResponse:

@@ -71,62 +71,20 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    tax-v2:
+    location-v2:
+      example:
+        Latitude: 51.51641
+        Longitude: -0.103198
       properties:
-        Percentage:
+        Latitude:
           format: double
           type: number
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
-      required:
-      - Value
-      - Type
-      - Percentage
-      type: object
-    order-request-v2:
-      properties:
-        Customer:
-          $ref: '#/components/schemas/customer-v2'
-        CustomerNotes:
-          example:
-            NoteForDelivery: Red door
-            NoteForRestaurant: Make it spicy
-          properties:
-            NoteForDelivery:
-              type: string
-            NoteForRestaurant:
-              type: string
-          type: object
-        FriendlyOrderReference:
-          type: string
-        Fulfilment:
-          $ref: '#/components/schemas/fulfilment-v2'
-        IsTest:
-          type: boolean
-        Items:
-          items:
-            $ref: '#/components/schemas/items-v2'
-          type: array
-        OrderReference:
-          type: string
-        Payment:
-          $ref: '#/components/schemas/payment-v2'
-        Restaurant:
-          $ref: '#/components/schemas/restaurant-v2'
-        TotalPrice:
+        Longitude:
           format: double
           type: number
       required:
-      - OrderReference
-      - TotalPrice
-      - Restaurant
-      - Customer
-      - Fulfilment
-      - Payment
-      - Items
+      - Latitude
+      - Longitude
       type: object
     item-v2:
       properties:
@@ -143,6 +101,96 @@ components:
         UnitPrice:
           format: money
           type: integer
+      type: object
+    tax-v2:
+      properties:
+        Percentage:
+          format: double
+          type: number
+        Type:
+          type: string
+        Value:
+          format: money
+          type: number
+      required:
+      - Value
+      - Type
+      - Percentage
+      type: object
+    fulfilment-v2:
+      example:
+        DueAsap: false
+        DueDate: '2020-01-01T09:00:00.000Z'
+        Method: Delivery
+      properties:
+        DueAsap:
+          description: If food should be delivered ASAP
+          type: boolean
+        DueDate:
+          description: The time the customer expects the food. Time must be in the future
+          format: date-time
+          type: string
+        Method:
+          enum:
+          - Delivery
+          - Collection
+          type: string
+      required:
+      - Method
+      - DueDate
+      type: object
+    lines-v2:
+      properties:
+        LastCardDigits:
+          type: string
+        Paid:
+          type: boolean
+        ServiceFee:
+          format: double
+          type: number
+        Type:
+          enum:
+          - Cash
+          - Card
+          - AccountCredit
+          - Voucher
+          type: string
+        Value:
+          format: money
+          type: number
+      required:
+      - Type
+      type: object
+    restaurant-v2:
+      oneOf:
+      - properties:
+          Id:
+            description: Our restaurant ID
+            type: integer
+        type: object
+      - properties:
+          Reference:
+            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
+            type: string
+        type: object
+    customer-v2:
+      properties:
+        Address:
+          $ref: '#/components/schemas/address-v2'
+        DisplayPhoneNumber:
+          description: If you implement phone masking provide a masked number here
+          type: string
+        Email:
+          type: string
+        Name:
+          type: string
+        PhoneNumber:
+          description: The customer's real phone number
+          type: string
+      required:
+      - Name
+      - PhoneNumber
+      - Address
       type: object
     payment-v2:
       example:
@@ -210,70 +258,6 @@ components:
       - Name
       - Quantity
       type: object
-    customer-v2:
-      properties:
-        Address:
-          $ref: '#/components/schemas/address-v2'
-        DisplayPhoneNumber:
-          description: If you implement phone masking provide a masked number here
-          type: string
-        Email:
-          type: string
-        Name:
-          type: string
-        PhoneNumber:
-          description: The customer's real phone number
-          type: string
-      required:
-      - Name
-      - PhoneNumber
-      - Address
-      type: object
-    location-v2:
-      example:
-        Latitude: 51.51641
-        Longitude: -0.103198
-      properties:
-        Latitude:
-          format: double
-          type: number
-        Longitude:
-          format: double
-          type: number
-      required:
-      - Latitude
-      - Longitude
-      type: object
-    lines-v2:
-      properties:
-        LastCardDigits:
-          type: string
-        Paid:
-          type: boolean
-        ServiceFee:
-          format: double
-          type: number
-        Type:
-          enum:
-          - Cash
-          - Card
-          - AccountCredit
-          - Voucher
-          type: string
-        Value:
-          format: money
-          type: number
-      required:
-      - Type
-      type: object
-    fee:
-      properties:
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
-      type: object
     address-v2:
       properties:
         City:
@@ -292,39 +276,55 @@ components:
       - PostalCode
       - Geolocation
       type: object
-    restaurant-v2:
-      oneOf:
-      - properties:
-          Id:
-            description: Our restaurant ID
-            type: integer
-        type: object
-      - properties:
-          Reference:
-            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
-            type: string
-        type: object
-    fulfilment-v2:
-      example:
-        DueAsap: false
-        DueDate: '2020-01-01T09:00:00.000Z'
-        Method: Delivery
+    order-request-v2:
       properties:
-        DueAsap:
-          description: If food should be delivered ASAP
+        Customer:
+          $ref: '#/components/schemas/customer-v2'
+        CustomerNotes:
+          example:
+            NoteForDelivery: Red door
+            NoteForRestaurant: Make it spicy
+          properties:
+            NoteForDelivery:
+              type: string
+            NoteForRestaurant:
+              type: string
+          type: object
+        FriendlyOrderReference:
+          type: string
+        Fulfilment:
+          $ref: '#/components/schemas/fulfilment-v2'
+        IsTest:
           type: boolean
-        DueDate:
-          description: The time the customer expects the food. Time must be in the future
-          format: date-time
+        Items:
+          items:
+            $ref: '#/components/schemas/items-v2'
+          type: array
+        OrderReference:
           type: string
-        Method:
-          enum:
-          - Delivery
-          - Collection
-          type: string
+        Payment:
+          $ref: '#/components/schemas/payment-v2'
+        Restaurant:
+          $ref: '#/components/schemas/restaurant-v2'
+        TotalPrice:
+          format: double
+          type: number
       required:
-      - Method
-      - DueDate
+      - OrderReference
+      - TotalPrice
+      - Restaurant
+      - Customer
+      - Fulfilment
+      - Payment
+      - Items
+      type: object
+    fee:
+      properties:
+        Type:
+          type: string
+        Value:
+          format: money
+          type: number
       type: object
   securitySchemes:
     Bearer:

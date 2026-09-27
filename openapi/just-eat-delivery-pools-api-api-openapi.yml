@@ -439,6 +439,59 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    create-delivery-pool:
+      example:
+        name: Toronto - West
+        restaurants:
+        - 123
+        - 456
+      properties:
+        name:
+          description: The name of the pool, used by operations teams, in reports, etc.
+          type: string
+        restaurants:
+          description: A list of Just Eat restaurant ids served by the delivery pool.
+          items:
+            format: int32
+            type: number
+          type: array
+      required:
+      - name
+      type: object
+    estimated-time:
+      example:
+        bestGuess: 00:35:00
+      properties:
+        bestGuess:
+          description: Your best estimation (hh:mm:ss)
+          type: string
+      type: object
+    delivery-restaurantslist:
+      properties:
+        restaurants:
+          description: A list of Just Eat restaurant ids served by the pool.
+          example:
+          - 10202
+          - 10203
+          items:
+            format: int32
+            type: number
+          type: array
+      type: object
+    patch-delivery-pool:
+      example:
+        name: Toronto - North
+      properties:
+        name:
+          description: The name of the pool, used by operations teams, in reports, etc.
+          type: string
+        restaurants:
+          description: A list of Just Eat restaurant ids served by the delivery pool.
+          items:
+            format: int32
+            type: number
+          type: array
+      type: object
     delivery-pool-hours:
       example:
         friday:
@@ -646,59 +699,6 @@ components:
       - friday
       - saturday
       - sunday
-      type: object
-    patch-delivery-pool:
-      example:
-        name: Toronto - North
-      properties:
-        name:
-          description: The name of the pool, used by operations teams, in reports, etc.
-          type: string
-        restaurants:
-          description: A list of Just Eat restaurant ids served by the delivery pool.
-          items:
-            format: int32
-            type: number
-          type: array
-      type: object
-    delivery-restaurantslist:
-      properties:
-        restaurants:
-          description: A list of Just Eat restaurant ids served by the pool.
-          example:
-          - 10202
-          - 10203
-          items:
-            format: int32
-            type: number
-          type: array
-      type: object
-    create-delivery-pool:
-      example:
-        name: Toronto - West
-        restaurants:
-        - 123
-        - 456
-      properties:
-        name:
-          description: The name of the pool, used by operations teams, in reports, etc.
-          type: string
-        restaurants:
-          description: A list of Just Eat restaurant ids served by the delivery pool.
-          items:
-            format: int32
-            type: number
-          type: array
-      required:
-      - name
-      type: object
-    estimated-time:
-      example:
-        bestGuess: 00:35:00
-      properties:
-        bestGuess:
-          description: Your best estimation (hh:mm:ss)
-          type: string
       type: object
   securitySchemes:
     Bearer:

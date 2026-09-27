@@ -199,7 +199,7 @@ apis:
   - type: OpenAPI
     url: openapi/just-eat-order-webhooks-api-openapi.yml
 - aid: just-eat:just-eat-publicly-accessible-api
-  name: Just Eat publicly-accessible API
+  name: Just Eat Publicly Accessible API
   description: The publicly-accessible API from Just Eat — 85 operation(s) for publicly-accessible.
   humanURL: https://uk.api.just-eat.io/docs
   baseURL: https://uk.api.just-eat.io

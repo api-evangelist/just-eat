@@ -372,168 +372,48 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    Item:
-      description: Information about an item in the claim
+    ItemDecision:
+      description: Decision on the item
       example:
-        additionalContext: Potato skin was damaged
-        decision: Rejected
+        decision: Accepted
         id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-        name: Potato skin
-        quantity: 1
-        totalClaimed: 1900
-        unitPrice: 2000
       properties:
-        additionalContext:
-          description: Comment giving additional context
-          type:
-          - string
-          - 'null'
         decision:
-          description: Indicates whether decision on the claimed item was made and what was that decision
+          description: Decision made about the item
           enum:
-          - NotDecided
           - Accepted
           - Rejected
           type: string
         id:
           description: Item identifier
           type: string
-        name:
-          description: Item name
-          type: string
-        quantity:
-          description: Quantity of items
-          type: number
-        totalClaimed:
-          description: Total claimed money in smallest unit of relevant currency
-          type: number
-        unitPrice:
-          description: Price of a single unit in smallest unit of relevant currency
-          type: number
       type: object
-    OrderClaim:
-      description: Claim information
+    Justification:
+      description: The reason of the claim rejection and optional comments from the restaurant
       example:
-        affectedItems:
-        - additionalContext: Potato skin was damaged
-          decision: Rejected
-          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          name: Potato skin
-          quantity: 1
-          reference: productid%4t56574596
-          totalClaimed: 1900
-          unitPrice: 2000
-        - additionalContext: Pizza was damaged too
-          decision: Accepted
-          id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          name: Pizza
-          quantity: 1
-          reference: productid%t5y6574596
-          totalClaimed: 1900
-          unitPrice: 2000
-        currency: GBP
-        expirationDate: '2020-05-22T14:22:11.1053368+00:00'
-        friendlyOrderReference: '451226580'
-        id: 2f749442-a62a-abcd-8623-04202878e034
-        issueType: Damaged
-        orderId: r23tqoxdoeupdx9w8evorw
-        resolution:
-          decision: PartiallyAccepted
-          resolvedChannel: PartnerCentre
-          resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
-          totalClaimedAccepted: 1900
-        restaurantResponse:
-          decision: PartiallyAccepted
-          items:
-          - decision: Rejected
-            id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          - decision: Accepted
-            id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          justification:
-            comments: The food was packed properly
-            reason: Other
-        state: Closed
-        submittedDate: '2020-05-20T14:22:11.1053368+00:00'
-        totalClaimed: 3800
+        comments: The food was packed properly
+        reason: Other
       properties:
-        affectedItems:
-          description: Information about the claimed items
-          items:
-            $ref: '#/components/schemas/Item'
+        comments:
+          description: Comment from the restaurant owner in case they rejected at least one of the items and want to type their own rejection reason
           type:
-          - array
+          - string
           - 'null'
-        currency:
-          description: Name of currency in ISO 4217 format
-          type: string
-        expirationDate:
-          description: Date when the claim will be accepted automatically in case the owner of the restaurant ignores it
-          format: date-time
-          type: string
-        friendlyOrderReference:
-          description: Just Eat friendly order reference
-          type: string
-        id:
-          description: Claim identifier
-          type: string
-        issueType:
-          description: Type of claim
+        reason:
+          description: One of the predefined reasons
           enum:
-          - Missing
-          - Damaged
-          - Cold
-          - LateOrder
-          - FoodNotArrived
+          - AlreadyRefunded
+          - ItemReplaced
+          - PartialRefundRequired
+          - WasNotMissing
+          - WillRedeliver
+          - OrderWasHot
+          - OrderWasOnTime
+          - OrderWasPacked
+          - FoodWasIntact
+          - AddExtraItem
+          - Other
           type: string
-        orderId:
-          description: Just Eat order identifier
-          type: string
-        resolution:
-          $ref: '#/components/schemas/ClaimResolution'
-          description: Representation of the claim resolution
-        restaurantResponse:
-          $ref: '#/components/schemas/OrderClaimRestaurantResponse'
-          description: Restaurant response on the claim
-          type: object
-        state:
-          description: Indicates whether a decision about the claim was made
-          enum:
-          - Open
-          - Closed
-          type: string
-        submittedDate:
-          description: Date when the claim was submitted
-          format: date-time
-          type: string
-        totalClaimed:
-          description: Total claimed money in smallest unit of relevant currency
-          type: number
-      type: object
-    ClaimResolution:
-      description: Representation of the decision made about a claim
-      example:
-        decision: Accepted
-        resolvedChannel: PartnerCentre
-        resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
-        totalClaimedAccepted: 1900
-      properties:
-        decision:
-          description: Indicates whether the claim is accepted, partially accepted or rejected - claim is partially accepted if at least one of the claimed items is accepted
-          enum:
-          - Accepted
-          - PartiallyAccepted
-          - Rejected
-          type: string
-        resolvedChannel:
-          description: Channel which was used to resolved the claim
-          type: string
-        resolvedDate:
-          description: Date when decision on the claim was submitted
-          format: date-time
-          type: string
-        totalClaimedAccepted:
-          description: Total claimed money accepted by the restaurant in smallest unit of relevant currency
-          type: number
       type:
       - object
       - 'null'
@@ -740,6 +620,73 @@ components:
           - faultId
           type: object
       type: object
+    Item:
+      description: Information about an item in the claim
+      example:
+        additionalContext: Potato skin was damaged
+        decision: Rejected
+        id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+        name: Potato skin
+        quantity: 1
+        totalClaimed: 1900
+        unitPrice: 2000
+      properties:
+        additionalContext:
+          description: Comment giving additional context
+          type:
+          - string
+          - 'null'
+        decision:
+          description: Indicates whether decision on the claimed item was made and what was that decision
+          enum:
+          - NotDecided
+          - Accepted
+          - Rejected
+          type: string
+        id:
+          description: Item identifier
+          type: string
+        name:
+          description: Item name
+          type: string
+        quantity:
+          description: Quantity of items
+          type: number
+        totalClaimed:
+          description: Total claimed money in smallest unit of relevant currency
+          type: number
+        unitPrice:
+          description: Price of a single unit in smallest unit of relevant currency
+          type: number
+      type: object
+    ClaimResolution:
+      description: Representation of the decision made about a claim
+      example:
+        decision: Accepted
+        resolvedChannel: PartnerCentre
+        resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
+        totalClaimedAccepted: 1900
+      properties:
+        decision:
+          description: Indicates whether the claim is accepted, partially accepted or rejected - claim is partially accepted if at least one of the claimed items is accepted
+          enum:
+          - Accepted
+          - PartiallyAccepted
+          - Rejected
+          type: string
+        resolvedChannel:
+          description: Channel which was used to resolved the claim
+          type: string
+        resolvedDate:
+          description: Date when decision on the claim was submitted
+          format: date-time
+          type: string
+        totalClaimedAccepted:
+          description: Total claimed money accepted by the restaurant in smallest unit of relevant currency
+          type: number
+      type:
+      - object
+      - 'null'
     OrderClaimRestaurantResponse:
       description: Restaurant response for the claim
       example:
@@ -773,51 +720,104 @@ components:
       type:
       - object
       - 'null'
-    ItemDecision:
-      description: Decision on the item
+    OrderClaim:
+      description: Claim information
       example:
-        decision: Accepted
-        id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+        affectedItems:
+        - additionalContext: Potato skin was damaged
+          decision: Rejected
+          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          name: Potato skin
+          quantity: 1
+          reference: productid%4t56574596
+          totalClaimed: 1900
+          unitPrice: 2000
+        - additionalContext: Pizza was damaged too
+          decision: Accepted
+          id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          name: Pizza
+          quantity: 1
+          reference: productid%t5y6574596
+          totalClaimed: 1900
+          unitPrice: 2000
+        currency: GBP
+        expirationDate: '2020-05-22T14:22:11.1053368+00:00'
+        friendlyOrderReference: '451226580'
+        id: 2f749442-a62a-abcd-8623-04202878e034
+        issueType: Damaged
+        orderId: r23tqoxdoeupdx9w8evorw
+        resolution:
+          decision: PartiallyAccepted
+          resolvedChannel: PartnerCentre
+          resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
+          totalClaimedAccepted: 1900
+        restaurantResponse:
+          decision: PartiallyAccepted
+          items:
+          - decision: Rejected
+            id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          - decision: Accepted
+            id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          justification:
+            comments: The food was packed properly
+            reason: Other
+        state: Closed
+        submittedDate: '2020-05-20T14:22:11.1053368+00:00'
+        totalClaimed: 3800
       properties:
-        decision:
-          description: Decision made about the item
-          enum:
-          - Accepted
-          - Rejected
+        affectedItems:
+          description: Information about the claimed items
+          items:
+            $ref: '#/components/schemas/Item'
+          type:
+          - array
+          - 'null'
+        currency:
+          description: Name of currency in ISO 4217 format
+          type: string
+        expirationDate:
+          description: Date when the claim will be accepted automatically in case the owner of the restaurant ignores it
+          format: date-time
+          type: string
+        friendlyOrderReference:
+          description: Just Eat friendly order reference
           type: string
         id:
-          description: Item identifier
+          description: Claim identifier
           type: string
-      type: object
-    Justification:
-      description: The reason of the claim rejection and optional comments from the restaurant
-      example:
-        comments: The food was packed properly
-        reason: Other
-      properties:
-        comments:
-          description: Comment from the restaurant owner in case they rejected at least one of the items and want to type their own rejection reason
-          type:
-          - string
-          - 'null'
-        reason:
-          description: One of the predefined reasons
+        issueType:
+          description: Type of claim
           enum:
-          - AlreadyRefunded
-          - ItemReplaced
-          - PartialRefundRequired
-          - WasNotMissing
-          - WillRedeliver
-          - OrderWasHot
-          - OrderWasOnTime
-          - OrderWasPacked
-          - FoodWasIntact
-          - AddExtraItem
-          - Other
+          - Missing
+          - Damaged
+          - Cold
+          - LateOrder
+          - FoodNotArrived
           type: string
-      type:
-      - object
-      - 'null'
+        orderId:
+          description: Just Eat order identifier
+          type: string
+        resolution:
+          $ref: '#/components/schemas/ClaimResolution'
+          description: Representation of the claim resolution
+        restaurantResponse:
+          $ref: '#/components/schemas/OrderClaimRestaurantResponse'
+          description: Restaurant response on the claim
+          type: object
+        state:
+          description: Indicates whether a decision about the claim was made
+          enum:
+          - Open
+          - Closed
+          type: string
+        submittedDate:
+          description: Date when the claim was submitted
+          format: date-time
+          type: string
+        totalClaimed:
+          description: Total claimed money in smallest unit of relevant currency
+          type: number
+      type: object
   responses:
     403ForbiddenResponse:
       content:
