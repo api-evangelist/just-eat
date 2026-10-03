@@ -458,26 +458,6 @@ components:
       required:
       - name
       type: object
-    estimated-time:
-      example:
-        bestGuess: 00:35:00
-      properties:
-        bestGuess:
-          description: Your best estimation (hh:mm:ss)
-          type: string
-      type: object
-    delivery-restaurantslist:
-      properties:
-        restaurants:
-          description: A list of Just Eat restaurant ids served by the pool.
-          example:
-          - 10202
-          - 10203
-          items:
-            format: int32
-            type: number
-          type: array
-      type: object
     patch-delivery-pool:
       example:
         name: Toronto - North
@@ -491,6 +471,14 @@ components:
             format: int32
             type: number
           type: array
+      type: object
+    estimated-time:
+      example:
+        bestGuess: 00:35:00
+      properties:
+        bestGuess:
+          description: Your best estimation (hh:mm:ss)
+          type: string
       type: object
     delivery-pool-hours:
       example:
@@ -699,6 +687,18 @@ components:
       - friday
       - saturday
       - sunday
+      type: object
+    delivery-restaurantslist:
+      properties:
+        restaurants:
+          description: A list of Just Eat restaurant ids served by the pool.
+          example:
+          - 10202
+          - 10203
+          items:
+            format: int32
+            type: number
+          type: array
       type: object
   securitySchemes:
     Bearer:

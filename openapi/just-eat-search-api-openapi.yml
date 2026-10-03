@@ -289,24 +289,34 @@ paths:
       operationId: getSearchRestaurantsByTenant
       x-operation-id-source: derived
 components:
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   schemas:
-    AutoCompleteSearchResponse:
+    RestaurantSearchProduct:
       example:
-        terms:
-        - classification: Restaurant
-          term: Pizza Palace
-        - classification: Cuisine
-          term: Pizza
-        - classification: Dish
-          term: Large Hawaiian
+        fullName: Chicken Korma
+        price: 799
+        productId: '289347'
       properties:
-        terms:
-          description: Ordered list of suggested term completions
-          items:
-            $ref: '#/components/schemas/AutoCompleteSearchResponseItem'
-          maxItems: 10
-          type: array
-          uniqueItems: false
+        fullName:
+          description: The full name of the product
+          type: string
+        price:
+          description: The price of the product
+          type: number
+        productId:
+          description: The id of the product
+          type: string
       type: object
     RestaurantSearchResponse:
       example:
@@ -362,30 +372,39 @@ components:
           - faultId
           type: object
       type: object
-    RestaurantSearchResponseItem:
+    AutoCompleteSearchResponseItem:
       example:
-        isSponsored: false
-        products:
-        - fullName: Chicken Korma
-          price: 799
-          productId: '289347'
-        - fullName: Chicken Madras
-          price: 699
-          productId: '563454'
-        restaurantId: '110230'
+        classification: Restaurant
+        term: Pizza Palace
       properties:
-        isSponsored:
-          description: Flag to indicate if the restaurant is sponsored, so has been promoted to the top of the results
-          type: boolean
-        products:
-          description: Ordered list of products available from the restaurant which matched the search term
+        classification:
+          description: Grouping to which term belongs
+          enum:
+          - Restaurant
+          - Cuisine
+          - Dish
+          type: string
+        term:
+          description: Auto-completed search term
+          type: string
+      type: object
+    AutoCompleteSearchResponse:
+      example:
+        terms:
+        - classification: Restaurant
+          term: Pizza Palace
+        - classification: Cuisine
+          term: Pizza
+        - classification: Dish
+          term: Large Hawaiian
+      properties:
+        terms:
+          description: Ordered list of suggested term completions
           items:
-            $ref: '#/components/schemas/RestaurantSearchProduct'
+            $ref: '#/components/schemas/AutoCompleteSearchResponseItem'
+          maxItems: 10
           type: array
           uniqueItems: false
-        restaurantId:
-          description: The id of the restaurant
-          type: string
       type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
@@ -413,50 +432,31 @@ components:
           - faultId
           type: object
       type: object
-    AutoCompleteSearchResponseItem:
+    RestaurantSearchResponseItem:
       example:
-        classification: Restaurant
-        term: Pizza Palace
+        isSponsored: false
+        products:
+        - fullName: Chicken Korma
+          price: 799
+          productId: '289347'
+        - fullName: Chicken Madras
+          price: 699
+          productId: '563454'
+        restaurantId: '110230'
       properties:
-        classification:
-          description: Grouping to which term belongs
-          enum:
-          - Restaurant
-          - Cuisine
-          - Dish
-          type: string
-        term:
-          description: Auto-completed search term
+        isSponsored:
+          description: Flag to indicate if the restaurant is sponsored, so has been promoted to the top of the results
+          type: boolean
+        products:
+          description: Ordered list of products available from the restaurant which matched the search term
+          items:
+            $ref: '#/components/schemas/RestaurantSearchProduct'
+          type: array
+          uniqueItems: false
+        restaurantId:
+          description: The id of the restaurant
           type: string
       type: object
-    RestaurantSearchProduct:
-      example:
-        fullName: Chicken Korma
-        price: 799
-        productId: '289347'
-      properties:
-        fullName:
-          description: The full name of the product
-          type: string
-        price:
-          description: The price of the product
-          type: number
-        productId:
-          description: The id of the product
-          type: string
-      type: object
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

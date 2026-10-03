@@ -120,6 +120,17 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    create-attempted-delivery:
+      example:
+        ReasonCode: problem_with_address
+      properties:
+        ReasonCode:
+          description: The reason the attempted delivery event was created
+          enum:
+          - problem_with_address
+          - no_answer
+          type: string
+      type: object
     resolve-attempted-delivery-redeliver:
       example:
         NewDueDate: '2018-03-10T14:45:28Z'
@@ -134,17 +145,6 @@ components:
           enum:
           - driver_at_address
           - repreparing
-          type: string
-      type: object
-    create-attempted-delivery:
-      example:
-        ReasonCode: problem_with_address
-      properties:
-        ReasonCode:
-          description: The reason the attempted delivery event was created
-          enum:
-          - problem_with_address
-          - no_answer
           type: string
       type: object
   securitySchemes:

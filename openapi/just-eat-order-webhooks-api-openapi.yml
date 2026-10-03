@@ -120,6 +120,55 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    location:
+      description: GeoLocation object containing latitude and longitude values.
+      example:
+        Accuracy: 12.814
+        Heading: 357.10382
+        Latitude: 51.51641
+        Longitude: -0.103198
+        Speed: 8.68
+      properties:
+        Accuracy:
+          description: This should represent the accuracy of driver's location.
+          format: double
+          type: number
+        Heading:
+          description: This should represent the degree of heading direction, for example, 0 is north, 90 is east.
+          format: double
+          type: number
+        Latitude:
+          description: This should represent the latitude of the driver's location.
+          format: double
+          type: number
+        Longitude:
+          description: This should represent the longitude of the driver's location.
+          format: double
+          type: number
+        Speed:
+          description: This should represent the travel speed of the driver.
+          format: double
+          type: number
+      required:
+      - Latitude
+      - Longitude
+      type: object
+    item-v2:
+      properties:
+        Items:
+          items:
+            $ref: '#/components/schemas/item-v2'
+          type: array
+        Name:
+          type: string
+        Quantity:
+          type: integer
+        Reference:
+          type: string
+        UnitPrice:
+          format: money
+          type: integer
+      type: object
     order-ready-for-preparation:
       example:
         Currency: GBP
@@ -341,55 +390,6 @@ components:
       properties:
         OrderId:
           type: string
-      type: object
-    location:
-      description: GeoLocation object containing latitude and longitude values.
-      example:
-        Accuracy: 12.814
-        Heading: 357.10382
-        Latitude: 51.51641
-        Longitude: -0.103198
-        Speed: 8.68
-      properties:
-        Accuracy:
-          description: This should represent the accuracy of driver's location.
-          format: double
-          type: number
-        Heading:
-          description: This should represent the degree of heading direction, for example, 0 is north, 90 is east.
-          format: double
-          type: number
-        Latitude:
-          description: This should represent the latitude of the driver's location.
-          format: double
-          type: number
-        Longitude:
-          description: This should represent the longitude of the driver's location.
-          format: double
-          type: number
-        Speed:
-          description: This should represent the travel speed of the driver.
-          format: double
-          type: number
-      required:
-      - Latitude
-      - Longitude
-      type: object
-    item-v2:
-      properties:
-        Items:
-          items:
-            $ref: '#/components/schemas/item-v2'
-          type: array
-        Name:
-          type: string
-        Quantity:
-          type: integer
-        Reference:
-          type: string
-        UnitPrice:
-          format: money
-          type: integer
       type: object
   securitySchemes:
     Bearer:

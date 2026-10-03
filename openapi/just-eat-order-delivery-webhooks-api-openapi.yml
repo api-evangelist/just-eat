@@ -211,6 +211,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    order-item-restriction:
+      properties:
+        Type:
+          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
+          enum:
+          - Alcohol
+          type: string
+      type: object
     connectorder:
       properties:
         BasketInfo:
@@ -764,10 +772,36 @@ components:
             $ref: '#/components/schemas/order-item-restriction'
           type: array
       type: object
-    driver-location:
+    ready-for-pickup:
       properties:
-        Location:
-          $ref: '#/components/schemas/location-v2'
+        Event:
+          enum:
+          - Ready for pickup
+          type: string
+        Timestamp:
+          format: date-time
+          type: string
+      type: object
+    driver-status:
+      properties:
+        DriverContactNumber:
+          type: string
+        DriverName:
+          type: string
+        EstimatedDeliveryTime:
+          format: date-time
+          type: string
+        EstimatedPickupTime:
+          format: date-time
+          type: string
+        Event:
+          enum:
+          - DriverAssigned
+          - DriverAtRestaurant
+          - OnItsWay
+          - AtDeliveryAddress
+          - Delivered
+          type: string
         OrderId:
           type: string
         TimeStamp:
@@ -789,48 +823,14 @@ components:
       - Latitude
       - Longitude
       type: object
-    ready-for-pickup:
-      properties:
-        Event:
-          enum:
-          - Ready for pickup
-          type: string
-        Timestamp:
-          format: date-time
-          type: string
-      type: object
-    order-item-restriction:
-      properties:
-        Type:
-          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
-          enum:
-          - Alcohol
-          type: string
-      type: object
     connectorder-list:
       items:
         $ref: '#/components/schemas/connectorder'
       type: array
-    driver-status:
+    driver-location:
       properties:
-        DriverContactNumber:
-          type: string
-        DriverName:
-          type: string
-        EstimatedDeliveryTime:
-          format: date-time
-          type: string
-        EstimatedPickupTime:
-          format: date-time
-          type: string
-        Event:
-          enum:
-          - DriverAssigned
-          - DriverAtRestaurant
-          - OnItsWay
-          - AtDeliveryAddress
-          - Delivered
-          type: string
+        Location:
+          $ref: '#/components/schemas/location-v2'
         OrderId:
           type: string
         TimeStamp:

@@ -225,21 +225,55 @@ paths:
       tags:
       - publicly-accessible
 components:
+  responses:
+    403ForbiddenResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Forbidden
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Forbidden. The client is not allowed to perform this action
+    401UnauthorizedResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Unauthorized. The client did not provide an authentication token or the token was invalid.
+              errorCode: ERR401
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Unauthorized. The client did not provide an authentication token or the token was invalid
   schemas:
-    updateOrderTimeRequest:
-      description: Request object for order time update
-      example:
-        lowerBoundMinutes: 35
-        upperBoundMinutes: 50
+    500ErrorSchema:
+      description: A HTTP 500 error response
       properties:
-        lowerBoundMinutes:
-          description: Order time lower bound value, in minutes.
-          format: int32
-          type: integer
-        upperBoundMinutes:
-          description: Order time upper bound value, in minutes.
-          format: int32
-          type: integer
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
       type: object
     orderTime:
       description: The object representing order time entry
@@ -275,31 +309,6 @@ components:
           format: int32
           type: integer
       type: object
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -326,30 +335,21 @@ components:
           - faultId
           type: object
       type: object
-  responses:
-    403ForbiddenResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Forbidden
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/4XXErrorSchema'
-      description: Forbidden. The client is not allowed to perform this action
-    401UnauthorizedResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Unauthorized. The client did not provide an authentication token or the token was invalid.
-              errorCode: ERR401
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/4XXErrorSchema'
-      description: Unauthorized. The client did not provide an authentication token or the token was invalid
+    updateOrderTimeRequest:
+      description: Request object for order time update
+      example:
+        lowerBoundMinutes: 35
+        upperBoundMinutes: 50
+      properties:
+        lowerBoundMinutes:
+          description: Order time lower bound value, in minutes.
+          format: int32
+          type: integer
+        upperBoundMinutes:
+          description: Order time upper bound value, in minutes.
+          format: int32
+          type: integer
+      type: object
   securitySchemes:
     Bearer:
       bearerFormat: JWT

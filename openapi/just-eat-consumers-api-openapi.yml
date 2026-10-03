@@ -534,84 +534,19 @@ paths:
       operationId: postConsumersByTenantMeCommunicationPreferencesByTypeSubscribedChannelsByChannel
       x-operation-id-source: derived
 components:
-  schemas:
-    ChannelSubscriptionsWithDerivedField:
-      properties:
-        isDefault:
-          description: Are these channel subscriptions the default or have they been set elsewhere. This is a read-only derived field.
-          type: boolean
-        subscribedChannels:
-          description: The list of channels that are subscribed
-          items:
-            $ref: '#/components/schemas/CommunicationChannels'
-          type: array
-      type: object
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
             errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    ConsumerCreate:
-      example:
-        emailAddress: consumer@just-eat.com
-        firstName: Bob
-        lastName: Smith
-        password: Pa55word
-        registrationSource: Native
-      properties:
-        emailAddress:
-          description: The consumer's email address
-          format: email
-          maxLength: 160
-          type: string
-        firstName:
-          description: The consumer's first name
-          maxLength: 160
-          type: string
-        lastName:
-          description: The consumer's last name
-          maxLength: 160
-          type: string
-        marketingPreferences:
-          $ref: '#/components/schemas/consumerMarketingPreference'
-          description: The selected marketing preferences for the consumer
-        password:
-          description: The consumer's password
-          maxLength: 160
-          minLength: 4
-          type: string
-        registrationSource:
-          default: Native
-          description: The registration source of the consumer. Australia and New Zealand only support Guest
-          enum:
-          - Native
-          - Guest
-          type: string
-      required:
-      - emailAddress
-      - firstName
-      - lastName
-      type: object
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
+  schemas:
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -638,16 +573,22 @@ components:
           - faultId
           type: object
       type: object
-    CommunicationPreferences:
+    ChannelSubscriptionsWithDerivedField:
       properties:
-        marketing:
-          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
-          description: The marketing communication preferences.
-          type: object
+        isDefault:
+          description: Are these channel subscriptions the default or have they been set elsewhere. This is a read-only derived field.
+          type: boolean
+        subscribedChannels:
+          description: The list of channels that are subscribed
+          items:
+            $ref: '#/components/schemas/CommunicationChannels'
+          type: array
       type: object
-    CommunicationTypes:
+    CommunicationChannels:
       enum:
-      - marketing
+      - email
+      - sms
+      - push
       type: string
     ChannelSubscriptions:
       properties:
@@ -657,6 +598,57 @@ components:
             $ref: '#/components/schemas/CommunicationChannels'
           type: array
       type: object
+    CommunicationPreferences:
+      properties:
+        marketing:
+          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
+          description: The marketing communication preferences.
+          type: object
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    consumerMarketingPreference:
+      items:
+        properties:
+          channelName:
+            description: The channel name.
+            enum:
+            - Email
+            - Push
+            - Sms
+            type: string
+          dateUpdated:
+            description: The date of the marketing preference change
+            format: date-time
+            type: string
+          isSubscribed:
+            description: Should the channel be subscribed to?
+            type: boolean
+        type: object
+      type: array
     ConsumerCreateResponse:
       example:
         token: SKgaDl0wZxnwjNgLxBnU646PDTquWLHOyPuyzidIZIg=
@@ -704,43 +696,51 @@ components:
           - faultId
           type: object
       type: object
-    CommunicationChannels:
+    CommunicationTypes:
       enum:
-      - email
-      - sms
-      - push
+      - marketing
       type: string
-    consumerMarketingPreference:
-      items:
-        properties:
-          channelName:
-            description: The channel name.
-            enum:
-            - Email
-            - Push
-            - Sms
-            type: string
-          dateUpdated:
-            description: The date of the marketing preference change
-            format: date-time
-            type: string
-          isSubscribed:
-            description: Should the channel be subscribed to?
-            type: boolean
-        type: object
-      type: array
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
+    ConsumerCreate:
+      example:
+        emailAddress: consumer@just-eat.com
+        firstName: Bob
+        lastName: Smith
+        password: Pa55word
+        registrationSource: Native
+      properties:
+        emailAddress:
+          description: The consumer's email address
+          format: email
+          maxLength: 160
+          type: string
+        firstName:
+          description: The consumer's first name
+          maxLength: 160
+          type: string
+        lastName:
+          description: The consumer's last name
+          maxLength: 160
+          type: string
+        marketingPreferences:
+          $ref: '#/components/schemas/consumerMarketingPreference'
+          description: The selected marketing preferences for the consumer
+        password:
+          description: The consumer's password
+          maxLength: 160
+          minLength: 4
+          type: string
+        registrationSource:
+          default: Native
+          description: The registration source of the consumer. Australia and New Zealand only support Guest
+          enum:
+          - Native
+          - Guest
+          type: string
+      required:
+      - emailAddress
+      - firstName
+      - lastName
+      type: object
   securitySchemes:
     Bearer:
       bearerFormat: JWT

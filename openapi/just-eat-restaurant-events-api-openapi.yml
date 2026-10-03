@@ -141,71 +141,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    ValidationError:
-      additionalProperties: false
-      example:
-        attemptedValue: null
-        customState: null
-        errorCode: NotEmptyValidator
-        errorMessage: TestProperty is empty
-        formattedMessageArguments: []
-        formattedMessagePlaceHolderValues:
-          PropertyName: User Role
-          PropertyValue: null
-        propertyName: TestProperty
-        resourceName: null
-        severity: 0
-      properties:
-        attemptedValue:
-          description: The property value that caused the failure
-          type:
-          - string
-          - 'null'
-        customState:
-          description: Custom state associated with the failure
-          type:
-          - string
-          - 'null'
-        errorCode:
-          description: The error code
-          type: string
-        errorMessage:
-          description: The error message
-          type: string
-        formattedMessageArguments:
-          description: Custom formatted validator messages with placeholders
-          items:
-            type: string
-          type: array
-        formattedMessagePlaceHolderValues:
-          additionalProperties: true
-          description: The values for placeholders in the formatted messages
-          type: object
-        propertyName:
-          description: The name of the property causing the failure
-          type: string
-        resourceName:
-          description: The resource name used for building the message
-          type:
-          - string
-          - 'null'
-        severity:
-          description: Severity of a validation rule. Will always be 0 (Error).
-          type: number
-      type: object
-    UserRole:
-      description: '
-
-        - `System` : Role for an automated process action.
-
-        - `Operations` : Role for an operations user action.
-
-        - `Restaurant` : Role for a restaurant owner/employee user action.'
-      enum:
-      - System
-      - Operations
-      - Restaurant
-      type: string
     LegacyTempOfflineStatus:
       default: ClosedDueToEvent
       description: '
@@ -285,6 +220,71 @@ components:
       - startDate
       - allowRestaurantOverride
       type: object
+    ValidationError:
+      additionalProperties: false
+      example:
+        attemptedValue: null
+        customState: null
+        errorCode: NotEmptyValidator
+        errorMessage: TestProperty is empty
+        formattedMessageArguments: []
+        formattedMessagePlaceHolderValues:
+          PropertyName: User Role
+          PropertyValue: null
+        propertyName: TestProperty
+        resourceName: null
+        severity: 0
+      properties:
+        attemptedValue:
+          description: The property value that caused the failure
+          type:
+          - string
+          - 'null'
+        customState:
+          description: Custom state associated with the failure
+          type:
+          - string
+          - 'null'
+        errorCode:
+          description: The error code
+          type: string
+        errorMessage:
+          description: The error message
+          type: string
+        formattedMessageArguments:
+          description: Custom formatted validator messages with placeholders
+          items:
+            type: string
+          type: array
+        formattedMessagePlaceHolderValues:
+          additionalProperties: true
+          description: The values for placeholders in the formatted messages
+          type: object
+        propertyName:
+          description: The name of the property causing the failure
+          type: string
+        resourceName:
+          description: The resource name used for building the message
+          type:
+          - string
+          - 'null'
+        severity:
+          description: Severity of a validation rule. Will always be 0 (Error).
+          type: number
+      type: object
+    UserRole:
+      description: '
+
+        - `System` : Role for an automated process action.
+
+        - `Operations` : Role for an operations user action.
+
+        - `Restaurant` : Role for a restaurant owner/employee user action.'
+      enum:
+      - System
+      - Operations
+      - Restaurant
+      type: string
   securitySchemes:
     Bearer:
       bearerFormat: JWT

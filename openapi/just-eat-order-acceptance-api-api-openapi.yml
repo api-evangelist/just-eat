@@ -248,13 +248,42 @@ paths:
       operationId: putOrdersByOrderIdReject
       x-operation-id-source: derived
 components:
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   schemas:
+    order-due-date-request:
+      example:
+        DueDate: '2019-12-25T14:45:28Z'
+      properties:
+        DueDate:
+          description: The updated ETA for the order
+          format: date-time
+          type: string
+      type: object
     order-cancel-request:
       example:
         Message: Customer requested the order to be cancelled
       properties:
         Message:
           description: Reason why this order is being cancelled.
+          type: string
+      type: object
+    order-accept-request:
+      example:
+        TimeAcceptedFor: '2018-03-10T14:45:28Z'
+      properties:
+        TimeAcceptedFor:
+          format: date-time
           type: string
       type: object
     500ErrorSchema:
@@ -316,35 +345,6 @@ components:
           description: Reason why this order is being rejected.
           type: string
       type: object
-    order-due-date-request:
-      example:
-        DueDate: '2019-12-25T14:45:28Z'
-      properties:
-        DueDate:
-          description: The updated ETA for the order
-          format: date-time
-          type: string
-      type: object
-    order-accept-request:
-      example:
-        TimeAcceptedFor: '2018-03-10T14:45:28Z'
-      properties:
-        TimeAcceptedFor:
-          format: date-time
-          type: string
-      type: object
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

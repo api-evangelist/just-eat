@@ -371,7 +371,132 @@ paths:
       operationId: putRestaurantsByTenantByRestaurantIdCustomerclaimsByIdRestaurantresponseJustification
       x-operation-id-source: derived
 components:
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
+    403ForbiddenResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Forbidden
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Forbidden. The client is not allowed to perform this action
+    401UnauthorizedResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Unauthorized. The client did not provide an authentication token or the token was invalid.
+              errorCode: ERR401
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/4XXErrorSchema'
+      description: Unauthorized. The client did not provide an authentication token or the token was invalid
   schemas:
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    Item:
+      description: Information about an item in the claim
+      example:
+        additionalContext: Potato skin was damaged
+        decision: Rejected
+        id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+        name: Potato skin
+        quantity: 1
+        totalClaimed: 1900
+        unitPrice: 2000
+      properties:
+        additionalContext:
+          description: Comment giving additional context
+          type:
+          - string
+          - 'null'
+        decision:
+          description: Indicates whether decision on the claimed item was made and what was that decision
+          enum:
+          - NotDecided
+          - Accepted
+          - Rejected
+          type: string
+        id:
+          description: Item identifier
+          type: string
+        name:
+          description: Item name
+          type: string
+        quantity:
+          description: Quantity of items
+          type: number
+        totalClaimed:
+          description: Total claimed money in smallest unit of relevant currency
+          type: number
+        unitPrice:
+          description: Price of a single unit in smallest unit of relevant currency
+          type: number
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
     ItemDecision:
       description: Decision on the item
       example:
@@ -417,31 +542,165 @@ components:
       type:
       - object
       - 'null'
-    500ErrorSchema:
-      description: A HTTP 500 error response
+    OrderClaimRestaurantResponse:
+      description: Restaurant response for the claim
+      example:
+        decision: PartiallyAccepted
+        items:
+        - decision: Accepted
+          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+        - decision: Rejected
+          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc3
+        justification:
+          comments: The food was packed properly
+          reason: Other
       properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
+        decision:
+          description: Decision on the claim
+          enum:
+          - Accepted
+          - Rejected
+          - PartiallyAccepted
+          type: string
+        items:
+          description: Decisions on the items of a claim
+          items:
+            $ref: '#/components/schemas/ItemDecision'
+          type:
+          - array
+          - 'null'
+        justification:
+          $ref: '#/components/schemas/Justification'
+          description: Reasons why of the decision for the claim
+      type:
+      - object
+      - 'null'
+    OrderClaim:
+      description: Claim information
+      example:
+        affectedItems:
+        - additionalContext: Potato skin was damaged
+          decision: Rejected
+          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          name: Potato skin
+          quantity: 1
+          reference: productid%4t56574596
+          totalClaimed: 1900
+          unitPrice: 2000
+        - additionalContext: Pizza was damaged too
+          decision: Accepted
+          id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          name: Pizza
+          quantity: 1
+          reference: productid%t5y6574596
+          totalClaimed: 1900
+          unitPrice: 2000
+        currency: GBP
+        expirationDate: '2020-05-22T14:22:11.1053368+00:00'
+        friendlyOrderReference: '451226580'
+        id: 2f749442-a62a-abcd-8623-04202878e034
+        issueType: Damaged
+        orderId: r23tqoxdoeupdx9w8evorw
+        resolution:
+          decision: PartiallyAccepted
+          resolvedChannel: PartnerCentre
+          resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
+          totalClaimedAccepted: 1900
+        restaurantResponse:
+          decision: PartiallyAccepted
+          items:
+          - decision: Rejected
+            id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          - decision: Accepted
+            id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
+          justification:
+            comments: The food was packed properly
+            reason: Other
+        state: Closed
+        submittedDate: '2020-05-20T14:22:11.1053368+00:00'
+        totalClaimed: 3800
+      properties:
+        affectedItems:
+          description: Information about the claimed items
+          items:
+            $ref: '#/components/schemas/Item'
+          type:
+          - array
+          - 'null'
+        currency:
+          description: Name of currency in ISO 4217 format
+          type: string
+        expirationDate:
+          description: Date when the claim will be accepted automatically in case the owner of the restaurant ignores it
+          format: date-time
+          type: string
+        friendlyOrderReference:
+          description: Just Eat friendly order reference
+          type: string
+        id:
+          description: Claim identifier
+          type: string
+        issueType:
+          description: Type of claim
+          enum:
+          - Missing
+          - Damaged
+          - Cold
+          - LateOrder
+          - FoodNotArrived
+          type: string
+        orderId:
+          description: Just Eat order identifier
+          type: string
+        resolution:
+          $ref: '#/components/schemas/ClaimResolution'
+          description: Representation of the claim resolution
+        restaurantResponse:
+          $ref: '#/components/schemas/OrderClaimRestaurantResponse'
+          description: Restaurant response on the claim
           type: object
+        state:
+          description: Indicates whether a decision about the claim was made
+          enum:
+          - Open
+          - Closed
+          type: string
+        submittedDate:
+          description: Date when the claim was submitted
+          format: date-time
+          type: string
+        totalClaimed:
+          description: Total claimed money in smallest unit of relevant currency
+          type: number
       type: object
+    ClaimResolution:
+      description: Representation of the decision made about a claim
+      example:
+        decision: Accepted
+        resolvedChannel: PartnerCentre
+        resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
+        totalClaimedAccepted: 1900
+      properties:
+        decision:
+          description: Indicates whether the claim is accepted, partially accepted or rejected - claim is partially accepted if at least one of the claimed items is accepted
+          enum:
+          - Accepted
+          - PartiallyAccepted
+          - Rejected
+          type: string
+        resolvedChannel:
+          description: Channel which was used to resolved the claim
+          type: string
+        resolvedDate:
+          description: Date when decision on the claim was submitted
+          format: date-time
+          type: string
+        totalClaimedAccepted:
+          description: Total claimed money accepted by the restaurant in smallest unit of relevant currency
+          type: number
+      type:
+      - object
+      - 'null'
     ClaimsResponse:
       description: Response containing claims for a restaurant which match the given filter
       example:
@@ -594,265 +853,6 @@ components:
             $ref: '#/components/schemas/OrderClaim'
           type: array
       type: object
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    Item:
-      description: Information about an item in the claim
-      example:
-        additionalContext: Potato skin was damaged
-        decision: Rejected
-        id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-        name: Potato skin
-        quantity: 1
-        totalClaimed: 1900
-        unitPrice: 2000
-      properties:
-        additionalContext:
-          description: Comment giving additional context
-          type:
-          - string
-          - 'null'
-        decision:
-          description: Indicates whether decision on the claimed item was made and what was that decision
-          enum:
-          - NotDecided
-          - Accepted
-          - Rejected
-          type: string
-        id:
-          description: Item identifier
-          type: string
-        name:
-          description: Item name
-          type: string
-        quantity:
-          description: Quantity of items
-          type: number
-        totalClaimed:
-          description: Total claimed money in smallest unit of relevant currency
-          type: number
-        unitPrice:
-          description: Price of a single unit in smallest unit of relevant currency
-          type: number
-      type: object
-    ClaimResolution:
-      description: Representation of the decision made about a claim
-      example:
-        decision: Accepted
-        resolvedChannel: PartnerCentre
-        resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
-        totalClaimedAccepted: 1900
-      properties:
-        decision:
-          description: Indicates whether the claim is accepted, partially accepted or rejected - claim is partially accepted if at least one of the claimed items is accepted
-          enum:
-          - Accepted
-          - PartiallyAccepted
-          - Rejected
-          type: string
-        resolvedChannel:
-          description: Channel which was used to resolved the claim
-          type: string
-        resolvedDate:
-          description: Date when decision on the claim was submitted
-          format: date-time
-          type: string
-        totalClaimedAccepted:
-          description: Total claimed money accepted by the restaurant in smallest unit of relevant currency
-          type: number
-      type:
-      - object
-      - 'null'
-    OrderClaimRestaurantResponse:
-      description: Restaurant response for the claim
-      example:
-        decision: PartiallyAccepted
-        items:
-        - decision: Accepted
-          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-        - decision: Rejected
-          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc3
-        justification:
-          comments: The food was packed properly
-          reason: Other
-      properties:
-        decision:
-          description: Decision on the claim
-          enum:
-          - Accepted
-          - Rejected
-          - PartiallyAccepted
-          type: string
-        items:
-          description: Decisions on the items of a claim
-          items:
-            $ref: '#/components/schemas/ItemDecision'
-          type:
-          - array
-          - 'null'
-        justification:
-          $ref: '#/components/schemas/Justification'
-          description: Reasons why of the decision for the claim
-      type:
-      - object
-      - 'null'
-    OrderClaim:
-      description: Claim information
-      example:
-        affectedItems:
-        - additionalContext: Potato skin was damaged
-          decision: Rejected
-          id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          name: Potato skin
-          quantity: 1
-          reference: productid%4t56574596
-          totalClaimed: 1900
-          unitPrice: 2000
-        - additionalContext: Pizza was damaged too
-          decision: Accepted
-          id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          name: Pizza
-          quantity: 1
-          reference: productid%t5y6574596
-          totalClaimed: 1900
-          unitPrice: 2000
-        currency: GBP
-        expirationDate: '2020-05-22T14:22:11.1053368+00:00'
-        friendlyOrderReference: '451226580'
-        id: 2f749442-a62a-abcd-8623-04202878e034
-        issueType: Damaged
-        orderId: r23tqoxdoeupdx9w8evorw
-        resolution:
-          decision: PartiallyAccepted
-          resolvedChannel: PartnerCentre
-          resolvedDate: '2020-05-28T06:40:48.1053368+00:00'
-          totalClaimedAccepted: 1900
-        restaurantResponse:
-          decision: PartiallyAccepted
-          items:
-          - decision: Rejected
-            id: NJ7iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          - decision: Accepted
-            id: 123iYXNrZXRJdGVtLTM2NTc0GTk2LTMwNDY2LXMzOWJxb3hkb2V1cGR4OXc4ZXZvcnc1
-          justification:
-            comments: The food was packed properly
-            reason: Other
-        state: Closed
-        submittedDate: '2020-05-20T14:22:11.1053368+00:00'
-        totalClaimed: 3800
-      properties:
-        affectedItems:
-          description: Information about the claimed items
-          items:
-            $ref: '#/components/schemas/Item'
-          type:
-          - array
-          - 'null'
-        currency:
-          description: Name of currency in ISO 4217 format
-          type: string
-        expirationDate:
-          description: Date when the claim will be accepted automatically in case the owner of the restaurant ignores it
-          format: date-time
-          type: string
-        friendlyOrderReference:
-          description: Just Eat friendly order reference
-          type: string
-        id:
-          description: Claim identifier
-          type: string
-        issueType:
-          description: Type of claim
-          enum:
-          - Missing
-          - Damaged
-          - Cold
-          - LateOrder
-          - FoodNotArrived
-          type: string
-        orderId:
-          description: Just Eat order identifier
-          type: string
-        resolution:
-          $ref: '#/components/schemas/ClaimResolution'
-          description: Representation of the claim resolution
-        restaurantResponse:
-          $ref: '#/components/schemas/OrderClaimRestaurantResponse'
-          description: Restaurant response on the claim
-          type: object
-        state:
-          description: Indicates whether a decision about the claim was made
-          enum:
-          - Open
-          - Closed
-          type: string
-        submittedDate:
-          description: Date when the claim was submitted
-          format: date-time
-          type: string
-        totalClaimed:
-          description: Total claimed money in smallest unit of relevant currency
-          type: number
-      type: object
-  responses:
-    403ForbiddenResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Forbidden
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/4XXErrorSchema'
-      description: Forbidden. The client is not allowed to perform this action
-    401UnauthorizedResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Unauthorized. The client did not provide an authentication token or the token was invalid.
-              errorCode: ERR401
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/4XXErrorSchema'
-      description: Unauthorized. The client did not provide an authentication token or the token was invalid
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

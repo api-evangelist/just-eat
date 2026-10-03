@@ -1315,6 +1315,19 @@ paths:
       x-status: Draft
 components:
   schemas:
+    ServiceTimesCollection:
+      items:
+        properties:
+          end:
+            description: Local end time of the slot in hh:mm:ss format. The end time occurs on the next day if less than or equal to the start time. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
+            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
+            type: string
+          start:
+            description: Start time of the slot in hh:mm:ss format. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
+            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
+            type: string
+        type: object
+      type: array
     PagedAfterOnlyCursorResponse:
       example:
         paging:
@@ -1333,63 +1346,353 @@ components:
               type: object
           type: object
       type: object
-    RestaurantDeliveryFees:
-      example:
-        bands:
-        - fee: 250
-          minimumAmount: 1000
-        - fee: 0
-          minimumAmount: 2000
-        minimumOrderValue: 1000
-        restaurantId: '5678'
+    ServiceTimesDays:
+      description: The desired times at which a restaurant is in service
       properties:
-        bands:
-          description: Collection of delivery fee bands
-          items:
-            properties:
-              fee:
-                description: The delivery fee, in the smallest unit of local currency (e.g. pence).
-                format: integer
-                type: number
-              minimumAmount:
-                description: The minimum order value (excluding fees) when this fee band applies. The fee with the highest `minimumAmount` that is less than or equal to order value applies. This is in the smallest unit of local currency (e.g. pence).
-                format: integer
-                type: number
-            type: object
-          type: array
-        minimumOrderValue:
-          description: The minimum order value (excluding fees) required, in the smallest unit of local currency (e.g. pence).
-          format: integer
+        friday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Fridays
+        monday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Mondays
+        saturday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Saturdays
+        sunday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Sundays
+        thursday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Thursdays
+        tuesday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Tuesdays
+        wednesday:
+          allOf:
+          - $ref: '#/components/schemas/ServiceTimesServices'
+          description: Service times for Wednesdays
+      type: object
+    Category:
+      allOf:
+      - $ref: '#/components/schemas/CategoryBase'
+      - properties:
+          itemIds:
+            description: The ids of the menu items that are within the category. Each id must be unique within the category.
+            items:
+              type: string
+            type: array
+        type: object
+      example:
+        description: ''
+        id: '3'
+        itemIds:
+        - '65143901'
+        - '65143902'
+        - '65143903'
+        - '65143904'
+        - '65143905'
+        name: Starters
+    MenuItem:
+      allOf:
+      - $ref: '#/components/schemas/MenuItemBase'
+      - properties:
+          dealGroups:
+            description: A set of deal groups for this menu item.
+            items:
+              $ref: '#/components/schemas/MenuDealGroup'
+            type: array
+          imageUrl:
+            description: A menu item image URL.
+            type: string
+          modifierGroups:
+            description: A set of modifier groups for this menu item.
+            items:
+              $ref: '#/components/schemas/MenuModifierGroup'
+            type: array
+          variations:
+            description: A set of variations of this menu item.
+            items:
+              $ref: '#/components/schemas/Variation'
+            type: array
+        type: object
+      example:
+        dealGroups: []
+        description: ''
+        id: '65143901'
+        imageUrl: http://cdn.images/flat_bread_dips.png
+        labels: []
+        modifierGroups:
+        - id: 65143901-req-1
+          maxChoices: 1
+          minChoices: 1
+          modifiers:
+          - additionPrice: 0
+            id: '834502'
+            maxChoices: 1
+            minChoices: 0
+            name: Pitta Bread
+          - additionPrice: 0
+            id: '835700'
+            maxChoices: 1
+            minChoices: 0
+            name: Sourdough
+          - additionPrice: 50
+            id: '835601'
+            maxChoices: 1
+            minChoices: 0
+            name: Wholemeal
+          name: Bread
+        - id: 65143901-req-2
+          maxChoices: 2
+          minChoices: 2
+          modifiers:
+          - additionPrice: 0
+            id: '835340'
+            maxChoices: 2
+            minChoices: 0
+            name: Tzatziki
+          - additionPrice: 0
+            id: '835341'
+            maxChoices: 2
+            minChoices: 0
+            name: Taramasalata
+          - additionPrice: 0
+            id: '825344'
+            maxChoices: 2
+            minChoices: 0
+            name: Hummus
+          - additionPrice: 0
+            id: '825346'
+            maxChoices: 2
+            minChoices: 0
+            name: Onion
+          name: Dips
+        name: Flat Bread and Dips (Pick any 2 Dips)
+        requireOtherProducts: false
+        type: menuItem
+        variations:
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 650
+          dealGroupsIds: []
+          dealOnly: false
+          id: '65143901'
+          kitchenNumber: '90'
+          modifierGroupsIds:
+          - 65143901-req-1
+          - 65143901-req-2
+          name: ''
+          type: noVariation
+    DealItemVariation:
+      example:
+        additionPrice: 50
+        dealItemVariationId: '8548153'
+        maxChoices: 1
+        minChoices: 0
+      properties:
+        additionPrice:
+          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
+          format: int32
           type: number
+        dealItemVariationId:
+          description: A referenced variation id that can be a part of a deal group.
+          type: string
+        maxChoices:
+          description: The maximum number of times this deal item variation can be chosen within a given deal group.
+          format: int32
+          type: integer
+        minChoices:
+          description: The minimum number of times this deal item variation can be chosen within a given deal group.
+          format: int32
+          type: integer
+      type: object
+    Fee:
+      description: The object which encapsulates a Fee
+      example:
+        description: A charge for bags in delivery
+        serviceTypes:
+          collection:
+            amount: 5
+          default:
+            amount: 0
+          delivery:
+            amount: 10
+      properties:
+        description:
+          description: A description of what the Fee is
+          type: string
+        serviceTypes:
+          description: Contains Service type specific fee values. If set, default can be used to apply a fee to as yet unspecified service types
+          properties:
+            collection:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for the collection service type
+            default:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for any service type which is not explicitly configured
+            delivery:
+              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
+              description: Configuration of the fee for the delivery service type
+          type: object
+      type: object
+    Availability:
+      example:
+        description: Menu items available for delivery during weekdays for lunch.
+        id: 1-lunch-delivery
+        name: Delivery Lunch
+        serviceTypes:
+        - delivery
+        times:
+        - daysOfTheWeek:
+          - monday
+          - tuesday
+          - wednesday
+          - thursday
+          - friday
+          - saturday
+          - sunday
+          fromDateTime: '11:30:00'
+          toDateTime: '14:30:00'
+      properties:
+        description:
+          description: The description of the availability.
+          type: string
+        id:
+          description: A unique identifier at menu level for a given availability.
+          type: string
+        name:
+          description: The name for the availability.
+          type: string
+        serviceTypes:
+          description: Values can be "collection" or "delivery" and are used to denote what types of service apply to the availability.
+          items:
+            enum:
+            - collection
+            - delivery
+            type: string
+          type: array
+        times:
+          description: An array of times when the availability is active.
+          items:
+            $ref: '#/components/schemas/Time'
+          type: array
+      type: object
+    RestaurantPromotedPlacementInfo:
+      example:
+        defaultPromoted: true
+        restaurantId: '84335'
+      properties:
+        defaultPromoted:
+          description: Should be promoted by default
+          type: boolean
         restaurantId:
-          description: The identifier of the restaurant
+          description: Id of the restaurant
           type: string
       type: object
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
+    PagedCategoryItemsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          itemIds:
+            description: List of item IDs which are assigned to the specified category
+            items:
+              type: string
+            type: array
+        type: object
+      example:
+        itemIds:
+        - '65143901'
+        - '65143902'
+        - '65143903'
+        - '65143904'
+        - '65143905'
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    MenuBase:
+      example:
+        currency: GBP
+        description: My excellent menu
+        name: My Restaurant
+        restaurantId: '100059'
       properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
+        currency:
+          description: The currency of the items on the menu in ISO 4217 format, i.e. GBP, EUR or AUD
+          type: string
+        description:
+          description: A top level description for the menu.
+          type: string
+        name:
+          description: The name of the restaurant.
+          type: string
+        restaurantId:
+          description: A unique identifier at tenant level for a given restaurant.
+          type: string
+      type: object
+    MenuModifier:
+      example:
+        additionPrice: 200
+        id: '854600'
+        maxChoices: 1
+        minChoices: 0
+        name: Stuffed Crust
+      properties:
+        additionPrice:
+          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
+          format: int32
+          type: number
+        id:
+          description: A unique identifier relative to the menu for a modifier.
+          type: string
+        maxChoices:
+          description: The maximum number of times this modifier can be chosen within a given modifier group.
+          format: int32
+          type: integer
+        minChoices:
+          description: The minimum number of times this modifier can be chosen within a given modifier group.
+          format: int32
+          type: integer
+        name:
+          description: The name of the modifier.
+          type: string
+      type: object
+    PagedCategoriesResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          categories:
+            description: List of categories for a given restaurant's menu.
+            items:
+              $ref: '#/components/schemas/CategoryBase'
+            type: array
+        type: object
+      example:
+        categories:
+        - description: Sumptuous starters
+          id: '3'
+          name: Starters
+        - description: Magnificent mains
+          id: '4'
+          name: Mains
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    MenuIngestionResponse:
+      example:
+        correlationId: 64bef5ee-7265-47f8-9aee-28bc74f00b13
+      properties:
+        correlationId:
+          description: An ID for the asynchronous operation to ingest the menu
+          type: string
       type: object
     ServiceTimes:
       example:
@@ -1470,55 +1773,6 @@ components:
           description: The desired times at which a restaurant is in service
           type: object
       type: object
-    RestaurantPromotedPlacementInfo:
-      example:
-        defaultPromoted: true
-        restaurantId: '84335'
-      properties:
-        defaultPromoted:
-          description: Should be promoted by default
-          type: boolean
-        restaurantId:
-          description: Id of the restaurant
-          type: string
-      type: object
-    MenuDealGroup:
-      allOf:
-      - $ref: '#/components/schemas/MenuDealGroupBase'
-      - properties:
-          dealItemVariations:
-            description: The ids of the variations that can be selected in order to satisfy this deal group.
-            items:
-              $ref: '#/components/schemas/DealItemVariation'
-            type: array
-          id:
-            description: A unique identifier at menu level for a deal group.
-            type: string
-          name:
-            description: The name of the deal group.
-            type: string
-          numberOfChoices:
-            description: How many deal item variations must be selected to satisfy this deal group.
-            format: int32
-            type: integer
-        type: object
-      example:
-        dealItemVariations:
-        - additionPrice: 0
-          dealItemVariationId: '8547121'
-          maxChoices: 1
-          minChoices: 0
-        - additionPrice: 0
-          dealItemVariationId: '3547157'
-          maxChoices: 1
-          minChoices: 0
-        - additionPrice: 50
-          dealItemVariationId: '8548153'
-          maxChoices: 1
-          minChoices: 0
-        id: 23435309-2
-        name: Choose your pizzas
-        numberOfChoices: 2
     SearchResponse:
       example:
         Area: Fleet Street
@@ -1865,124 +2119,115 @@ components:
               type: object
           type: object
       type: object
-    PagedCategoriesResponse:
+    PagedAvailabilitiesResponse:
       allOf:
       - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
       - properties:
-          categories:
-            description: List of categories for a given restaurant's menu.
+          availabilities:
+            description: List of availabilities for a given restaurant's menu.
             items:
-              $ref: '#/components/schemas/CategoryBase'
+              $ref: '#/components/schemas/Availability'
             type: array
         type: object
       example:
-        categories:
-        - description: Sumptuous starters
-          id: '3'
-          name: Starters
-        - description: Magnificent mains
-          id: '4'
-          name: Mains
+        availabilities:
+        - description: Menu items available for delivery during weekdays for lunch.
+          id: 1-lunch-delivery
+          name: Delivery Lunch
+          serviceTypes:
+          - delivery
+          times:
+          - daysOfTheWeek:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            fromDateTime: '11:30:00'
+            toDateTime: '14:30:00'
+        - description: Menu items available for delivery during weekdays for dinner.
+          id: 1-dinner-delivery
+          name: Delivery Dinner
+          serviceTypes:
+          - delivery
+          times:
+          - daysOfTheWeek:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            fromDateTime: '16:30:00'
+            toDateTime: '22:00:00'
         paging:
           cursors:
             after: NDMyNzQyODI3OTQw
-    DealItemVariation:
+    Variation:
       example:
-        additionPrice: 50
-        dealItemVariationId: '8548153'
-        maxChoices: 1
-        minChoices: 0
+        availabilityIds:
+        - 1-lunch-delivery
+        - 2-lunch-collection
+        - 3-dinner-delivery
+        - 4-dinner-collection
+        basePrice: 1000
+        dealGroupsIds: []
+        dealOnly: false
+        id: '8547130'
+        kitchenNumber: '100'
+        modifierGroupsIds:
+        - 8547130-req-1
+        - 8547130-opt-1
+        name: 12 inch
+        type: variation
       properties:
-        additionPrice:
-          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
+        availabilityIds:
+          description: Maps to an availability item, availabilities determines which days and times the item can be sold.
+          items:
+            type: string
+          type: array
+        basePrice:
+          description: The base price of this variation in the minor unit of the currency.
           format: int32
           type: number
-        dealItemVariationId:
-          description: A referenced variation id that can be a part of a deal group.
-          type: string
-        maxChoices:
-          description: The maximum number of times this deal item variation can be chosen within a given deal group.
-          format: int32
-          type: integer
-        minChoices:
-          description: The minimum number of times this deal item variation can be chosen within a given deal group.
-          format: int32
-          type: integer
-      type: object
-    RestaurantFees:
-      description: An object encapsulating all possible fees which a restaurant can apply to itself
-      example:
-        bagFee:
-          description: A charge for bags in delivery
-          serviceTypes:
-            collection:
-              amount: 5
-            default:
-              amount: 0
-            delivery:
-              amount: 10
-      properties:
-        bagFee:
-          $ref: '#/components/schemas/Fee'
-          description: A fee applied for bags used for delivery and collection orders
-      type: object
-    PagedCategoryItemsResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
-      - properties:
-          itemIds:
-            description: List of item IDs which are assigned to the specified category
-            items:
-              type: string
-            type: array
-        type: object
-      example:
-        itemIds:
-        - '65143901'
-        - '65143902'
-        - '65143903'
-        - '65143904'
-        - '65143905'
-        paging:
-          cursors:
-            after: NDMyNzQyODI3OTQw
-    MenuItemBase:
-      example:
-        description: ''
-        id: '65143901'
-        labels: []
-        name: Flat Bread and Dips (Pick any 2 Dips)
-        requireOtherProducts: false
-        type: menuItem
-      properties:
-        description:
-          description: The description of the menu item.
-          type: string
-        id:
-          description: A unique identifier at menu level for a menu item.
-          type: string
-        labels:
-          description: Used to toggle front end icons for the available labels.
+        dealGroupsIds:
+          description: Maps to the deal groups that are applicable to this variation.
           items:
-            enum:
-            - hot
-            - vegetarian
-            - alcohol
             type: string
-          maxItems: 3
-          minItems: 0
+          type: array
+        dealOnly:
+          description: This flag indicates the variation is only available as part of a deal, the item will not be displayed as a stand alone menu item.
+          type: boolean
+        id:
+          description: A unique identifier at menu level for a variation, can be shared with parent menu item id.
+          type: string
+        kitchenNumber:
+          description: Identifies the item with a number on the physical menu that the kitchen understand e.g. on a Chinese menu number 16 could correspond to "BBQ ribs"
+          type: string
+        modifierGroupsIds:
+          description: Maps to the modifier groups that are applicable to this variation.
+          items:
+            type: string
           type: array
         name:
-          description: The name of the menu item.
+          description: The name of the variation.
           type: string
-        requireOtherProducts:
-          description: Cannot be selected as a stand alone item, it has to be ordered with other items. Typically this will apply to menu items within drinks and dessert categories.
-          type: boolean
         type:
-          description: Indicates whether this is a regular meal item or a deal item.
+          description: Denotes the type of variation, `Variation` if there's multiple variations of the parent `menuitem`, `NoVariation` if there's only one
           enum:
-          - menuItem
-          - deal
+          - noVariation
+          - variation
+          type: string
+      type: object
+    ConsumerErrorResponse:
+      properties:
+        code:
+          format: int32
+          type: integer
+        codeText:
           type: string
       type: object
     RestaurantETAs:
@@ -2027,89 +2272,108 @@ components:
         paging:
           cursors:
             after: NDMyNzQyODI3OTQw
-    MenuModifier:
+    MenuModifierGroup:
       example:
-        additionPrice: 200
-        id: '854600'
+        id: 8547130-req-1
         maxChoices: 1
-        minChoices: 0
-        name: Stuffed Crust
+        minChoices: 1
+        modifiers:
+        - additionPrice: 0
+          id: '854500'
+          maxChoices: 1
+          minChoices: 0
+          name: Classic Crust
+        - additionPrice: 200
+          id: '854600'
+          maxChoices: 1
+          minChoices: 0
+          name: Stuffed Crust
+        name: Choose your crust
       properties:
-        additionPrice:
-          description: Selecting this modifier will increase the base price of the variation by this amount in the minor unit of the currency.
-          format: int32
-          type: number
         id:
-          description: A unique identifier relative to the menu for a modifier.
+          description: A unique identifier relative to the menu for a modifier group.
           type: string
         maxChoices:
-          description: The maximum number of times this modifier can be chosen within a given modifier group.
+          description: The maximum number of modifiers that must be selected to satisfy this modifier group.
           format: int32
           type: integer
         minChoices:
-          description: The minimum number of times this modifier can be chosen within a given modifier group.
+          description: The minimum number of modifiers that must be selected to satisfy this modifier group.
           format: int32
           type: integer
+        modifiers:
+          description: The modifiers that can be selected to satisfy this modifier group.
+          items:
+            $ref: '#/components/schemas/MenuModifier'
+          type: array
         name:
-          description: The name of the modifier.
+          description: A name for the modifier group, usually phrased as a question, e.g. Would you like any extras?
           type: string
       type: object
-    ServiceTimesCollection:
-      items:
-        properties:
-          end:
-            description: Local end time of the slot in hh:mm:ss format. The end time occurs on the next day if less than or equal to the start time. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
-            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
-            type: string
-          start:
-            description: Start time of the slot in hh:mm:ss format. Times are in the restaurant's time zone which can be obtained by converting `location.geoPosition` value from [the restaurant's details](#operation/GetRestaurantDetails) using a lookup API such as `timezonedb.com`.
-            pattern: ^([0-1]\d|2[0-3]):[0-5]\d$:[0-5]\d$
-            type: string
-        type: object
-      type: array
-    ServiceTimesServices:
-      properties:
-        collection:
-          $ref: '#/components/schemas/ServiceTimesCollection'
-          description: The times at which customers can collect from the restaurant
-          type: object
-        delivery:
-          $ref: '#/components/schemas/ServiceTimesCollection'
-          description: The times at which the restaurant can provide delivery
-          type: object
-      type: object
-    PagedMenuDealGroupsResponse:
+    PagedDealItemVariationResponse:
       allOf:
       - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
       - properties:
-          dealGroups:
-            description: List of deal groups for the given menu item on the given restaurant's menu
+          dealItemVariations:
+            description: List of deal item variations which form the specified deal group
             items:
-              $ref: '#/components/schemas/MenuDealGroupBase'
+              $ref: '#/components/schemas/DealItemVariation'
             type: array
         type: object
       example:
-        dealGroups:
-        - id: 23435309-1
-          name: Choose your base
-          numberOfChoices: 1
-        - id: 23435309-2
-          name: Choose your halves
-          numberOfChoices: 2
+        dealItemVariations:
+        - additionPrice: 50
+          dealItemVariationId: '8548153'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 100
+          dealItemVariationId: '8548153'
+          maxChoices: 2
+          minChoices: 1
         paging:
           cursors:
             after: NDMyNzQyODI3OTQw
-    IgnoredRestaurantIds:
+    RestaurantDeliveryFees:
       example:
-        ignoredRestaurantIds:
-        - '123'
-        - '456'
+        bands:
+        - fee: 250
+          minimumAmount: 1000
+        - fee: 0
+          minimumAmount: 2000
+        minimumOrderValue: 1000
+        restaurantId: '5678'
       properties:
-        ignoredRestaurantIds:
-          description: A list of restaurant ids that were present in a request but were ignored.
+        bands:
+          description: Collection of delivery fee bands
           items:
-            type: string
+            properties:
+              fee:
+                description: The delivery fee, in the smallest unit of local currency (e.g. pence).
+                format: integer
+                type: number
+              minimumAmount:
+                description: The minimum order value (excluding fees) when this fee band applies. The fee with the highest `minimumAmount` that is less than or equal to order value applies. This is in the smallest unit of local currency (e.g. pence).
+                format: integer
+                type: number
+            type: object
           type: array
+        minimumOrderValue:
+          description: The minimum order value (excluding fees) required, in the smallest unit of local currency (e.g. pence).
+          format: integer
+          type: number
+        restaurantId:
+          description: The identifier of the restaurant
+          type: string
+      type: object
+    ServiceTypeFeeConfiguration:
+      description: Distinct values which are configured for a particular service type
+      example:
+        amount: 5
+      properties:
+        amount:
+          description: The value to apply to the basket for this Fee in the smallest unit of currency
+          format: integer
+          type: number
       type: object
     Menu:
       allOf:
@@ -2763,6 +3027,257 @@ components:
             type: noVariation
         name: My Restaurant
         restaurantId: '100059'
+    PagedMenuModifierGroupsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          modifierGroups:
+            description: List of modifier groups for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/MenuModifierGroup'
+            type: array
+        type: object
+      example:
+        modifierGroups:
+        - id: 8547130-req-1
+          maxChoices: 1
+          minChoices: 1
+          modifiers:
+          - additionPrice: 0
+            id: '854500'
+            maxChoices: 1
+            minChoices: 0
+            name: Classic Crust
+          - additionPrice: 200
+            id: '854600'
+            maxChoices: 1
+            minChoices: 0
+            name: Stuffed Crust
+          name: Choose your crust
+        - id: 8547130-opt-1
+          maxChoices: 10
+          minChoices: 0
+          modifiers:
+          - additionPrice: 50
+            id: '1000'
+            maxChoices: 2
+            minChoices: 0
+            name: Mozzarella Cheese
+          - additionPrice: 50
+            id: '1001'
+            maxChoices: 1
+            minChoices: 0
+            name: Ham
+          - additionPrice: 50
+            id: '1002'
+            maxChoices: 1
+            minChoices: 0
+            name: Red Onion
+          - additionPrice: 50
+            id: '1003'
+            maxChoices: 1
+            minChoices: 0
+            name: Pepperoni
+          - additionPrice: 50
+            id: '1004'
+            maxChoices: 1
+            minChoices: 0
+            name: Olives
+          name: Any extra toppings?
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    MenuDealGroup:
+      allOf:
+      - $ref: '#/components/schemas/MenuDealGroupBase'
+      - properties:
+          dealItemVariations:
+            description: The ids of the variations that can be selected in order to satisfy this deal group.
+            items:
+              $ref: '#/components/schemas/DealItemVariation'
+            type: array
+          id:
+            description: A unique identifier at menu level for a deal group.
+            type: string
+          name:
+            description: The name of the deal group.
+            type: string
+          numberOfChoices:
+            description: How many deal item variations must be selected to satisfy this deal group.
+            format: int32
+            type: integer
+        type: object
+      example:
+        dealItemVariations:
+        - additionPrice: 0
+          dealItemVariationId: '8547121'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 0
+          dealItemVariationId: '3547157'
+          maxChoices: 1
+          minChoices: 0
+        - additionPrice: 50
+          dealItemVariationId: '8548153'
+          maxChoices: 1
+          minChoices: 0
+        id: 23435309-2
+        name: Choose your pizzas
+        numberOfChoices: 2
+    local-date-time:
+      description: A local date time object, conforming to `ISO-8601`, but with only a partial time representation and no time offset.
+      pattern: ^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?$
+      type: string
+    ServiceTimesServices:
+      properties:
+        collection:
+          $ref: '#/components/schemas/ServiceTimesCollection'
+          description: The times at which customers can collect from the restaurant
+          type: object
+        delivery:
+          $ref: '#/components/schemas/ServiceTimesCollection'
+          description: The times at which the restaurant can provide delivery
+          type: object
+      type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    PagedMenuDealGroupsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          dealGroups:
+            description: List of deal groups for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/MenuDealGroupBase'
+            type: array
+        type: object
+      example:
+        dealGroups:
+        - id: 23435309-1
+          name: Choose your base
+          numberOfChoices: 1
+        - id: 23435309-2
+          name: Choose your halves
+          numberOfChoices: 2
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+    Time:
+      example:
+        daysOfTheWeek:
+        - monday
+        - tuesday
+        - wednesday
+        - thursday
+        - friday
+        - saturday
+        - sunday
+        fromDateTime: '11:30:00'
+        toDateTime: '14:30:00'
+      properties:
+        daysOfTheWeek:
+          description: The days of the week.
+          items:
+            enum:
+            - monday
+            - tuesday
+            - wednesday
+            - thursday
+            - friday
+            - saturday
+            - sunday
+            type: string
+          type: array
+        fromDateTime:
+          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
+          type: string
+        toDateTime:
+          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
+          type: string
+      type: object
+    PagedVariationsResponse:
+      allOf:
+      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
+      - properties:
+          variations:
+            description: List of variations for the given menu item on the given restaurant's menu
+            items:
+              $ref: '#/components/schemas/Variation'
+            type: array
+        type: object
+      example:
+        paging:
+          cursors:
+            after: NDMyNzQyODI3OTQw
+        variations:
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 500
+          dealGroupsIds: []
+          dealOnly: true
+          id: '8547121'
+          kitchenNumber: '100'
+          modifierGroupsIds:
+          - 8547130-opt-1
+          name: Half
+          type: variation
+        - availabilityIds:
+          - 1-lunch-delivery
+          - 2-lunch-collection
+          - 3-dinner-delivery
+          - 4-dinner-collection
+          basePrice: 1000
+          dealGroupsIds: []
+          dealOnly: false
+          id: '8547130'
+          kitchenNumber: '100'
+          modifierGroupsIds:
+          - 8547130-req-1
+          - 8547130-opt-1
+          name: 12 inch
+          type: variation
+        - availabilityIds:
+          - 1-lunch-delivery-weekday
+          - 2-lunch-collection-weekday
+          - 3-dinner-delivery-weekday
+          - 4-dinner-collection-weekday
+          basePrice: 1200
+          dealGroupsIds: []
+          dealOnly: true
+          id: '8543123'
+          kitchenNumber: '200'
+          modifierGroupsIds:
+          - 8547130-req-1
+          - 8547130-opt-1
+          name: 14 inch
+          type: variation
     500ErrorSchema:
       description: A HTTP 500 error response
       properties:
@@ -2788,254 +3303,149 @@ components:
           - faultId
           type: object
       type: object
-    MenuBase:
-      example:
-        currency: GBP
-        description: My excellent menu
-        name: My Restaurant
-        restaurantId: '100059'
+    SearchWebResponse:
       properties:
-        currency:
-          description: The currency of the items on the menu in ISO 4217 format, i.e. GBP, EUR or AUD
-          type: string
-        description:
-          description: A top level description for the menu.
-          type: string
-        name:
-          description: The name of the restaurant.
-          type: string
-        restaurantId:
-          description: A unique identifier at tenant level for a given restaurant.
-          type: string
+        Closed:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+        Offline:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
+        Open:
+          items:
+            $ref: '#/components/schemas/SearchRestaurant'
+          type: array
       type: object
-    Category:
-      allOf:
-      - $ref: '#/components/schemas/CategoryBase'
-      - properties:
-          itemIds:
-            description: The ids of the menu items that are within the category. Each id must be unique within the category.
-            items:
-              type: string
-            type: array
-        type: object
+    CategoryBase:
       example:
         description: ''
         id: '3'
-        itemIds:
-        - '65143901'
-        - '65143902'
-        - '65143903'
-        - '65143904'
-        - '65143905'
         name: Starters
-    ServiceTimesDays:
-      description: The desired times at which a restaurant is in service
-      properties:
-        friday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Fridays
-        monday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Mondays
-        saturday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Saturdays
-        sunday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Sundays
-        thursday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Thursdays
-        tuesday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Tuesdays
-        wednesday:
-          allOf:
-          - $ref: '#/components/schemas/ServiceTimesServices'
-          description: Service times for Wednesdays
-      type: object
-    MenuModifierGroup:
-      example:
-        id: 8547130-req-1
-        maxChoices: 1
-        minChoices: 1
-        modifiers:
-        - additionPrice: 0
-          id: '854500'
-          maxChoices: 1
-          minChoices: 0
-          name: Classic Crust
-        - additionPrice: 200
-          id: '854600'
-          maxChoices: 1
-          minChoices: 0
-          name: Stuffed Crust
-        name: Choose your crust
-      properties:
-        id:
-          description: A unique identifier relative to the menu for a modifier group.
-          type: string
-        maxChoices:
-          description: The maximum number of modifiers that must be selected to satisfy this modifier group.
-          format: int32
-          type: integer
-        minChoices:
-          description: The minimum number of modifiers that must be selected to satisfy this modifier group.
-          format: int32
-          type: integer
-        modifiers:
-          description: The modifiers that can be selected to satisfy this modifier group.
-          items:
-            $ref: '#/components/schemas/MenuModifier'
-          type: array
-        name:
-          description: A name for the modifier group, usually phrased as a question, e.g. Would you like any extras?
-          type: string
-      type: object
-    PagedAvailabilitiesResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
-      - properties:
-          availabilities:
-            description: List of availabilities for a given restaurant's menu.
-            items:
-              $ref: '#/components/schemas/Availability'
-            type: array
-        type: object
-      example:
-        availabilities:
-        - description: Menu items available for delivery during weekdays for lunch.
-          id: 1-lunch-delivery
-          name: Delivery Lunch
-          serviceTypes:
-          - delivery
-          times:
-          - daysOfTheWeek:
-            - monday
-            - tuesday
-            - wednesday
-            - thursday
-            - friday
-            - saturday
-            - sunday
-            fromDateTime: '11:30:00'
-            toDateTime: '14:30:00'
-        - description: Menu items available for delivery during weekdays for dinner.
-          id: 1-dinner-delivery
-          name: Delivery Dinner
-          serviceTypes:
-          - delivery
-          times:
-          - daysOfTheWeek:
-            - monday
-            - tuesday
-            - wednesday
-            - thursday
-            - friday
-            - saturday
-            - sunday
-            fromDateTime: '16:30:00'
-            toDateTime: '22:00:00'
-        paging:
-          cursors:
-            after: NDMyNzQyODI3OTQw
-    Variation:
-      example:
-        availabilityIds:
-        - 1-lunch-delivery
-        - 2-lunch-collection
-        - 3-dinner-delivery
-        - 4-dinner-collection
-        basePrice: 1000
-        dealGroupsIds: []
-        dealOnly: false
-        id: '8547130'
-        kitchenNumber: '100'
-        modifierGroupsIds:
-        - 8547130-req-1
-        - 8547130-opt-1
-        name: 12 inch
-        type: variation
-      properties:
-        availabilityIds:
-          description: Maps to an availability item, availabilities determines which days and times the item can be sold.
-          items:
-            type: string
-          type: array
-        basePrice:
-          description: The base price of this variation in the minor unit of the currency.
-          format: int32
-          type: number
-        dealGroupsIds:
-          description: Maps to the deal groups that are applicable to this variation.
-          items:
-            type: string
-          type: array
-        dealOnly:
-          description: This flag indicates the variation is only available as part of a deal, the item will not be displayed as a stand alone menu item.
-          type: boolean
-        id:
-          description: A unique identifier at menu level for a variation, can be shared with parent menu item id.
-          type: string
-        kitchenNumber:
-          description: Identifies the item with a number on the physical menu that the kitchen understand e.g. on a Chinese menu number 16 could correspond to "BBQ ribs"
-          type: string
-        modifierGroupsIds:
-          description: Maps to the modifier groups that are applicable to this variation.
-          items:
-            type: string
-          type: array
-        name:
-          description: The name of the variation.
-          type: string
-        type:
-          description: Denotes the type of variation, `Variation` if there's multiple variations of the parent `menuitem`, `NoVariation` if there's only one
-          enum:
-          - noVariation
-          - variation
-          type: string
-      type: object
-    Fee:
-      description: The object which encapsulates a Fee
-      example:
-        description: A charge for bags in delivery
-        serviceTypes:
-          collection:
-            amount: 5
-          default:
-            amount: 0
-          delivery:
-            amount: 10
       properties:
         description:
-          description: A description of what the Fee is
+          description: The description of the category.
           type: string
-        serviceTypes:
-          description: Contains Service type specific fee values. If set, default can be used to apply a fee to as yet unspecified service types
-          properties:
-            collection:
-              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
-              description: Configuration of the fee for the collection service type
-            default:
-              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
-              description: Configuration of the fee for any service type which is not explicitly configured
-            delivery:
-              $ref: '#/components/schemas/ServiceTypeFeeConfiguration'
-              description: Configuration of the fee for the delivery service type
-          type: object
+        id:
+          description: A unique identifier at menu level for a given category.
+          type: string
+        name:
+          description: The name of the category.
+          type: string
       type: object
-    ConsumerErrorResponse:
+    RestaurantFees:
+      description: An object encapsulating all possible fees which a restaurant can apply to itself
+      example:
+        bagFee:
+          description: A charge for bags in delivery
+          serviceTypes:
+            collection:
+              amount: 5
+            default:
+              amount: 0
+            delivery:
+              amount: 10
       properties:
-        code:
-          format: int32
-          type: integer
-        codeText:
+        bagFee:
+          $ref: '#/components/schemas/Fee'
+          description: A fee applied for bags used for delivery and collection orders
+      type: object
+    IgnoredRestaurantIds:
+      example:
+        ignoredRestaurantIds:
+        - '123'
+        - '456'
+      properties:
+        ignoredRestaurantIds:
+          description: A list of restaurant ids that were present in a request but were ignored.
+          items:
+            type: string
+          type: array
+      type: object
+    ExternalSearchResponse:
+      properties:
+        Restaurants:
+          items:
+            properties:
+              Address:
+                properties:
+                  City:
+                    type: string
+                  FirstLine:
+                    type: string
+                  Latitude:
+                    type: number
+                  Longitude:
+                    type: number
+                  Postcode:
+                    type: string
+                type: object
+              DeliveryEtaMinutes:
+                properties:
+                  Approximate:
+                    type: number
+                  RangeLower:
+                    type: number
+                  RangeUpper:
+                    type: number
+                type: object
+              DriveDistance:
+                type: number
+              DriveInfoCalculated:
+                type: boolean
+              Id:
+                type: number
+              IsOpenNow:
+                type: boolean
+              IsOpenNowForDelivery:
+                type: boolean
+              Name:
+                type: string
+              UniqueName:
+                type: string
+              Url:
+                type: string
+            type: object
+          type: array
+      type: object
+    MenuItemBase:
+      example:
+        description: ''
+        id: '65143901'
+        labels: []
+        name: Flat Bread and Dips (Pick any 2 Dips)
+        requireOtherProducts: false
+        type: menuItem
+      properties:
+        description:
+          description: The description of the menu item.
+          type: string
+        id:
+          description: A unique identifier at menu level for a menu item.
+          type: string
+        labels:
+          description: Used to toggle front end icons for the available labels.
+          items:
+            enum:
+            - hot
+            - vegetarian
+            - alcohol
+            type: string
+          maxItems: 3
+          minItems: 0
+          type: array
+        name:
+          description: The name of the menu item.
+          type: string
+        requireOtherProducts:
+          description: Cannot be selected as a stand alone item, it has to be ordered with other items. Typically this will apply to menu items within drinks and dessert categories.
+          type: boolean
+        type:
+          description: Indicates whether this is a regular meal item or a deal item.
+          enum:
+          - menuItem
+          - deal
           type: string
       type: object
     SearchRestaurant:
@@ -3304,230 +3714,6 @@ components:
         Url:
           type: string
       type: object
-    ServiceTypeFeeConfiguration:
-      description: Distinct values which are configured for a particular service type
-      example:
-        amount: 5
-      properties:
-        amount:
-          description: The value to apply to the basket for this Fee in the smallest unit of currency
-          format: integer
-          type: number
-      type: object
-    Time:
-      example:
-        daysOfTheWeek:
-        - monday
-        - tuesday
-        - wednesday
-        - thursday
-        - friday
-        - saturday
-        - sunday
-        fromDateTime: '11:30:00'
-        toDateTime: '14:30:00'
-      properties:
-        daysOfTheWeek:
-          description: The days of the week.
-          items:
-            enum:
-            - monday
-            - tuesday
-            - wednesday
-            - thursday
-            - friday
-            - saturday
-            - sunday
-            type: string
-          type: array
-        fromDateTime:
-          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
-          type: string
-        toDateTime:
-          description: Time of day the availability begins, in local time, format is ISO 8601 hh:mm:ss
-          type: string
-      type: object
-    CategoryBase:
-      example:
-        description: ''
-        id: '3'
-        name: Starters
-      properties:
-        description:
-          description: The description of the category.
-          type: string
-        id:
-          description: A unique identifier at menu level for a given category.
-          type: string
-        name:
-          description: The name of the category.
-          type: string
-      type: object
-    PagedMenuModifierGroupsResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
-      - properties:
-          modifierGroups:
-            description: List of modifier groups for the given menu item on the given restaurant's menu
-            items:
-              $ref: '#/components/schemas/MenuModifierGroup'
-            type: array
-        type: object
-      example:
-        modifierGroups:
-        - id: 8547130-req-1
-          maxChoices: 1
-          minChoices: 1
-          modifiers:
-          - additionPrice: 0
-            id: '854500'
-            maxChoices: 1
-            minChoices: 0
-            name: Classic Crust
-          - additionPrice: 200
-            id: '854600'
-            maxChoices: 1
-            minChoices: 0
-            name: Stuffed Crust
-          name: Choose your crust
-        - id: 8547130-opt-1
-          maxChoices: 10
-          minChoices: 0
-          modifiers:
-          - additionPrice: 50
-            id: '1000'
-            maxChoices: 2
-            minChoices: 0
-            name: Mozzarella Cheese
-          - additionPrice: 50
-            id: '1001'
-            maxChoices: 1
-            minChoices: 0
-            name: Ham
-          - additionPrice: 50
-            id: '1002'
-            maxChoices: 1
-            minChoices: 0
-            name: Red Onion
-          - additionPrice: 50
-            id: '1003'
-            maxChoices: 1
-            minChoices: 0
-            name: Pepperoni
-          - additionPrice: 50
-            id: '1004'
-            maxChoices: 1
-            minChoices: 0
-            name: Olives
-          name: Any extra toppings?
-        paging:
-          cursors:
-            after: NDMyNzQyODI3OTQw
-    ExternalSearchResponse:
-      properties:
-        Restaurants:
-          items:
-            properties:
-              Address:
-                properties:
-                  City:
-                    type: string
-                  FirstLine:
-                    type: string
-                  Latitude:
-                    type: number
-                  Longitude:
-                    type: number
-                  Postcode:
-                    type: string
-                type: object
-              DeliveryEtaMinutes:
-                properties:
-                  Approximate:
-                    type: number
-                  RangeLower:
-                    type: number
-                  RangeUpper:
-                    type: number
-                type: object
-              DriveDistance:
-                type: number
-              DriveInfoCalculated:
-                type: boolean
-              Id:
-                type: number
-              IsOpenNow:
-                type: boolean
-              IsOpenNowForDelivery:
-                type: boolean
-              Name:
-                type: string
-              UniqueName:
-                type: string
-              Url:
-                type: string
-            type: object
-          type: array
-      type: object
-    PagedVariationsResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
-      - properties:
-          variations:
-            description: List of variations for the given menu item on the given restaurant's menu
-            items:
-              $ref: '#/components/schemas/Variation'
-            type: array
-        type: object
-      example:
-        paging:
-          cursors:
-            after: NDMyNzQyODI3OTQw
-        variations:
-        - availabilityIds:
-          - 1-lunch-delivery
-          - 2-lunch-collection
-          - 3-dinner-delivery
-          - 4-dinner-collection
-          basePrice: 500
-          dealGroupsIds: []
-          dealOnly: true
-          id: '8547121'
-          kitchenNumber: '100'
-          modifierGroupsIds:
-          - 8547130-opt-1
-          name: Half
-          type: variation
-        - availabilityIds:
-          - 1-lunch-delivery
-          - 2-lunch-collection
-          - 3-dinner-delivery
-          - 4-dinner-collection
-          basePrice: 1000
-          dealGroupsIds: []
-          dealOnly: false
-          id: '8547130'
-          kitchenNumber: '100'
-          modifierGroupsIds:
-          - 8547130-req-1
-          - 8547130-opt-1
-          name: 12 inch
-          type: variation
-        - availabilityIds:
-          - 1-lunch-delivery-weekday
-          - 2-lunch-collection-weekday
-          - 3-dinner-delivery-weekday
-          - 4-dinner-collection-weekday
-          basePrice: 1200
-          dealGroupsIds: []
-          dealOnly: true
-          id: '8543123'
-          kitchenNumber: '200'
-          modifierGroupsIds:
-          - 8547130-req-1
-          - 8547130-opt-1
-          name: 14 inch
-          type: variation
     MenuDealGroupBase:
       example:
         id: 23435309-2
@@ -3544,192 +3730,6 @@ components:
           description: How many deal item variations must be selected to satisfy this deal group.
           format: int32
           type: integer
-      type: object
-    Availability:
-      example:
-        description: Menu items available for delivery during weekdays for lunch.
-        id: 1-lunch-delivery
-        name: Delivery Lunch
-        serviceTypes:
-        - delivery
-        times:
-        - daysOfTheWeek:
-          - monday
-          - tuesday
-          - wednesday
-          - thursday
-          - friday
-          - saturday
-          - sunday
-          fromDateTime: '11:30:00'
-          toDateTime: '14:30:00'
-      properties:
-        description:
-          description: The description of the availability.
-          type: string
-        id:
-          description: A unique identifier at menu level for a given availability.
-          type: string
-        name:
-          description: The name for the availability.
-          type: string
-        serviceTypes:
-          description: Values can be "collection" or "delivery" and are used to denote what types of service apply to the availability.
-          items:
-            enum:
-            - collection
-            - delivery
-            type: string
-          type: array
-        times:
-          description: An array of times when the availability is active.
-          items:
-            $ref: '#/components/schemas/Time'
-          type: array
-      type: object
-    local-date-time:
-      description: A local date time object, conforming to `ISO-8601`, but with only a partial time representation and no time offset.
-      pattern: ^(-?(?:[1-9][0-9]*)?[0-9]{4})-(1[0-2]|0[1-9])-(3[01]|0[1-9]|[12][0-9])T(2[0-3]|[01][0-9]):([0-5][0-9]):([0-5][0-9])(\.[0-9]+)?$
-      type: string
-    PagedDealItemVariationResponse:
-      allOf:
-      - $ref: '#/components/schemas/PagedAfterOnlyCursorResponse'
-      - properties:
-          dealItemVariations:
-            description: List of deal item variations which form the specified deal group
-            items:
-              $ref: '#/components/schemas/DealItemVariation'
-            type: array
-        type: object
-      example:
-        dealItemVariations:
-        - additionPrice: 50
-          dealItemVariationId: '8548153'
-          maxChoices: 1
-          minChoices: 0
-        - additionPrice: 100
-          dealItemVariationId: '8548153'
-          maxChoices: 2
-          minChoices: 1
-        paging:
-          cursors:
-            after: NDMyNzQyODI3OTQw
-    MenuIngestionResponse:
-      example:
-        correlationId: 64bef5ee-7265-47f8-9aee-28bc74f00b13
-      properties:
-        correlationId:
-          description: An ID for the asynchronous operation to ingest the menu
-          type: string
-      type: object
-    MenuItem:
-      allOf:
-      - $ref: '#/components/schemas/MenuItemBase'
-      - properties:
-          dealGroups:
-            description: A set of deal groups for this menu item.
-            items:
-              $ref: '#/components/schemas/MenuDealGroup'
-            type: array
-          imageUrl:
-            description: A menu item image URL.
-            type: string
-          modifierGroups:
-            description: A set of modifier groups for this menu item.
-            items:
-              $ref: '#/components/schemas/MenuModifierGroup'
-            type: array
-          variations:
-            description: A set of variations of this menu item.
-            items:
-              $ref: '#/components/schemas/Variation'
-            type: array
-        type: object
-      example:
-        dealGroups: []
-        description: ''
-        id: '65143901'
-        imageUrl: http://cdn.images/flat_bread_dips.png
-        labels: []
-        modifierGroups:
-        - id: 65143901-req-1
-          maxChoices: 1
-          minChoices: 1
-          modifiers:
-          - additionPrice: 0
-            id: '834502'
-            maxChoices: 1
-            minChoices: 0
-            name: Pitta Bread
-          - additionPrice: 0
-            id: '835700'
-            maxChoices: 1
-            minChoices: 0
-            name: Sourdough
-          - additionPrice: 50
-            id: '835601'
-            maxChoices: 1
-            minChoices: 0
-            name: Wholemeal
-          name: Bread
-        - id: 65143901-req-2
-          maxChoices: 2
-          minChoices: 2
-          modifiers:
-          - additionPrice: 0
-            id: '835340'
-            maxChoices: 2
-            minChoices: 0
-            name: Tzatziki
-          - additionPrice: 0
-            id: '835341'
-            maxChoices: 2
-            minChoices: 0
-            name: Taramasalata
-          - additionPrice: 0
-            id: '825344'
-            maxChoices: 2
-            minChoices: 0
-            name: Hummus
-          - additionPrice: 0
-            id: '825346'
-            maxChoices: 2
-            minChoices: 0
-            name: Onion
-          name: Dips
-        name: Flat Bread and Dips (Pick any 2 Dips)
-        requireOtherProducts: false
-        type: menuItem
-        variations:
-        - availabilityIds:
-          - 1-lunch-delivery
-          - 2-lunch-collection
-          - 3-dinner-delivery
-          - 4-dinner-collection
-          basePrice: 650
-          dealGroupsIds: []
-          dealOnly: false
-          id: '65143901'
-          kitchenNumber: '90'
-          modifierGroupsIds:
-          - 65143901-req-1
-          - 65143901-req-2
-          name: ''
-          type: noVariation
-    SearchWebResponse:
-      properties:
-        Closed:
-          items:
-            $ref: '#/components/schemas/SearchRestaurant'
-          type: array
-        Offline:
-          items:
-            $ref: '#/components/schemas/SearchRestaurant'
-          type: array
-        Open:
-          items:
-            $ref: '#/components/schemas/SearchRestaurant'
-          type: array
       type: object
   responses:
     500ErrorResponse:

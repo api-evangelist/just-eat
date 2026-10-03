@@ -143,24 +143,6 @@ components:
             $ref: '#/components/schemas/500ErrorSchema'
       description: Internal Server Error
   schemas:
-    CreateRestaurantCompensationQuery:
-      example:
-        Comments: Driver had just left the restaurant
-        ReasonCode: OnItsWay
-      properties:
-        Comments:
-          description: Any other comments to add to the request
-          type: string
-        ReasonCode:
-          description: The reason why compensation is due
-          enum:
-          - NotSet
-          - BeingPrepared
-          - OnItsWay
-          - Delivered
-          - Unknown
-          type: string
-      type: object
     500ErrorSchema:
       description: A HTTP 500 error response
       properties:
@@ -211,6 +193,24 @@ components:
           required:
           - faultId
           type: object
+      type: object
+    CreateRestaurantCompensationQuery:
+      example:
+        Comments: Driver had just left the restaurant
+        ReasonCode: OnItsWay
+      properties:
+        Comments:
+          description: Any other comments to add to the request
+          type: string
+        ReasonCode:
+          description: The reason why compensation is due
+          enum:
+          - NotSet
+          - BeingPrepared
+          - OnItsWay
+          - Delivered
+          - Unknown
+          type: string
       type: object
   securitySchemes:
     Bearer:
