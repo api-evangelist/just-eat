@@ -289,35 +289,7 @@ paths:
       operationId: getSearchRestaurantsByTenant
       x-operation-id-source: derived
 components:
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   schemas:
-    RestaurantSearchProduct:
-      example:
-        fullName: Chicken Korma
-        price: 799
-        productId: '289347'
-      properties:
-        fullName:
-          description: The full name of the product
-          type: string
-        price:
-          description: The price of the product
-          type: number
-        productId:
-          description: The id of the product
-          type: string
-      type: object
     RestaurantSearchResponse:
       example:
         restaurants:
@@ -347,65 +319,6 @@ components:
           type: array
           uniqueItems: false
       type: object
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    AutoCompleteSearchResponseItem:
-      example:
-        classification: Restaurant
-        term: Pizza Palace
-      properties:
-        classification:
-          description: Grouping to which term belongs
-          enum:
-          - Restaurant
-          - Cuisine
-          - Dish
-          type: string
-        term:
-          description: Auto-completed search term
-          type: string
-      type: object
-    AutoCompleteSearchResponse:
-      example:
-        terms:
-        - classification: Restaurant
-          term: Pizza Palace
-        - classification: Cuisine
-          term: Pizza
-        - classification: Dish
-          term: Large Hawaiian
-      properties:
-        terms:
-          description: Ordered list of suggested term completions
-          items:
-            $ref: '#/components/schemas/AutoCompleteSearchResponseItem'
-          maxItems: 10
-          type: array
-          uniqueItems: false
-      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -432,6 +345,24 @@ components:
           - faultId
           type: object
       type: object
+    AutoCompleteSearchResponse:
+      example:
+        terms:
+        - classification: Restaurant
+          term: Pizza Palace
+        - classification: Cuisine
+          term: Pizza
+        - classification: Dish
+          term: Large Hawaiian
+      properties:
+        terms:
+          description: Ordered list of suggested term completions
+          items:
+            $ref: '#/components/schemas/AutoCompleteSearchResponseItem'
+          maxItems: 10
+          type: array
+          uniqueItems: false
+      type: object
     RestaurantSearchResponseItem:
       example:
         isSponsored: false
@@ -457,6 +388,75 @@ components:
           description: The id of the restaurant
           type: string
       type: object
+    AutoCompleteSearchResponseItem:
+      example:
+        classification: Restaurant
+        term: Pizza Palace
+      properties:
+        classification:
+          description: Grouping to which term belongs
+          enum:
+          - Restaurant
+          - Cuisine
+          - Dish
+          type: string
+        term:
+          description: Auto-completed search term
+          type: string
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    RestaurantSearchProduct:
+      example:
+        fullName: Chicken Korma
+        price: 799
+        productId: '289347'
+      properties:
+        fullName:
+          description: The full name of the product
+          type: string
+        price:
+          description: The price of the product
+          type: number
+        productId:
+          description: The id of the product
+          type: string
+      type: object
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

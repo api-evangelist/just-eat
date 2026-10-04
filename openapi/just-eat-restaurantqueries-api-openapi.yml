@@ -130,44 +130,7 @@ paths:
       operationId: postOrdersByTenantByOrderIdRestaurantqueriesCompensation
       x-operation-id-source: derived
 components:
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   schemas:
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -181,6 +144,31 @@ components:
                     type: string
                   errorCode:
                     description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
                     type: string
                 type: object
               type: array
@@ -212,6 +200,18 @@ components:
           - Unknown
           type: string
       type: object
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

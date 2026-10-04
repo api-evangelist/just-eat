@@ -219,6 +219,67 @@ components:
           - Alcohol
           type: string
       type: object
+    location-v2:
+      example:
+        Latitude: 51.51641
+        Longitude: -0.103198
+      properties:
+        Latitude:
+          format: double
+          type: number
+        Longitude:
+          format: double
+          type: number
+      required:
+      - Latitude
+      - Longitude
+      type: object
+    driver-location:
+      properties:
+        Location:
+          $ref: '#/components/schemas/location-v2'
+        OrderId:
+          type: string
+        TimeStamp:
+          format: date-time
+          type: string
+      type: object
+    ready-for-pickup:
+      properties:
+        Event:
+          enum:
+          - Ready for pickup
+          type: string
+        Timestamp:
+          format: date-time
+          type: string
+      type: object
+    driver-status:
+      properties:
+        DriverContactNumber:
+          type: string
+        DriverName:
+          type: string
+        EstimatedDeliveryTime:
+          format: date-time
+          type: string
+        EstimatedPickupTime:
+          format: date-time
+          type: string
+        Event:
+          enum:
+          - DriverAssigned
+          - DriverAtRestaurant
+          - OnItsWay
+          - AtDeliveryAddress
+          - Delivered
+          type: string
+        OrderId:
+          type: string
+        TimeStamp:
+          format: date-time
+          type: string
+      type: object
     connectorder:
       properties:
         BasketInfo:
@@ -772,71 +833,10 @@ components:
             $ref: '#/components/schemas/order-item-restriction'
           type: array
       type: object
-    ready-for-pickup:
-      properties:
-        Event:
-          enum:
-          - Ready for pickup
-          type: string
-        Timestamp:
-          format: date-time
-          type: string
-      type: object
-    driver-status:
-      properties:
-        DriverContactNumber:
-          type: string
-        DriverName:
-          type: string
-        EstimatedDeliveryTime:
-          format: date-time
-          type: string
-        EstimatedPickupTime:
-          format: date-time
-          type: string
-        Event:
-          enum:
-          - DriverAssigned
-          - DriverAtRestaurant
-          - OnItsWay
-          - AtDeliveryAddress
-          - Delivered
-          type: string
-        OrderId:
-          type: string
-        TimeStamp:
-          format: date-time
-          type: string
-      type: object
-    location-v2:
-      example:
-        Latitude: 51.51641
-        Longitude: -0.103198
-      properties:
-        Latitude:
-          format: double
-          type: number
-        Longitude:
-          format: double
-          type: number
-      required:
-      - Latitude
-      - Longitude
-      type: object
     connectorder-list:
       items:
         $ref: '#/components/schemas/connectorder'
       type: array
-    driver-location:
-      properties:
-        Location:
-          $ref: '#/components/schemas/location-v2'
-        OrderId:
-          type: string
-        TimeStamp:
-          format: date-time
-          type: string
-      type: object
   securitySchemes:
     Bearer:
       bearerFormat: JWT

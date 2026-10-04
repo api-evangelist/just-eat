@@ -89,11 +89,6 @@ components:
           description: Whether this option is the recommended option
           type: boolean
       type: object
-    late-order-compensation-options:
-      items:
-        $ref: '#/components/schemas/LateOrderCompensationOption'
-        type: object
-      type: array
     late-order-compensation-query:
       example:
         CompensationOptions:
@@ -120,6 +115,11 @@ components:
           description: Tenant (Country) of order restaurant.
           type: string
       type: object
+    late-order-compensation-options:
+      items:
+        $ref: '#/components/schemas/LateOrderCompensationOption'
+        type: object
+      type: array
   securitySchemes:
     Bearer:
       bearerFormat: JWT

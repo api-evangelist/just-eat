@@ -71,49 +71,64 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    item-v2:
+    payment-v2:
+      example:
+        Fees:
+        - Type: card
+          Value: 0.25
+        - Type: delivery
+          Value: 3.5
+        Lines:
+        - LastCardDigits: '1234'
+          Paid: true
+          ServiceFee: 0
+          Type: Card
+          Value: 19.95
+        Tips:
+        - Type: driver
+          Value: 2.5
       properties:
-        Items:
+        Fees:
           items:
-            $ref: '#/components/schemas/item-v2'
+            $ref: '#/components/schemas/fee'
           type: array
+        Lines:
+          items:
+            $ref: '#/components/schemas/lines-v2'
+          type: array
+        PaidDate:
+          format: date-time
+          type: string
+        Taxes:
+          items:
+            $ref: '#/components/schemas/tax-v2'
+          type: array
+        Tips:
+          items:
+            $ref: '#/components/schemas/fee'
+          type: array
+      required:
+      - Lines
+      type: object
+    customer-v2:
+      properties:
+        Address:
+          $ref: '#/components/schemas/address-v2'
+        DisplayPhoneNumber:
+          description: If you implement phone masking provide a masked number here
+          type: string
+        Email:
+          type: string
         Name:
           type: string
-        Quantity:
-          type: integer
-        Reference:
+        PhoneNumber:
+          description: The customer's real phone number
           type: string
-        UnitPrice:
-          format: money
-          type: integer
-      type: object
-    tax-v2:
-      properties:
-        Percentage:
-          format: double
-          type: number
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
       required:
-      - Value
-      - Type
-      - Percentage
+      - Name
+      - PhoneNumber
+      - Address
       type: object
-    restaurant-v2:
-      oneOf:
-      - properties:
-          Id:
-            description: Our restaurant ID
-            type: integer
-        type: object
-      - properties:
-          Reference:
-            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
-            type: string
-        type: object
     order-request-v2:
       properties:
         Customer:
@@ -174,14 +189,6 @@ components:
       - PostalCode
       - Geolocation
       type: object
-    fee:
-      properties:
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
-      type: object
     location-v2:
       example:
         Latitude: 51.51641
@@ -197,88 +204,33 @@ components:
       - Latitude
       - Longitude
       type: object
-    fulfilment-v2:
-      example:
-        DueAsap: false
-        DueDate: '2020-01-01T09:00:00.000Z'
-        Method: Delivery
+    restaurant-v2:
+      oneOf:
+      - properties:
+          Id:
+            description: Our restaurant ID
+            type: integer
+        type: object
+      - properties:
+          Reference:
+            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
+            type: string
+        type: object
+    item-v2:
       properties:
-        DueAsap:
-          description: If food should be delivered ASAP
-          type: boolean
-        DueDate:
-          description: The time the customer expects the food. Time must be in the future
-          format: date-time
+        Items:
+          items:
+            $ref: '#/components/schemas/item-v2'
+          type: array
+        Name:
           type: string
-        Method:
-          enum:
-          - Delivery
-          - Collection
+        Quantity:
+          type: integer
+        Reference:
           type: string
-      required:
-      - Method
-      - DueDate
-      type: object
-    lines-v2:
-      properties:
-        LastCardDigits:
-          type: string
-        Paid:
-          type: boolean
-        ServiceFee:
-          format: double
-          type: number
-        Type:
-          enum:
-          - Cash
-          - Card
-          - AccountCredit
-          - Voucher
-          type: string
-        Value:
+        UnitPrice:
           format: money
-          type: number
-      required:
-      - Type
-      type: object
-    payment-v2:
-      example:
-        Fees:
-        - Type: card
-          Value: 0.25
-        - Type: delivery
-          Value: 3.5
-        Lines:
-        - LastCardDigits: '1234'
-          Paid: true
-          ServiceFee: 0
-          Type: Card
-          Value: 19.95
-        Tips:
-        - Type: driver
-          Value: 2.5
-      properties:
-        Fees:
-          items:
-            $ref: '#/components/schemas/fee'
-          type: array
-        Lines:
-          items:
-            $ref: '#/components/schemas/lines-v2'
-          type: array
-        PaidDate:
-          format: date-time
-          type: string
-        Taxes:
-          items:
-            $ref: '#/components/schemas/tax-v2'
-          type: array
-        Tips:
-          items:
-            $ref: '#/components/schemas/fee'
-          type: array
-      required:
-      - Lines
+          type: integer
       type: object
     items-v2:
       properties:
@@ -307,24 +259,72 @@ components:
       - Name
       - Quantity
       type: object
-    customer-v2:
+    fee:
       properties:
-        Address:
-          $ref: '#/components/schemas/address-v2'
-        DisplayPhoneNumber:
-          description: If you implement phone masking provide a masked number here
+        Type:
           type: string
-        Email:
+        Value:
+          format: money
+          type: number
+      type: object
+    tax-v2:
+      properties:
+        Percentage:
+          format: double
+          type: number
+        Type:
           type: string
-        Name:
+        Value:
+          format: money
+          type: number
+      required:
+      - Value
+      - Type
+      - Percentage
+      type: object
+    lines-v2:
+      properties:
+        LastCardDigits:
           type: string
-        PhoneNumber:
-          description: The customer's real phone number
+        Paid:
+          type: boolean
+        ServiceFee:
+          format: double
+          type: number
+        Type:
+          enum:
+          - Cash
+          - Card
+          - AccountCredit
+          - Voucher
+          type: string
+        Value:
+          format: money
+          type: number
+      required:
+      - Type
+      type: object
+    fulfilment-v2:
+      example:
+        DueAsap: false
+        DueDate: '2020-01-01T09:00:00.000Z'
+        Method: Delivery
+      properties:
+        DueAsap:
+          description: If food should be delivered ASAP
+          type: boolean
+        DueDate:
+          description: The time the customer expects the food. Time must be in the future
+          format: date-time
+          type: string
+        Method:
+          enum:
+          - Delivery
+          - Collection
           type: string
       required:
-      - Name
-      - PhoneNumber
-      - Address
+      - Method
+      - DueDate
       type: object
   securitySchemes:
     Bearer:

@@ -120,6 +120,22 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    item-v2:
+      properties:
+        Items:
+          items:
+            $ref: '#/components/schemas/item-v2'
+          type: array
+        Name:
+          type: string
+        Quantity:
+          type: integer
+        Reference:
+          type: string
+        UnitPrice:
+          format: money
+          type: integer
+      type: object
     location:
       description: GeoLocation object containing latitude and longitude values.
       example:
@@ -152,22 +168,6 @@ components:
       required:
       - Latitude
       - Longitude
-      type: object
-    item-v2:
-      properties:
-        Items:
-          items:
-            $ref: '#/components/schemas/item-v2'
-          type: array
-        Name:
-          type: string
-        Quantity:
-          type: integer
-        Reference:
-          type: string
-        UnitPrice:
-          format: money
-          type: integer
       type: object
     order-ready-for-preparation:
       example:

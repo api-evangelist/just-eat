@@ -205,79 +205,7 @@ paths:
       operationId: postOrdersByTenantByOrderIdConsumerqueriesLateordercompensationRestaurantresponse
       x-operation-id-source: derived
 components:
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   schemas:
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    LateOrderCompensationRestaurantResolution:
-      example:
-        acceptedAmount: 500
-        isAccepted: true
-        orderId: 69rqfxyfze2gjzf5nusdcw
-      properties:
-        acceptedAmount:
-          description: The monetary amount of compensation granted, in cents/pence. Required when `isAccepted = true`.
-          type: integer
-        isAccepted:
-          description: Flag to indicate whether a compensation request has been accepted or rejected.
-          type: boolean
-        orderId:
-          description: The ID of the late order compensation request that this response relates to.
-          type: string
-        rejectedReasonCode:
-          description: '
-
-            - `BadTraffic` : The driver was stuck in heavy traffic, sorry.
-
-            - `BadWeather` : The bad weather was delaying our deliveries, sorry.
-
-            - `BusierThanExpected` : Our restaurant was busier than we expected.
-
-            - `CompensatedWithItem` : We gave you something from the menu free of charge to make up for it.
-
-            - `NoReason` : We''re really sorry your order was late. We hope you enjoyed your food.'
-          enum:
-          - BadTraffic
-          - BadWeather
-          - BusierThanExpected
-          - CompensatedWithItem
-          - NoReason
-          type: string
-      type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
       properties:
@@ -317,6 +245,78 @@ components:
           - Delivered
           type: string
       type: object
+    LateOrderCompensationRestaurantResolution:
+      example:
+        acceptedAmount: 500
+        isAccepted: true
+        orderId: 69rqfxyfze2gjzf5nusdcw
+      properties:
+        acceptedAmount:
+          description: The monetary amount of compensation granted, in cents/pence. Required when `isAccepted = true`.
+          type: integer
+        isAccepted:
+          description: Flag to indicate whether a compensation request has been accepted or rejected.
+          type: boolean
+        orderId:
+          description: The ID of the late order compensation request that this response relates to.
+          type: string
+        rejectedReasonCode:
+          description: '
+
+            - `BadTraffic` : The driver was stuck in heavy traffic, sorry.
+
+            - `BadWeather` : The bad weather was delaying our deliveries, sorry.
+
+            - `BusierThanExpected` : Our restaurant was busier than we expected.
+
+            - `CompensatedWithItem` : We gave you something from the menu free of charge to make up for it.
+
+            - `NoReason` : We''re really sorry your order was late. We hope you enjoyed your food.'
+          enum:
+          - BadTraffic
+          - BadWeather
+          - BusierThanExpected
+          - CompensatedWithItem
+          - NoReason
+          type: string
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

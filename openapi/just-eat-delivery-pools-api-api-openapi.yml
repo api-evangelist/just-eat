@@ -458,15 +458,13 @@ components:
       required:
       - name
       type: object
-    patch-delivery-pool:
-      example:
-        name: Toronto - North
+    delivery-restaurantslist:
       properties:
-        name:
-          description: The name of the pool, used by operations teams, in reports, etc.
-          type: string
         restaurants:
-          description: A list of Just Eat restaurant ids served by the delivery pool.
+          description: A list of Just Eat restaurant ids served by the pool.
+          example:
+          - 10202
+          - 10203
           items:
             format: int32
             type: number
@@ -688,13 +686,15 @@ components:
       - saturday
       - sunday
       type: object
-    delivery-restaurantslist:
+    patch-delivery-pool:
+      example:
+        name: Toronto - North
       properties:
+        name:
+          description: The name of the pool, used by operations teams, in reports, etc.
+          type: string
         restaurants:
-          description: A list of Just Eat restaurant ids served by the pool.
-          example:
-          - 10202
-          - 10203
+          description: A list of Just Eat restaurant ids served by the delivery pool.
           items:
             format: int32
             type: number
