@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "just-eat",
+    "captured_at": "2026-10-11T191041",
+    "source_url": "https://developers.just-eat.com/",
+    "source_type": "DeveloperPortal",
+    "file": "just-eat-2026-10-11T191041.png",
+    "bytes": 919944,
+    "capture": "playwright-local"
+  }
+]
