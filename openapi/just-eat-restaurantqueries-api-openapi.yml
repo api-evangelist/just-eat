@@ -130,9 +130,21 @@ paths:
       operationId: postOrdersByTenantByOrderIdRestaurantqueriesCompensation
       x-operation-id-source: derived
 components:
+  responses:
+    500ErrorResponse:
+      content:
+        application/json:
+          example:
+            errors:
+            - description: Internal Server Error
+            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
+            traceId: H3TKh4QSJUSwVBCBqEtkKw==
+          schema:
+            $ref: '#/components/schemas/500ErrorSchema'
+      description: Internal Server Error
   schemas:
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
+    500ErrorSchema:
+      description: A HTTP 500 error response
       properties:
         fault:
           properties:
@@ -140,10 +152,9 @@ components:
               items:
                 properties:
                   description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
                     type: string
                 type: object
               type: array
@@ -157,8 +168,8 @@ components:
           - faultId
           type: object
       type: object
-    500ErrorSchema:
-      description: A HTTP 500 error response
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
       properties:
         fault:
           properties:
@@ -166,9 +177,10 @@ components:
               items:
                 properties:
                   description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
                     type: string
                 type: object
               type: array
@@ -200,18 +212,6 @@ components:
           - Unknown
           type: string
       type: object
-  responses:
-    500ErrorResponse:
-      content:
-        application/json:
-          example:
-            errors:
-            - description: Internal Server Error
-            faultId: 25bbe062-c53d-4fbc-9d6c-3df6127b94fd
-            traceId: H3TKh4QSJUSwVBCBqEtkKw==
-          schema:
-            $ref: '#/components/schemas/500ErrorSchema'
-      description: Internal Server Error
   securitySchemes:
     Bearer:
       bearerFormat: JWT

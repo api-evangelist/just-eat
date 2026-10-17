@@ -306,16 +306,139 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    bulk-delivery-details-list:
-      items:
-        $ref: '#/components/schemas/bulk-delivery-details'
-      type: array
+    eta-estimate:
+      properties:
+        bestGuess:
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant.
+          format: date-time
+          type: string
+        estimatedAt:
+          description: This is the time at which you are doing the estimation
+          format: date-time
+          type: string
+      type: object
+    on-its-way-details:
+      properties:
+        EstimatedArrivalTime:
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the customer's address. In other words, it should not just contain the delivery time initially requested by Just Eat.
+          example: '2020-12-25T16:45:28.7537228+00:00'
+          format: date-time
+          type: string
+        Location:
+          $ref: '#/components/schemas/location'
+        TimeStampWithUtcOffset:
+          description: This should represent the driver on its ways timestamp.
+          example: '2020-12-25T15:30:28.7537228+00:00'
+          format: date-time
+          type: string
+      type: object
+    delivery-driver-details-with-eta:
+      example:
+        EtaAtDeliveryAddress: '2018-03-10T15:45:28.7537228+00:00'
+        Location:
+          Accuracy: 12.814
+          Heading: 357.10382
+          Latitude: 51.51641
+          Longitude: -0.103198
+          Speed: 8.68
+        TimeStampWithUtcOffset: '2018-03-10T14:45:28.7537228+00:00'
+      properties:
+        EtaAtDeliveryAddress:
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the delivery address.
+          format: date-time
+          type: string
+        Location:
+          $ref: '#/components/schemas/location'
+        TimeStampWithUtcOffset:
+          description: This should represent the Eta calculated timestamp.
+          format: date-time
+          type: string
+      type: object
+    vehicle-details:
+      properties:
+        Vehicle:
+          example: Motorbike
+          type: string
+        VehicleRegistration:
+          example: JU51 SAY
+          type: string
+      type: object
+    delivery-driver-assigned-details:
+      properties:
+        DriverContactNumber:
+          description: This should represent the driver's contact number.
+          example: 07123456789
+          type: string
+        DriverName:
+          description: This should represent the driver's name.
+          example: David
+          type: string
+        EtaAtDeliveryAddress:
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the delivery address.
+          example: '2020-12-25T16:45:28.7537228+00:00'
+          format: date-time
+          type: string
+        EtaAtRestaurant:
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant. In other words, it should not just contain the pick-up time initially requested by Just Eat.
+          example: '2020-12-25T15:30:28.7537228+00:00'
+          format: date-time
+          type: string
+        Location:
+          $ref: '#/components/schemas/location'
+        TimeStampWithUtcOffset:
+          description: This should represent the driver assigned timestamp.
+          example: '2020-12-25T15:45:28.7537228+00:00'
+          format: date-time
+          type: string
+        VehicleDetails:
+          $ref: '#/components/schemas/vehicle-details'
+      type: object
     estimated-delivery-time:
       properties:
         DurationInMinutes:
           type: string
         RestaurantReference:
           type: string
+      type: object
+    extensibleObject:
+      additionalProperties: true
+      type: object
+    bulk-delivery-details-list:
+      items:
+        $ref: '#/components/schemas/bulk-delivery-details'
+      type: array
+    location:
+      description: GeoLocation object containing latitude and longitude values.
+      example:
+        Accuracy: 12.814
+        Heading: 357.10382
+        Latitude: 51.51641
+        Longitude: -0.103198
+        Speed: 8.68
+      properties:
+        Accuracy:
+          description: This should represent the accuracy of driver's location.
+          format: double
+          type: number
+        Heading:
+          description: This should represent the degree of heading direction, for example, 0 is north, 90 is east.
+          format: double
+          type: number
+        Latitude:
+          description: This should represent the latitude of the driver's location.
+          format: double
+          type: number
+        Longitude:
+          description: This should represent the longitude of the driver's location.
+          format: double
+          type: number
+        Speed:
+          description: This should represent the travel speed of the driver.
+          format: double
+          type: number
+      required:
+      - Latitude
+      - Longitude
       type: object
     delivery-driver-location:
       properties:
@@ -340,39 +463,6 @@ components:
         TimeStampWithUtcOffset:
           description: This should represent the location updated timestamp.
           example: '2020-12-25T15:45:28.7537228+00:00'
-          format: date-time
-          type: string
-      type: object
-    eta-estimate:
-      properties:
-        bestGuess:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant.
-          format: date-time
-          type: string
-        estimatedAt:
-          description: This is the time at which you are doing the estimation
-          format: date-time
-          type: string
-      type: object
-    bulk-delivery-details:
-      properties:
-        EtaAtDeliveryAddress:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the delivery address.
-          example: '2020-12-25T16:45:28.7537228+00:00'
-          format: date-time
-          type: string
-        EtaAtRestaurant:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant.
-          example: '2020-12-25T16:30:28.7537228+00:00'
-          format: date-time
-          type: string
-        Location:
-          $ref: '#/components/schemas/location'
-        OrderId:
-          description: Just Eat order identifier
-          type: string
-        TimeStampWithUtcOffset:
-          description: This should represent the bulk delivery updated timestamp.
           format: date-time
           type: string
       type: object
@@ -417,90 +507,27 @@ components:
           example: operation
           type: string
       type: object
-    location:
-      description: GeoLocation object containing latitude and longitude values.
-      example:
-        Accuracy: 12.814
-        Heading: 357.10382
-        Latitude: 51.51641
-        Longitude: -0.103198
-        Speed: 8.68
+    bulk-delivery-details:
       properties:
-        Accuracy:
-          description: This should represent the accuracy of driver's location.
-          format: double
-          type: number
-        Heading:
-          description: This should represent the degree of heading direction, for example, 0 is north, 90 is east.
-          format: double
-          type: number
-        Latitude:
-          description: This should represent the latitude of the driver's location.
-          format: double
-          type: number
-        Longitude:
-          description: This should represent the longitude of the driver's location.
-          format: double
-          type: number
-        Speed:
-          description: This should represent the travel speed of the driver.
-          format: double
-          type: number
-      required:
-      - Latitude
-      - Longitude
-      type: object
-    delivery-driver-details-with-eta:
-      example:
-        EtaAtDeliveryAddress: '2018-03-10T15:45:28.7537228+00:00'
-        Location:
-          Accuracy: 12.814
-          Heading: 357.10382
-          Latitude: 51.51641
-          Longitude: -0.103198
-          Speed: 8.68
-        TimeStampWithUtcOffset: '2018-03-10T14:45:28.7537228+00:00'
-      properties:
-        EtaAtDeliveryAddress:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the delivery address.
-          format: date-time
-          type: string
-        Location:
-          $ref: '#/components/schemas/location'
-        TimeStampWithUtcOffset:
-          description: This should represent the Eta calculated timestamp.
-          format: date-time
-          type: string
-      type: object
-    delivery-driver-assigned-details:
-      properties:
-        DriverContactNumber:
-          description: This should represent the driver's contact number.
-          example: 07123456789
-          type: string
-        DriverName:
-          description: This should represent the driver's name.
-          example: David
-          type: string
         EtaAtDeliveryAddress:
           description: This should represent the delivery partner's best guess at when the driver will arrive at the delivery address.
           example: '2020-12-25T16:45:28.7537228+00:00'
           format: date-time
           type: string
         EtaAtRestaurant:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant. In other words, it should not just contain the pick-up time initially requested by Just Eat.
-          example: '2020-12-25T15:30:28.7537228+00:00'
+          description: This should represent the delivery partner's best guess at when the driver will arrive at the restaurant.
+          example: '2020-12-25T16:30:28.7537228+00:00'
           format: date-time
           type: string
         Location:
           $ref: '#/components/schemas/location'
+        OrderId:
+          description: Just Eat order identifier
+          type: string
         TimeStampWithUtcOffset:
-          description: This should represent the driver assigned timestamp.
-          example: '2020-12-25T15:45:28.7537228+00:00'
+          description: This should represent the bulk delivery updated timestamp.
           format: date-time
           type: string
-        VehicleDetails:
-          $ref: '#/components/schemas/vehicle-details'
       type: object
     delivery-details:
       example:
@@ -512,33 +539,6 @@ components:
           description: This should represent the delivery detailed updated timestamp.
           format: date-time
           type: string
-      type: object
-    vehicle-details:
-      properties:
-        Vehicle:
-          example: Motorbike
-          type: string
-        VehicleRegistration:
-          example: JU51 SAY
-          type: string
-      type: object
-    on-its-way-details:
-      properties:
-        EstimatedArrivalTime:
-          description: This should represent the delivery partner's best guess at when the driver will arrive at the customer's address. In other words, it should not just contain the delivery time initially requested by Just Eat.
-          example: '2020-12-25T16:45:28.7537228+00:00'
-          format: date-time
-          type: string
-        Location:
-          $ref: '#/components/schemas/location'
-        TimeStampWithUtcOffset:
-          description: This should represent the driver on its ways timestamp.
-          example: '2020-12-25T15:30:28.7537228+00:00'
-          format: date-time
-          type: string
-      type: object
-    extensibleObject:
-      additionalProperties: true
       type: object
   securitySchemes:
     Bearer:

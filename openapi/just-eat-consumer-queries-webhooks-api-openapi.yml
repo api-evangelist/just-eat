@@ -62,6 +62,32 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    late-order-compensation-query:
+      example:
+        CompensationOptions:
+        - Amount: 200
+          IsRecommended: false
+        - Amount: 300
+          IsRecommended: true
+        - Amount: 400
+          IsRecommended: false
+        OrderId: wiej234idf09i29jijgf4
+        RestaurantId: '110230'
+        Tenant: uk
+      properties:
+        compensationOptions:
+          $ref: '#/components/schemas/late-order-compensation-options'
+          description: List of possible options for compensation
+        orderId:
+          description: Just Eat order identifier
+          type: string
+        restaurantId:
+          description: Just Eat restaurant identifier
+          type: string
+        tenant:
+          description: Tenant (Country) of order restaurant.
+          type: string
+      type: object
     late-order-query:
       example:
         OrderId: wiej234idf09i29jijgf4
@@ -88,32 +114,6 @@ components:
         isRecommended:
           description: Whether this option is the recommended option
           type: boolean
-      type: object
-    late-order-compensation-query:
-      example:
-        CompensationOptions:
-        - Amount: 200
-          IsRecommended: false
-        - Amount: 300
-          IsRecommended: true
-        - Amount: 400
-          IsRecommended: false
-        OrderId: wiej234idf09i29jijgf4
-        RestaurantId: '110230'
-        Tenant: uk
-      properties:
-        compensationOptions:
-          $ref: '#/components/schemas/late-order-compensation-options'
-          description: List of possible options for compensation
-        orderId:
-          description: Just Eat order identifier
-          type: string
-        restaurantId:
-          description: Just Eat restaurant identifier
-          type: string
-        tenant:
-          description: Tenant (Country) of order restaurant.
-          type: string
       type: object
     late-order-compensation-options:
       items:

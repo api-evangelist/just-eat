@@ -206,32 +206,6 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
     LateOrderRestaurantResponse:
       properties:
         additionalDeliveryTimeToAddMinutes:
@@ -292,6 +266,32 @@ components:
                     description: If returned, the only value returned will be Internal Server Error"
                     enum:
                     - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
                     type: string
                 type: object
               type: array

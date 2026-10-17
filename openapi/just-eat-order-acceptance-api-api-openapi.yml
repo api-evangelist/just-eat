@@ -249,6 +249,14 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    order-cancel-request:
+      example:
+        Message: Customer requested the order to be cancelled
+      properties:
+        Message:
+          description: Reason why this order is being cancelled.
+          type: string
+      type: object
     order-due-date-request:
       example:
         DueDate: '2019-12-25T14:45:28Z'
@@ -258,21 +266,30 @@ components:
           format: date-time
           type: string
       type: object
-    order-cancel-request:
-      example:
-        Message: Customer requested the order to be cancelled
+    500ErrorSchema:
+      description: A HTTP 500 error response
       properties:
-        Message:
-          description: Reason why this order is being cancelled.
-          type: string
-      type: object
-    order-accept-request:
-      example:
-        TimeAcceptedFor: '2018-03-10T14:45:28Z'
-      properties:
-        TimeAcceptedFor:
-          format: date-time
-          type: string
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
       type: object
     4XXErrorSchema:
       description: A HTTP 4xx error response
@@ -300,6 +317,14 @@ components:
           - faultId
           type: object
       type: object
+    order-accept-request:
+      example:
+        TimeAcceptedFor: '2018-03-10T14:45:28Z'
+      properties:
+        TimeAcceptedFor:
+          format: date-time
+          type: string
+      type: object
     order-reject-request:
       example:
         Message: Kitchen overloaded
@@ -307,31 +332,6 @@ components:
         Message:
           description: Reason why this order is being rejected.
           type: string
-      type: object
-    500ErrorSchema:
-      description: A HTTP 500 error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
       type: object
   responses:
     500ErrorResponse:

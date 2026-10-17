@@ -226,47 +226,6 @@ paths:
       - publicly-accessible
 components:
   schemas:
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    updateOrderTimeRequest:
-      description: Request object for order time update
-      example:
-        lowerBoundMinutes: 35
-        upperBoundMinutes: 50
-      properties:
-        lowerBoundMinutes:
-          description: Order time lower bound value, in minutes.
-          format: int32
-          type: integer
-        upperBoundMinutes:
-          description: Order time upper bound value, in minutes.
-          format: int32
-          type: integer
-      type: object
     orderTime:
       description: The object representing order time entry
       example:
@@ -313,6 +272,47 @@ components:
                     description: If returned, the only value returned will be Internal Server Error"
                     enum:
                     - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
+    updateOrderTimeRequest:
+      description: Request object for order time update
+      example:
+        lowerBoundMinutes: 35
+        upperBoundMinutes: 50
+      properties:
+        lowerBoundMinutes:
+          description: Order time lower bound value, in minutes.
+          format: int32
+          type: integer
+        upperBoundMinutes:
+          description: Order time upper bound value, in minutes.
+          format: int32
+          type: integer
+      type: object
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
                     type: string
                 type: object
               type: array

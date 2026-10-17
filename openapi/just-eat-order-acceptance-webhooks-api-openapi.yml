@@ -113,12 +113,18 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
-    order-item-restriction:
+    order-accepted:
+      example:
+        AcceptedFor: '2018-03-10T14:45:28Z'
+        Event: OrderAccepted
+        OrderId: '123456'
       properties:
-        Type:
-          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
-          enum:
-          - Alcohol
+        AcceptedFor:
+          format: date-time
+          type: string
+        Event:
+          type: string
+        OrderId:
           type: string
       type: object
     attempted-delivery-response-received:
@@ -137,6 +143,25 @@ components:
         Update:
           type: string
       type: object
+    order-item:
+      items:
+        properties:
+          Items:
+            $ref: '#/components/schemas/order-item'
+          Name:
+            type: string
+          Quantity:
+            type: number
+          Reference:
+            type: string
+          TotalPrice:
+            format: money
+            type: number
+          UnitPrice:
+            format: money
+            type: number
+        type: object
+      type: array
     order-cancelled:
       example:
         Event: OrderCancelled
@@ -167,39 +192,6 @@ components:
           - system_cancelled_test_order
           type: string
       type: object
-    order-accepted:
-      example:
-        AcceptedFor: '2018-03-10T14:45:28Z'
-        Event: OrderAccepted
-        OrderId: '123456'
-      properties:
-        AcceptedFor:
-          format: date-time
-          type: string
-        Event:
-          type: string
-        OrderId:
-          type: string
-      type: object
-    order-item:
-      items:
-        properties:
-          Items:
-            $ref: '#/components/schemas/order-item'
-          Name:
-            type: string
-          Quantity:
-            type: number
-          Reference:
-            type: string
-          TotalPrice:
-            format: money
-            type: number
-          UnitPrice:
-            format: money
-            type: number
-        type: object
-      type: array
     acceptance-requested:
       example:
         Currency: GBP
@@ -430,23 +422,6 @@ components:
           format: money
           type: number
       type: object
-    order-rejected:
-      example:
-        Event: OrderRejected
-        RejectedAt: '2018-03-10T14:45:28Z'
-        RejectedBy: '123456'
-        RejectedReason: Kitchen overloaded
-      properties:
-        Event:
-          type: string
-        RejectedAt:
-          format: date-time
-          type: string
-        RejectedBy:
-          type: string
-        RejectedReason:
-          type: string
-      type: object
     order-address:
       properties:
         City:
@@ -465,6 +440,31 @@ components:
             type: string
           type: array
         PostalCode:
+          type: string
+      type: object
+    order-item-restriction:
+      properties:
+        Type:
+          description: The type of restricted item contained in the order. The only supported value is 'Alcohol'.
+          enum:
+          - Alcohol
+          type: string
+      type: object
+    order-rejected:
+      example:
+        Event: OrderRejected
+        RejectedAt: '2018-03-10T14:45:28Z'
+        RejectedBy: '123456'
+        RejectedReason: Kitchen overloaded
+      properties:
+        Event:
+          type: string
+        RejectedAt:
+          format: date-time
+          type: string
+        RejectedBy:
+          type: string
+        RejectedReason:
           type: string
       type: object
   securitySchemes:

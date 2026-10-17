@@ -71,6 +71,91 @@ paths:
       x-operation-id-source: derived
 components:
   schemas:
+    lines-v2:
+      properties:
+        LastCardDigits:
+          type: string
+        Paid:
+          type: boolean
+        ServiceFee:
+          format: double
+          type: number
+        Type:
+          enum:
+          - Cash
+          - Card
+          - AccountCredit
+          - Voucher
+          type: string
+        Value:
+          format: money
+          type: number
+      required:
+      - Type
+      type: object
+    fee:
+      properties:
+        Type:
+          type: string
+        Value:
+          format: money
+          type: number
+      type: object
+    fulfilment-v2:
+      example:
+        DueAsap: false
+        DueDate: '2020-01-01T09:00:00.000Z'
+        Method: Delivery
+      properties:
+        DueAsap:
+          description: If food should be delivered ASAP
+          type: boolean
+        DueDate:
+          description: The time the customer expects the food. Time must be in the future
+          format: date-time
+          type: string
+        Method:
+          enum:
+          - Delivery
+          - Collection
+          type: string
+      required:
+      - Method
+      - DueDate
+      type: object
+    tax-v2:
+      properties:
+        Percentage:
+          format: double
+          type: number
+        Type:
+          type: string
+        Value:
+          format: money
+          type: number
+      required:
+      - Value
+      - Type
+      - Percentage
+      type: object
+    address-v2:
+      properties:
+        City:
+          type: string
+        GeoLocation:
+          $ref: '#/components/schemas/location-v2'
+        Lines:
+          items:
+            type: string
+          type: array
+        PostalCode:
+          type: string
+      required:
+      - Lines
+      - City
+      - PostalCode
+      - Geolocation
+      type: object
     payment-v2:
       example:
         Fees:
@@ -110,6 +195,18 @@ components:
       required:
       - Lines
       type: object
+    restaurant-v2:
+      oneOf:
+      - properties:
+          Id:
+            description: Our restaurant ID
+            type: integer
+        type: object
+      - properties:
+          Reference:
+            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
+            type: string
+        type: object
     customer-v2:
       properties:
         Address:
@@ -128,6 +225,48 @@ components:
       - Name
       - PhoneNumber
       - Address
+      type: object
+    location-v2:
+      example:
+        Latitude: 51.51641
+        Longitude: -0.103198
+      properties:
+        Latitude:
+          format: double
+          type: number
+        Longitude:
+          format: double
+          type: number
+      required:
+      - Latitude
+      - Longitude
+      type: object
+    items-v2:
+      properties:
+        Items:
+          items:
+            $ref: '#/components/schemas/item-v2'
+          type: array
+        Name:
+          type: string
+        Quantity:
+          minimum: 1
+          type: integer
+        Reference:
+          description: The item's ID that you hold
+          type: string
+        TotalPrice:
+          description: Price of this item x quantity and all sub items
+          format: money
+          type: number
+        UnitPrice:
+          format: money
+          type: integer
+      required:
+      - TotalPrice
+      - Reference
+      - Name
+      - Quantity
       type: object
     order-request-v2:
       properties:
@@ -171,51 +310,6 @@ components:
       - Payment
       - Items
       type: object
-    address-v2:
-      properties:
-        City:
-          type: string
-        GeoLocation:
-          $ref: '#/components/schemas/location-v2'
-        Lines:
-          items:
-            type: string
-          type: array
-        PostalCode:
-          type: string
-      required:
-      - Lines
-      - City
-      - PostalCode
-      - Geolocation
-      type: object
-    location-v2:
-      example:
-        Latitude: 51.51641
-        Longitude: -0.103198
-      properties:
-        Latitude:
-          format: double
-          type: number
-        Longitude:
-          format: double
-          type: number
-      required:
-      - Latitude
-      - Longitude
-      type: object
-    restaurant-v2:
-      oneOf:
-      - properties:
-          Id:
-            description: Our restaurant ID
-            type: integer
-        type: object
-      - properties:
-          Reference:
-            description: If we hold a mapping for your restaurant IDs to ours - use your ID here
-            type: string
-        type: object
     item-v2:
       properties:
         Items:
@@ -231,100 +325,6 @@ components:
         UnitPrice:
           format: money
           type: integer
-      type: object
-    items-v2:
-      properties:
-        Items:
-          items:
-            $ref: '#/components/schemas/item-v2'
-          type: array
-        Name:
-          type: string
-        Quantity:
-          minimum: 1
-          type: integer
-        Reference:
-          description: The item's ID that you hold
-          type: string
-        TotalPrice:
-          description: Price of this item x quantity and all sub items
-          format: money
-          type: number
-        UnitPrice:
-          format: money
-          type: integer
-      required:
-      - TotalPrice
-      - Reference
-      - Name
-      - Quantity
-      type: object
-    fee:
-      properties:
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
-      type: object
-    tax-v2:
-      properties:
-        Percentage:
-          format: double
-          type: number
-        Type:
-          type: string
-        Value:
-          format: money
-          type: number
-      required:
-      - Value
-      - Type
-      - Percentage
-      type: object
-    lines-v2:
-      properties:
-        LastCardDigits:
-          type: string
-        Paid:
-          type: boolean
-        ServiceFee:
-          format: double
-          type: number
-        Type:
-          enum:
-          - Cash
-          - Card
-          - AccountCredit
-          - Voucher
-          type: string
-        Value:
-          format: money
-          type: number
-      required:
-      - Type
-      type: object
-    fulfilment-v2:
-      example:
-        DueAsap: false
-        DueDate: '2020-01-01T09:00:00.000Z'
-        Method: Delivery
-      properties:
-        DueAsap:
-          description: If food should be delivered ASAP
-          type: boolean
-        DueDate:
-          description: The time the customer expects the food. Time must be in the future
-          format: date-time
-          type: string
-        Method:
-          enum:
-          - Delivery
-          - Collection
-          type: string
-      required:
-      - Method
-      - DueDate
       type: object
   securitySchemes:
     Bearer:

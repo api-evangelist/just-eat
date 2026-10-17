@@ -554,6 +554,53 @@ components:
       - type
       - token
       type: object
+    CommunicationTypes:
+      enum:
+      - marketing
+      type: string
+    CommunicationPreferences:
+      properties:
+        marketing:
+          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
+          description: The marketing communication preferences.
+          type: object
+      type: object
+    ChannelSubscriptionsWithDerivedField:
+      properties:
+        isDefault:
+          description: Are these channel subscriptions the default or have they been set elsewhere. This is a read-only derived field.
+          type: boolean
+        subscribedChannels:
+          description: The list of channels that are subscribed
+          items:
+            $ref: '#/components/schemas/CommunicationChannels'
+          type: array
+      type: object
+    500ErrorSchema:
+      description: A HTTP 500 error response
+      properties:
+        fault:
+          properties:
+            errors:
+              items:
+                properties:
+                  description:
+                    description: If returned, the only value returned will be Internal Server Error"
+                    enum:
+                    - Internal Server Error
+                    type: string
+                type: object
+              type: array
+            faultId:
+              description: A value that helps identify this response back to logs, so we can easily find this specific fault
+              type: string
+            traceId:
+              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
+              type: string
+          required:
+          - faultId
+          type: object
+      type: object
     5XXErrorSchema:
       description: A HTTP 5xx error response
       properties:
@@ -580,77 +627,6 @@ components:
               type: string
           required:
           - faultId
-          type: object
-      type: object
-    consumerMarketingPreference:
-      items:
-        properties:
-          channelName:
-            description: The channel name.
-            enum:
-            - Email
-            - Push
-            - Sms
-            type: string
-          dateUpdated:
-            description: The date of the marketing preference change
-            format: date-time
-            type: string
-          isSubscribed:
-            description: Should the channel be subscribed to?
-            type: boolean
-        type: object
-      type: array
-    ChannelSubscriptionsWithDerivedField:
-      properties:
-        isDefault:
-          description: Are these channel subscriptions the default or have they been set elsewhere. This is a read-only derived field.
-          type: boolean
-        subscribedChannels:
-          description: The list of channels that are subscribed
-          items:
-            $ref: '#/components/schemas/CommunicationChannels'
-          type: array
-      type: object
-    ChannelSubscriptions:
-      properties:
-        subscribedChannels:
-          description: The list of channels that the consumer should only be subscribed to.
-          items:
-            $ref: '#/components/schemas/CommunicationChannels'
-          type: array
-      type: object
-    4XXErrorSchema:
-      description: A HTTP 4xx error response
-      properties:
-        fault:
-          properties:
-            errors:
-              items:
-                properties:
-                  description:
-                    description: Specific details about the error that may assist you in resolving the issue
-                    type: string
-                  errorCode:
-                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
-                    type: string
-                type: object
-              type: array
-            faultId:
-              description: A value that helps identify this response back to logs, so we can easily find this specific fault
-              type: string
-            traceId:
-              description: A value that helps identify the trace back to logs, so that we can easily find what was happening on our system when the fault was generated
-              type: string
-          required:
-          - faultId
-          type: object
-      type: object
-    CommunicationPreferences:
-      properties:
-        marketing:
-          $ref: '#/components/schemas/ChannelSubscriptionsWithDerivedField'
-          description: The marketing communication preferences.
           type: object
       type: object
     ConsumerCreate:
@@ -694,18 +670,8 @@ components:
       - firstName
       - lastName
       type: object
-    CommunicationChannels:
-      enum:
-      - email
-      - sms
-      - push
-      type: string
-    CommunicationTypes:
-      enum:
-      - marketing
-      type: string
-    500ErrorSchema:
-      description: A HTTP 500 error response
+    4XXErrorSchema:
+      description: A HTTP 4xx error response
       properties:
         fault:
           properties:
@@ -713,9 +679,10 @@ components:
               items:
                 properties:
                   description:
-                    description: If returned, the only value returned will be Internal Server Error"
-                    enum:
-                    - Internal Server Error
+                    description: Specific details about the error that may assist you in resolving the issue
+                    type: string
+                  errorCode:
+                    description: A code that identifies the problem type. It will be supported by human-readable documentation that identifies how to resolve the error
                     type: string
                 type: object
               type: array
@@ -729,6 +696,39 @@ components:
           - faultId
           type: object
       type: object
+    consumerMarketingPreference:
+      items:
+        properties:
+          channelName:
+            description: The channel name.
+            enum:
+            - Email
+            - Push
+            - Sms
+            type: string
+          dateUpdated:
+            description: The date of the marketing preference change
+            format: date-time
+            type: string
+          isSubscribed:
+            description: Should the channel be subscribed to?
+            type: boolean
+        type: object
+      type: array
+    ChannelSubscriptions:
+      properties:
+        subscribedChannels:
+          description: The list of channels that the consumer should only be subscribed to.
+          items:
+            $ref: '#/components/schemas/CommunicationChannels'
+          type: array
+      type: object
+    CommunicationChannels:
+      enum:
+      - email
+      - sms
+      - push
+      type: string
   responses:
     500ErrorResponse:
       content:
